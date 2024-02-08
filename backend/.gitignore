@@ -1,0 +1,44 @@
+# Python-specific
+*.pyc
+*.pyo
+__pycache__/
+
+# Development artifacts
+.env
+local_settings.py
+
+# Database
+db.sqlite3
+*.sqlite3
+
+# Static files
+/static/
+
+# Media files
+/media/
+
+# Virtual environment
+venv/
+ENV/
+
+# IDE-specific
+.vscode/
+.idea/
+
+# Compiled Python files
+*.pyc
+*.pyo
+*.pyd
+
+# Logs
+*.log
+
+# Coverage
+htmlcov/
+
+# Cache
+__pycache__/
+
+# OS-specific
+.DS_Store
+Thumbs.db
