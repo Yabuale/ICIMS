@@ -19,15 +19,15 @@ Clone the repository:
 git clone 
 Navigate to the project directory:
 cd frontend
-Install the dependencies:
+Install the dependencies:<br>
 
 
-npm install
-Development
-To start the development server, run the following command:
+<code>npm install</code>
+<h2>Development</h2><br>
+To start the development server, run the following command:<br>
 
 
-npm run dev
+<code>npm run dev</code>
 This will start the Vite development server and open the app in your default browser. The development server automatically reloads the app when you make changes to the source code.
 
 Building for Production
