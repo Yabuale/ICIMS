@@ -8,35 +8,33 @@ Currently, two official plugins are available:
 - [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 Frontend
 
-Getting Started
-Prerequisites
-Make sure you have Node.js and npm installed on your machine.
+# Getting Started
+Prerequisites<br>
+<h3>Make sure you have Node.js and npm installed on your machine.</h3><br>
 
-Installation
+Installation<br>
 Clone the repository:
-
-
-git clone 
-Navigate to the project directory:
-cd frontend
+git clone <br>
+Navigate to the project directory:<br>
+<code>cd frontend</code>
 Install the dependencies:<br>
 
 
-<code>npm install</code>
+<code>npm install</code><br>
 <h2>Development</h2><br>
 To start the development server, run the following command:<br>
 
 
-<code>npm run dev</code>
+<code>npm run dev</code><br>
 This will start the Vite development server and open the app in your default browser. The development server automatically reloads the app when you make changes to the source code.
 
-Building for Production
-To build the app for production, use the following command:
+<h2>Building for Production</h2>
+To build the app for production, use the following command:<br>
 
 
-npm run build
+<code>npm run build</code><br>
 This will generate a production-ready build in the dist directory. You can deploy the contents of this directory to a static file server or any hosting platform of your choice.
 
-Additional Scripts
-npm run lint: Runs the linter to check for code style and formatting issues.
-npm run test: Runs the test suite.
+<h2>Additional Scripts</h2>
+<code>npm run lint:</code> Runs the linter to check for code style and formatting issues.
+<code>npm run test:</code> Runs the test suite.
