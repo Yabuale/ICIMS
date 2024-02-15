@@ -52,9 +52,18 @@ const data = [
           description={item.description}
         />))}
       
+      {data.map((item, index) => (
+        <WantedCard
+          key={index}
+          imageUrl={item.imageUrl}
+          subtitle={item.subtitle}
+          title={item.title}
+          description={item.description}
+        />))}
        
       
     </div>
+    
   </div>
 </section>
       </div>

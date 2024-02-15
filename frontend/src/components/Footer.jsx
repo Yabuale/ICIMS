@@ -17,7 +17,7 @@
               <a
                 href="/"
                 aria-label="Go home"
-                title="Company"
+                title="icims"
                 className="inline-flex items-center"
               >
                 <svg
