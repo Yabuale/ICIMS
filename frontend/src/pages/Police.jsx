@@ -1,6 +1,6 @@
 import PoliceSlidebar from '../components/Police/PoliceSlideBar';
 import PoliceDashboard from '../components/Police/PoliceDashboard';
-import PoliceWanted from '../components/Police/PoliceWanted';
+import PoliceCards from '../components/Police/PoliceCards';
 const Police = () =>{
 
    return(
@@ -9,7 +9,7 @@ const Police = () =>{
            <PoliceSlidebar />
            <div className="w-full">
            <PoliceDashboard /> 
-           <PoliceWanted />
+           <PoliceCards />
              </div>
              
 
