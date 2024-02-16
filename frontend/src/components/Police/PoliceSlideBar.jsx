@@ -19,6 +19,20 @@ const PoliceSlideBar = () =>{
                  <rect x="14" y="11" width="7" height="12" />
                </svg>    </div>
    <nav className="flex flex-1 flex-col gap-y-4 pt-10 pb-30">
+   <a href="#" className="group relative rounded-xl bg-gray-100 p-2 text-sky-600 hover:bg-gray-50">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+         <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6h9.75M10.5 6a1.5 1.5 0 1 1-3 0m3 0a1.5 1.5 0 1 0-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-9.75 0h9.75" />
+       </svg>
+
+        <div className="absolute inset-y-0 left-12 hidden items-center group-hover:flex">
+          <div className="relative whitespace-nowrap rounded-md bg-white px-4 py-2 text-sm font-semibold text-sky-900 drop-shadow-lg">
+            <div className="absolute inset-0 -left-1 flex items-center">
+              <div className="h-2 w-2 rotate-45 bg-white "></div>
+            </div>
+            Dashboard <span className=""></span>
+          </div>
+        </div>
+      </a>
      <a href="#" className="group relative rounded-xl bg-gray-100 p-2 text-sky-600 hover:bg-gray-50">
      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
   <path stroke-linecap="round" stroke-linejoin="round" d="M18 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0ZM3 19.235v-.11a6.375 6.375 0 0 1 12.75 0v.109A12.318 12.318 0 0 1 9.374 21c-2.331 0-4.512-.645-6.374-1.766Z" />
@@ -62,6 +76,20 @@ const PoliceSlideBar = () =>{
              <div className="h-2 w-2 rotate-45 bg-white"></div>
            </div>
            Response
+         </div>
+       </div>
+     </a>
+     <a href="#" className="text-gary-400 group relative rounded-xl text-sky-600 p-2 bg-gray-50">
+     <svg xmlns="http://www.w3.org/2000/svg"fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+          <path d="M4.5 6.375a4.125 4.125 0 1 1 8.25 0 4.125 4.125 0 0 1-8.25 0ZM14.25 8.625a3.375 3.375 0 1 1 6.75 0 3.375 3.375 0 0 1-6.75 0ZM1.5 19.125a7.125 7.125 0 0 1 14.25 0v.003l-.001.119a.75.75 0 0 1-.363.63 13.067 13.067 0 0 1-6.761 1.873c-2.472 0-4.786-.684-6.76-1.873a.75.75 0 0 1-.364-.63l-.001-.122ZM17.25 19.128l-.001.144a2.25 2.25 0 0 1-.233.96 10.088 10.088 0 0 0 5.06-1.01.75.75 0 0 0 .42-.643 4.875 4.875 0 0 0-6.957-4.611 8.586 8.586 0 0 1 1.71 5.157v.003Z" />
+         </svg>
+
+       <div className="absolute inset-y-0 left-12 hidden items-center group-hover:flex">
+         <div className="relative whitespace-nowrap rounded-md bg-white px-4 py-2 text-sm font-semibold text-sky-900 drop-shadow-lg">
+           <div className="absolute inset-0 -left-1 flex items-center">
+             <div className="h-2 w-2 rotate-45 bg-white"></div>
+           </div>
+           List
          </div>
        </div>
      </a>
