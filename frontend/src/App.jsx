@@ -11,7 +11,7 @@ function App() {
     
     <RegistrationClerk />
 
-    </div>
+    </div> 
   )
 }
 

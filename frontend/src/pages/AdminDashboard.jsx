@@ -7,29 +7,13 @@ const AdminDashboard = () =>{
 
     return(
         <>
-            
-           
-
             <div className="flex h-screen  text-gray-900  ">
-  
-            
             <AdminSlidebar />
-  
-  
             <div className="w-full">
                 <DashboardNum />
                 <AdminCards />
-                
-  
-
-
-
-
-
              </div>
-  
-            </div>
-            
+            </div> 
         </>
     );
 };
