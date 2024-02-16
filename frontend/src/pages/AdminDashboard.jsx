@@ -1,6 +1,6 @@
-import AdminSlidebar from '../components/AdminSlidebar';
-import DashboardNum from '../components/DashboardNum';
-import AdminCards from '../components/AdminCards';
+import AdminSlidebar from '../components/Admin/AdminSlidebar'
+import DashboardNum from '../components/Admin/DashboardNum';
+import AdminCards from '../components/Admin/AdminCards';
 
 
 const AdminDashboard = () =>{
