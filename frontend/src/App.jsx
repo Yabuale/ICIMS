@@ -1,6 +1,6 @@
-import Landing from "./pages/Landing"
-import AdminDashboard from "./pages/AdminDashboard"
-
+import Landing from "./pages/Landing";
+import AdminDashboard from "./pages/AdminDashboard";
+import Police from "./pages/Police";
 
 
 function App() {
@@ -8,9 +8,10 @@ function App() {
   return (
     <div>
     
-    <Landing />
+    <Police />
+    
 
-    </div>
+    </div> 
   )
 }
 
