@@ -1,6 +1,8 @@
 import PoliceSlidebar from '../components/Police/PoliceSlideBar';
 import PoliceDashboard from '../components/Police/PoliceDashboard';
 import PoliceCards from '../components/Police/PoliceCards';
+import PoliceReq from '../components/Police/PoliceReq';
+
 const Police = () =>{
 
    return(
@@ -8,8 +10,7 @@ const Police = () =>{
            <div className="flex h-screen  text-gray-900  ">
            <PoliceSlidebar />
            <div className="w-full">
-           <PoliceDashboard /> 
-           <PoliceCards />
+           <PoliceReq />
              </div>
              
 

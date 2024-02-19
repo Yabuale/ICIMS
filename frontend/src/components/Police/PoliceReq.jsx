@@ -2,7 +2,7 @@
 const PoliceReq = () =>{
    return(
       <>
-      <section className="bg-cream-lighter p-4 shadow">
+      <section className="bg-sky-50 p-4  lg:m-10 rounded-2xl sm:m-2 ">
       <div className="md:flex">
         <h2 className="md:w-1/3 uppercase tracking-wide text-sm sm:text-xl mb-6 relative whitespace-nowrap rounded-md bg-white px-4 py-2 text-sm font-semibold text-sky-900 ">Send Request</h2>
       </div>
