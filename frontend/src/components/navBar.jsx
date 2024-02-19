@@ -3,7 +3,7 @@ import { useState } from 'react';
     const [isMenuOpen, setIsMenuOpen] = useState(false);
   
     return (
-        <div className='w-full fixed mb-4  mt-6' >
+        <div className='w-full fixed mb-4  z-50 mt-6' >
       <div className="shadow-xl rounded-lg  bg-blue-100 px-4 py-5 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 transition ease-in-out delay-100  hover:-translate-y-1 hover:scale-110 duration-300 ...">
       
         <div className="relative  flex items-center justify-between">
