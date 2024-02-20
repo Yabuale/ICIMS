@@ -8,7 +8,7 @@ import Api from './pages/Api';
 import NotFound from './pages/Notfound';
 import AdminDashboard from './pages/AdminDashboard';
 import About from './pages/about';
-
+import LoginForm from './pages/LoginForm.jsx';
 
 
 
@@ -30,6 +30,10 @@ const router = createBrowserRouter([
       {
         path: "about/",
         element: <About />,
+      },
+      {
+        path: "login/",
+        element: <LoginForm />,
       },
     ],
 
