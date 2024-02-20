@@ -1,17 +1,49 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './App'
+import {createBrowserRouter,RouterProvider,} from "react-router-dom";
+import Landing from './pages/Landing';
 import './index.css';
-import { BrowserRouter } from 'react-router-dom';
+import Root from './routes/root';
+import Api from './pages/Api';
+import NotFound from './pages/Notfound';
+import AdminDashboard from './pages/AdminDashboard';
+import About from './pages/about';
 
 
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
 
-root.render(
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Root />,
+    errorElement: <NotFound />,
+    children: [
+      {
+        path: "/",
+        element: <Landing />,
+      },
+      {
+        path: "api/",
+        element: <Api />,
+      },
+      {
+        path: "about/",
+        element: <About />,
+      },
+    ],
+
+  },{
+    path:"admin/",
+    element:<AdminDashboard />,
+    errorElement:<h1>aaf</h1>
+
+  }
+]);
+
+ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
+    <RouterProvider router={router} />
+    
   </React.StrictMode>
 );

@@ -1,3 +1,5 @@
+import { NavLink } from 'react-router-dom';
+
 import { useState } from 'react'; 
  const NavBar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -7,8 +9,8 @@ import { useState } from 'react';
       <div className="shadow-xl rounded-lg  bg-blue-100 px-4 py-5 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 transition ease-in-out delay-100  hover:-translate-y-1 hover:scale-110 duration-300 ...">
       
         <div className="relative  flex items-center justify-between">
-          <a
-            href="/"
+          <NavLink
+            to={"/"}
             aria-label="Company"
             title="Company"
             className="inline-flex items-center"
@@ -28,62 +30,70 @@ import { useState } from 'react';
               <rect x="14" y="1" width="7" height="6" />
               <rect x="14" y="11" width="7" height="12" />
             </svg>
-            <span className="ml-2 text-xl font-bold tracking-wide text-sky-900 uppercase">
+            <span  className="ml-2 text-xl font-bold tracking-wide text-sky-900 uppercase">
               ICIMS
             </span>
-          </a>
+          </NavLink>
           <ul className="flex items-center hidden space-x-8 lg:flex">
             <li>
-              <a
-                href="/"
+              <NavLink
+                to={"/"}
                 aria-label="Our Wanted"
                 title="Our Wanted"
-                className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
+                className={({isActive})=>{
+                  return isActive? 'text-sky-950 font-bold tracking-wide' : 'font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400'
+                }}
               >
                 Wanted
-              </a>
+              </NavLink>
             </li>
             <li>
-              <a
-                href="/"
+              <NavLink
+                to={"/resources/"}
                 aria-label="Our Wanted"
                 title="Our Wanted"
-                className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
+                className={({isActive})=>{
+                  return isActive? 'text-sky-950 font-bold tracking-wide' : 'font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400'
+                }}
               >
                 Resources
-              </a>
+              </NavLink>
             </li>
             <li>
-              <a
-                href="/"
+              <NavLink
+                to={"/api/"}
                 aria-label="Wanted API"
                 title="Wanted API"
-                className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
-              >
+                className={({isActive})=>{
+                  return isActive? 'text-sky-950 font-bold tracking-wide' : 'font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400'
+                }}
+                >
                 API
-              </a>
+              </NavLink>
             </li>
             <li>
-              <a
-                href="/"
+              <NavLink
+                to={"about/"}
                 aria-label="About us"
                 title="About us"
-                className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
-              >
+                className={({isActive})=>{
+                  return isActive? 'text-sky-950 font-bold tracking-wide' : 'font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400'
+                }}
+                >
                 About 
-              </a>
+              </NavLink>
             </li>
           </ul>
           <ul className="flex items-center hidden space-x-8 lg:flex">
             <li>
-              <a
-                href="/"
+              <NavLink
+                to={"/"}
                 className="inline-flex items-center text-slate-100 uppercase justify-center h-12 px-6 font-medium tracking-wide transition duration-200 rounded  shadow-md bg-sky-900 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none"
                 aria-label="Sign up"
                 title="Sign up"
               >
                 Login 
-              </a>
+              </NavLink>
             </li>
           </ul>
           <div className="lg:hidden">
@@ -113,8 +123,8 @@ import { useState } from 'react';
                 <div className="p-5  border rounded shadow-sm bg-blue-100">
                   <div className="flex items-center justify-between mb-4">
                     <div>
-                      <a
-                        href="/"
+                      <NavLink
+                        to={"/"}
                         aria-label="Company"
                         title="Company"
                         className="inline-flex items-center"
@@ -137,7 +147,7 @@ import { useState } from 'react';
                         <span className="ml-2 text-xl font-bold tracking-wide text-sky-900 uppercase">
                           icims
                         </span>
-                      </a>
+                      </NavLink>
                     </div>
                     <div>
                       <button
@@ -158,54 +168,62 @@ import { useState } from 'react';
                   <nav>
                     <ul className="space-y-4">
                       <li>
-                        <a
-                          href="/"
+                        <NavLink
+                          to={"/"}
                           aria-label="Our Wanted"
                           title="Our Wanted"
-                          className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
-                        >
+                          className={({isActive})=>{
+                  return isActive? 'text-sky-950 font-bold tracking-wide' : 'font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400'
+                }}
+                 >
                           Wanted
-                        </a>
+                        </NavLink>
                       </li>
                       <li>
-                        <a
-                          href="/"
+                        <NavLink
+                          to={"resources/"}
                           aria-label="Our Wanted"
                           title="Our Wanted"
-                          className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
-                        >
+                          className={({isActive})=>{
+                  return isActive? 'text-sky-950 font-bold tracking-wide' : 'font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400'
+                }}
+                >
                           Resources
-                        </a>
+                        </NavLink>
                       </li>
                       <li>
-                        <a
-                          href="/"
+                        <NavLink
+                          to={"api/"}
                           aria-label="Wanted API"
                           title="Wanted API"
-                          className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
-                        >
+                          className={({isActive})=>{
+                  return isActive? 'text-sky-950 font-bold tracking-wide' : 'font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400'
+                }}
+                 >
                           API
-                        </a>
+                        </NavLink>
                       </li>
                       <li>
-                        <a
-                          href="/"
+                        <NavLink
+                          to={"about/"}
                           aria-label="About us"
                           title="About us"
-                          className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
-                        >
+                          className={({isActive})=>{
+                  return isActive? 'text-sky-950 font-bold tracking-wide' : 'font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400'
+                }}
+                 >
                           About
-                        </a>
+                        </NavLink>
                       </li>
                       <li>
-                        <a
-                          href="/"
+                        <NavLink
+                          to={"/"}
                           className="inline-flex items-center justify-center w-full h-12 px-6 font-medium tracking-wide  transition duration-200 rounded shadow-2xl  hover:bg-sky-800 focus:shadow-outline focus:outline-none bg-sky-900 text-sky-50  "
                           aria-label="Sign up"
                           title="Sign up"
                         >
                           LOGIN
-                        </a>
+                        </NavLink>
                       </li>
                     </ul>
                   </nav>
