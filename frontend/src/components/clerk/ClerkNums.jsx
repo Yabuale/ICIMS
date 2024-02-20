@@ -3,8 +3,8 @@ const ClerkNums = () =>{
    
 
       <div>
-	<div class="container px-6 mx-auto grid">
-    <h2 class="my-6 mb-1 text-2xl text-center font-semibold text-sky-900">
+	<div class="container ml-24   ">
+       <h2 class="my-6 mb-1 text-2xl text-center font-semibold text-sky-900">
 			Welcome, Clerk
 		</h2>
 		<h2 class="my-6 text-2xl font-semibold text-gray-700">

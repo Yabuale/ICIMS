@@ -1,9 +1,9 @@
 const ClerkCards = () =>{
 
     return(
-      <div class="w-full  pt-12 p-4">
-      <div class="grid gap-14 md:grid-cols-3 md:gap-5 mr-7 bg-sky-50 rounded-2xl shadow-sm pt-10 pb-10">
-        <div class="rounded-xl bg-white backdrop-blur-1 shadow-2xl mb-4  p-6 text-center ml-3">
+      <div class="w-full ml-24 pt-12 ">
+      <div class="grid gap-10 md:grid-cols-3 md:gap-4  bg-sky-50 rounded-2xl shadow-sm pt-10 ">
+        <div class="rounded-xl bg-white backdrop-blur-1 shadow-2xl mb-4  p-4 text-center ">
           <div
             class="mx-auto flex h-16 w-16 -translate-y-12 transform items-center justify-center rounded-full bg-teal-400 shadow-lg shadow-teal-500/40">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" class="w-6 h-6">
@@ -18,7 +18,7 @@ const ClerkCards = () =>{
         </div>
     
     
-        <div class="rounded-xl bg-white backdrop-blur-1 shadow-2xl mb-4  p-6 text-center ml-3">
+        <div class="rounded-xl bg-white backdrop-blur-1 shadow-2xl mb-4  p-6 text-center ">
           <div
             class="mx-auto flex h-16 w-16 -translate-y-12 transform items-center justify-center rounded-full bg-teal-400 shadow-lg shadow-teal-500/40">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" class="w-6 h-6">
@@ -32,7 +32,7 @@ const ClerkCards = () =>{
           </p>
         </div>
     
-        <div class="rounded-xl bg-white backdrop-blur-1 shadow-2xl mb-4  p-6 text-center ml-3">
+        <div class="rounded-xl bg-white backdrop-blur-1 shadow-2xl mb-4  p-6 text-center ">
           <div
             class="mx-auto flex h-16 w-16 -translate-y-12 transform items-center justify-center rounded-full bg-teal-400 shadow-lg shadow-teal-500/40">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="White" class="w-6 h-6">
@@ -48,7 +48,7 @@ const ClerkCards = () =>{
     
     
     
-        <div class="rounded-xl bg-white backdrop-blur-1 shadow-2xl mb-4  p-6 text-center ml-3">
+        <div class="rounded-xl bg-white backdrop-blur-1 shadow-2xl mb-4  p-6 text-center ">
           <div
             class="mx-auto flex h-16 w-16 -translate-y-12 transform items-center justify-center rounded-full bg-teal-400 shadow-lg shadow-teal-500/40">
             <svg xmlns="http://www.w3.org/2000/svg" fill="white" viewBox="0 0 24 24" stroke-width="1.5" stroke="green" class="w-6 h-6">
@@ -61,7 +61,7 @@ const ClerkCards = () =>{
           </p>
         </div>
 
-        <div class="rounded-xl bg-white backdrop-blur-1 shadow-2xl mb-4  p-6 text-center ml-3">
+        <div class="rounded-xl bg-white backdrop-blur-1 shadow-2xl mb-4  p-6 text-center ">
           <div
             class="mx-auto flex h-16 w-16 -translate-y-12 transform items-center justify-center rounded-full bg-teal-400 shadow-lg shadow-teal-500/40">
              <svg xmlns="http://www.w3.org/2000/svg" fill="white" viewBox="0 0 24 24" stroke-width="1.5" stroke="green" class="w-6 h-6">
