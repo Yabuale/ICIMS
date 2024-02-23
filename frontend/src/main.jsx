@@ -8,7 +8,10 @@ import Api from './pages/Api';
 import NotFound from './pages/Notfound';
 import AdminDashboard from './pages/AdminDashboard';
 import About from './pages/about';
-import LoginForm from './pages/LoginForm.jsx';
+import  RegistrationClerk from './pages/RegistrationClerk'
+import Police from './pages/Police'
+import LocalAdmin from './pages/LocalAdmin';
+
 
 
 
@@ -41,6 +44,19 @@ const router = createBrowserRouter([
     path:"admin/",
     element:<AdminDashboard />,
     errorElement:<h1>aaf</h1>
+
+  },{
+    path:"clerk/",
+    element:<RegistrationClerk />,
+
+  }
+  ,{
+    path:"police/",
+    element:<Police />,
+
+  },{
+    path:"localadmin/",
+    element:<LocalAdmin />,
 
   }
 ]);
