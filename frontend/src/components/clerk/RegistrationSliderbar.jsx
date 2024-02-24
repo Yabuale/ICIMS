@@ -1,7 +1,7 @@
 const RegistrationSliderbar = () =>{
     return (
         <>
-         <aside className="flex  mt-10 fixed   rounded-xl  w-20 flex-col items-center border-r ml-2 bg-blue-100 shadow-2xl">
+         <aside className="flex  mt-5 fixed   rounded-xl  w-20 flex-col items-center border-r ml-2 bg-blue-100 shadow-2xl">
     <div className="flex h-[4.5rem] w-full items-center justify-center   ">
     <svg
                   className="w-8 text-sky-900"

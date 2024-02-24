@@ -15,6 +15,8 @@ return(
   <div className="lg:w-4/5 flex-col lg:m-auto sm:w-screen ">
     <ClerkNums />
     <ClerkCards />
+    <br/>
+    <br/>
    
       
 
@@ -22,7 +24,7 @@ return(
 
 
 
-
+                                                                               
    </div>
 
   </div>

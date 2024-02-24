@@ -12,6 +12,7 @@ const LocalAdmin = () =>{
     <div className="w-full">
     <LocalAdminnums />
     <LocalAdmincards />
+    
 
     </div>
 </div>

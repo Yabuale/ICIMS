@@ -11,6 +11,7 @@ import About from './pages/about';
 import  RegistrationClerk from './pages/RegistrationClerk'
 import Police from './pages/Police'
 import LocalAdmin from './pages/LocalAdmin';
+import Login from './components/Login';
 
 
 
@@ -33,6 +34,10 @@ const router = createBrowserRouter([
       {
         path: "about/",
         element: <About />,
+      },
+      {
+        path: "login/",
+        element: <Login />,
       },
     ],
 
