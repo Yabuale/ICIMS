@@ -87,7 +87,7 @@ import { useState } from 'react';
           <ul className="flex items-center hidden space-x-8 lg:flex">
             <li>
               <NavLink
-                to={"/"}
+                to={"login/"}
                 className="inline-flex items-center text-slate-100 uppercase justify-center h-12 px-6 font-medium tracking-wide transition duration-200 rounded  shadow-md bg-sky-900 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none"
                 aria-label="Sign up"
                 title="Sign up"
@@ -217,7 +217,7 @@ import { useState } from 'react';
                       </li>
                       <li>
                         <NavLink
-                          to={"/"}
+                          to={"login/"}
                           className="inline-flex items-center justify-center w-full h-12 px-6 font-medium tracking-wide  transition duration-200 rounded shadow-2xl  hover:bg-sky-800 focus:shadow-outline focus:outline-none bg-sky-900 text-sky-50  "
                           aria-label="Sign up"
                           title="Sign up"
