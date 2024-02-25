@@ -16,6 +16,8 @@ import ClerkRoot from './routes/clerkRoot';
 import PoliceRoot from './routes/policeRoot';
 import PoliceReq from './components/Police/PoliceReq';
 import PostWanted from './components/Police/PostWanted';
+import AdminRoot from './routes/adminRoot';
+import LocalRoot from './routes/LocaladminRoot';
 
 
 const router = createBrowserRouter([
@@ -47,8 +49,8 @@ const router = createBrowserRouter([
   },
   {
     path:"admin/",
-    element:<AdminDashboard />,
-    errorElement:<h1>aaf</h1>
+    element:<AdminRoot />,
+    
 
   },
   {
@@ -62,7 +64,6 @@ const router = createBrowserRouter([
   ,{
     path:"police/",
     element:<PoliceRoot />,
-    errorElement:<div>af</div>,
     children:[
       { index: true, element: <Police/> },
       {
@@ -78,7 +79,12 @@ const router = createBrowserRouter([
 
   },{
     path:"localadmin/",
-    element:<LocalAdmin />,
+    element:<LocalRoot />,
+    children:[
+      { index: true, element: <LocalAdmin/> },
+      
+
+    ],
 
   }
 ]);
