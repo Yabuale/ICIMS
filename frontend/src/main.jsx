@@ -9,12 +9,15 @@ import NotFound from './pages/Notfound';
 import AdminDashboard from './pages/AdminDashboard';
 import About from './pages/about';
 import  RegistrationClerk from './pages/RegistrationClerk'
-import Police from './pages/Police'
+import Police from './pages/policeDashboard'
 import LocalAdmin from './pages/LocalAdmin';
-import LoginForm from './pages/LoginForm';
-import LocalAdminRegistration from './pages/LocalAdminRegistration';
-
-
+import Login from './components/Login';
+import ClerkRoot from './routes/clerkRoot';
+import PoliceRoot from './routes/policeRoot';
+import PoliceReq from './components/Police/PoliceReq';
+import PostWanted from './components/Police/PostWanted';
+import AdminRoot from './routes/adminRoot';
+import LocalRoot from './routes/LocaladminRoot';
 
 
 const router = createBrowserRouter([
@@ -22,11 +25,11 @@ const router = createBrowserRouter([
     path: "/",
     element: <Root />,
     errorElement: <NotFound />,
-    children: [
+    children:[
       {
-        path: "/",
-        element: <Landing />,
-      },
+     errorElement: <NotFound />,
+    children: [
+      { index: true, element: <Landing/> },
       {
         path: "api/",
         element: <Api />,
@@ -37,31 +40,51 @@ const router = createBrowserRouter([
       },
       {
         path: "login/",
-        element: <LoginForm />,
-      },
-      {
-        path: "createAccount/",
-        element: <LocalAdminRegistration />,
+        element: <Login />,
       },
     ],
+  },
+],
 
-  },{
+  },
+  {
     path:"admin/",
-    element:<AdminDashboard />,
-    errorElement:<h1>aaf</h1>
+    element:<AdminRoot />,
+    
 
-  },{
+  },
+  {
     path:"clerk/",
-    element:<RegistrationClerk />,
+    element:<ClerkRoot />,
+    children:[
+      { index: true, element: <RegistrationClerk/> },
 
+    ],
   }
   ,{
     path:"police/",
-    element:<Police />,
+    element:<PoliceRoot />,
+    children:[
+      { index: true, element: <Police/> },
+      {
+        path: "request/",
+        element: <PoliceReq />,
+      },
+      {
+        path: "post/",
+        element: <PostWanted />,
+      },
+
+    ],
 
   },{
     path:"localadmin/",
-    element:<LocalAdmin />,
+    element:<LocalRoot />,
+    children:[
+      { index: true, element: <LocalAdmin/> },
+      
+
+    ],
 
   }
 ]);

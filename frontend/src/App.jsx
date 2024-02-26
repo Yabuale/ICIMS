@@ -3,7 +3,7 @@ import AdminDashboard from "./pages/AdminDashboard"
 import RegistrationClerk from "./pages/RegistrationClerk"
 import LocalAdmin from "./pages/LocalAdmin"
 import PoliceRequest from "./pages/PoliceRequest"
-import Police from "./pages/Police"
+import Police from "./pages/policeDashboard"
 import PoliceReq from "./components/Police/PoliceReq"
 import Api from "./pages/Api"
 
