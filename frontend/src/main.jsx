@@ -11,7 +11,8 @@ import About from './pages/about';
 import  RegistrationClerk from './pages/RegistrationClerk'
 import Police from './pages/Police'
 import LocalAdmin from './pages/LocalAdmin';
-
+import LoginForm from './pages/LoginForm';
+import LocalAdminRegistration from './pages/LocalAdminRegistration';
 
 
 
@@ -37,6 +38,10 @@ const router = createBrowserRouter([
       {
         path: "login/",
         element: <LoginForm />,
+      },
+      {
+        path: "createAccount/",
+        element: <LocalAdminRegistration />,
       },
     ],
 

@@ -1,52 +1,52 @@
 import React from 'react';
 
-const LoginForm = () => {
+function LoginForm() {
   return (
-    <div className="container flex flex-col mx-auto bg-white rounded-lg py-5">
-      <div className="flex justify-center w-full h-full my-auto xl:gap-14 lg:justify-normal md:gap-5 draggable">
-        <div className="flex items-center justify-center w-full lg:p-12">
-          <div className="flex items-center xl:p-10">
-            <form className="flex flex-col w-full h-full pb-6 text-center bg-white rounded-3xl">
-              <h3 className="mb-3 text-4xl font-extrabold text-dark-grey-900">Sign In</h3>
-              <p className="mb-4 text-grey-700">Enter your email and password</p>
-              <a className="flex items-center justify-center w-full py-4 mb-6 text-sm font-medium transition duration-300 rounded-2xl text-grey-900 bg-grey-300 hover:bg-grey-400 focus:ring-4 focus:ring-grey-300">
-                <img className="h-5 mr-2" src="https://raw.githubusercontent.com/Loopple/loopple-public-assets/main/motion-tailwind/img/logos/logo-google.png" alt="" />
-                Sign in with Google
-              </a>
-              <div className="flex items-center mb-3">
-                <hr className="h-0 border-b border-solid border-grey-500 grow" />
-                <p className="mx-4 text-grey-600">or</p>
-                <hr className="h-0 border-b border-solid border-grey-500 grow" />
+    <>
+    <section className="bg-gray-50">
+      <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+        <a href="#" className="flex items-center mt-20 mb-6 text-2xl font-semibold text-sky-900">
+        <svg
+              className="w-8 h-8 mr-2 text-sky-900"
+              viewBox="0 0 24 24"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeMiterlimit="10"
+              stroke="currentColor"
+              fill="none"
+            >
+              <rect x="3" y="1" width="7" height="12" />
+              <rect x="3" y="17" width="7" height="6" />
+              <rect x="14" y="1" width="7" height="6" />
+              <rect x="14" y="11" width="7" height="12" />
+            </svg>
+          ICIMS    
+        </a>
+        <div className="w-full bg-white rounded-lg shadow md:mt-0 sm:max-w-md xl:p-0">
+          <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
+            <h1 className="text-xl text-center font-extrabold leading-tight tracking-tight text-gray-900 md:text-2xl">
+              Sign In
+            </h1>
+            <form className="space-y-4 md:space-y-6" action="#">
+              <div>
+                <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900">Your email</label>
+                <input type="email" name="email" id="email" className="bg-gray-100 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" placeholder="name@company.com" required />
               </div>
-              <label htmlFor="email" className="mb-2 text-sm text-start text-grey-900">Email*</label>
-              <input id="email" type="email" placeholder="mail@loopple.com" className="flex items-center w-full px-5 py-4 mr-2 text-sm font-medium outline-none focus:bg-grey-400 mb-7 placeholder:text-grey-700 bg-grey-200 text-dark-grey-900 rounded-2xl" />
-              <label htmlFor="password" className="mb-2 text-sm text-start text-grey-900">Password*</label>
-              <input id="password" type="password" placeholder="Enter a password" className="flex items-center w-full px-5 py-4 mb-5 mr-2 text-sm font-medium outline-none focus:bg-grey-400 placeholder:text-grey-700 bg-grey-200 text-dark-grey-900 rounded-2xl" />
-              <div className="flex flex-row justify-between mb-8">
-                <label className="relative inline-flex items-center mr-3 cursor-pointer select-none">
-                  <input type="checkbox" checked value="" className="sr-only peer" />
-                  <div
-                    className="w-5 h-5 bg-white border-2 rounded-sm border-grey-500 peer peer-checked:border-0 peer-checked:bg-purple-blue-500">
-                    <img className="" src="https://raw.githubusercontent.com/Loopple/loopple-public-assets/main/motion-tailwind/img/icons/check.png" alt="tick" />
-                  </div>
-                  <span className="ml-3 text-sm font-normal text-grey-900">Keep me logged in</span>
-                </label>
-                <a href="javascript:void(0)" className="mr-4 text-sm font-medium text-purple-blue-500">Forget password?</a>
+              <div>
+                <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900">Password</label>
+                <input type="password" name="password" id="password" placeholder="••••••••" className="bg-gray-100 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" required />
               </div>
-              <button className="w-full px-6 py-5 mb-5 text-sm font-bold leading-none text-white transition duration-300 md:w-96 rounded-2xl hover:bg-purple-blue-600 focus:ring-4 focus:ring-purple-blue-100 bg-purple-blue-500">Sign In</button>
-              <p className="text-sm leading-relaxed text-grey-900">Not registered yet? <a href="javascript:void(0)" className="font-bold text-grey-700">Create an Account</a></p>
+              <div className="flex items-center justify-between">
+                <a href="#" className="text-sm font-medium text-primary-600 hover:underline">Forgot password?</a>
+              </div>
+              <button type="submit" className="w-full font-extrabold text-white  hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 rounded-lg text-base px-5 py-2.5 text-center shadow-md bg-sky-900 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none">Sign in</button>
             </form>
           </div>
         </div>
       </div>
-      <div className="flex flex-wrap -mx-3 my-5">
-        <div className="w-full max-w-full sm:w-3/4 mx-auto text-center">
-          <p className="text-sm text-slate-500 py-1">
-            Tailwind CSS Component from <a href="https://www.loopple.com/theme/motion-landing-library?ref=tailwindcomponents" className="text-slate-700 hover:text-slate-900" target="_blank" rel="noopener noreferrer">Motion Landing Library</a> by <a href="https://www.loopple.com" className="text-slate-700 hover:text-slate-900" target="_blank" rel="noopener noreferrer">Loopple Builder</a>.
-          </p>
-        </div>
-      </div>
-    </div>
+    </section>
+    </>
   );
 }
 
