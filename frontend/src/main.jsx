@@ -18,7 +18,9 @@ import PoliceReq from './components/Police/PoliceReq';
 import PostWanted from './components/Police/PostWanted';
 import AdminRoot from './routes/adminRoot';
 import LocalRoot from './routes/LocaladminRoot';
-import ClerkAdd from './components/clerk/ClerkAdd';
+
+import WantedTable from './components/Police/wantedList';
+
 
 const router = createBrowserRouter([
   {
@@ -77,6 +79,10 @@ const router = createBrowserRouter([
       {
         path: "post/",
         element: <PostWanted />,
+      },
+      {
+        path: "list/",
+        element: <WantedTable />,
       },
 
     ],

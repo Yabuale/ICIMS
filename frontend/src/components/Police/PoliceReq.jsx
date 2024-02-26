@@ -1,92 +1,90 @@
 
 const PoliceReq = () =>{
    return(
-      <>
-      <section className="bg-sky-50 p-4  lg:m-10 rounded-2xl sm:m-2 ">
-      <div className="md:flex">
-        <h2 className="md:w-1/3 uppercase tracking-wide text-sm sm:text-xl mb-6 relative whitespace-nowrap rounded-md bg-white px-4 py-2 text-sm font-semibold text-sky-900 ">Send Request</h2>
-      </div>
-      <form>
-        <div className="md:flex mb-8">
-          <div className="md:w-1/3">
-            <legend className="md:w-1/3 uppercase tracking-wide text-sm sm:text-lg mb-6 relative whitespace-nowrap rounded-md bg-white px-4 py-2 text-sm font-semibold text-sky-900">Criminal Information</legend>
-            <p className="text-xs font-light text-red px-4 py-2">This entire section is required.</p>
-          </div>
-          <div className="md:flex-1 mt-2 mb:mt-0 md:px-3">
-            <div className="mb-4">
-              <label className="block uppercase tracking-wide text-sm font-bold">SSN</label>
-              <input className="w-full shadow-inner p-4 border-0" type="text" name="SSN" placeholder="H23ERT" />
-            </div>
-            <div className="md:flex mb-4">
-              <div className="md:flex-1 md:pr-3">
-                <label className="block uppercase tracking-wide text-charcoal-darker text-sm font-bold">First Name</label>
-                <input className="w-full shadow-inner p-4 border-0" type="text" name="firstName" placeholder="naol" />
-              </div>
-              <div className="md:flex-1 md:pr-3">
-                <label className="block uppercase tracking-wide text-charcoal-darker text-sm font-bold">Last Name</label>
-                <input className="w-full shadow-inner p-4 border-0" type="text" name="lastName" placeholder="kuma" />
-              </div>
-            </div>
-            <div className="md:flex mb-4">
-            <div className="md:flex-1 md:pr-3">
-                <label className="block uppercase tracking-wide text-charcoal-darker text-sm font-bold">Date Of Birth</label>
-                <input className="w-full shadow-inner p-4 border-0" type="text" name="dateOfBirth" placeholder="1993" />
-              </div>
-              <div className="md:flex-1 md:pr-3">
-                <label className="block uppercase tracking-wide text-charcoal-darker text-sm font-bold">Region</label>
-                <input className="w-full shadow-inner p-4 border-0" type="text" name="region" placeholder="Oromia" />
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="md:flex mb-8">
-          <div className="md:w-1/3">
-            <legend className="md:w-1/3 uppercase tracking-wide text-sm sm:text-lg mb-6 relative whitespace-nowrap rounded-md bg-white px-4 py-2 text-sm font-semibold text-sky-900">Appearance Information</legend>
-          </div>
-          <div className="md:flex-1 mt-2 mb:mt-0 md:px-3">
-            <div className="mb-4">
-              <label className="block uppercase tracking-wide text-sm font-bold">Height</label>
-              <input className="w-full shadow-inner p-4 border-0" type="text" name="height" placeholder="168" />
-            </div>
-            <div className="mb-4">
-              <label className="block uppercase tracking-wide text-charcoal-darker text-sm font-bold">Gender</label>
-              <input className="w-full shadow-inner p-4 border-0" type="text" name="gender" placeholder="male" />
-            </div>
-            <div className="mb-4">
-              <label className="block uppercase tracking-wide text-charcoal-darker text-sm font-bold">Eye Color</label>
-              <input className="w-full shadow-inner p-4 border-0" type="text" name="eyecolor" placeholder="Blue" />
-            </div>
-          </div>
-        </div>
-        
-        <div className="md:flex mb-6">
-          <div className="md:w-1/3">
-            <legend className="md:w-1/3 uppercase tracking-wide text-sm sm:text-lg mb-6 relative whitespace-nowrap rounded-md bg-white px-4 py-2 text-sm font-semibold text-sky-900">Description</legend>
-          </div>
-          <div className="md:flex-1 mt-2 mb:mt-0 md:px-3">
-            <textarea className="w-full shadow-inner p-4 border-0" placeholder="why do you need the information" rows="6"></textarea>
-          </div>
-        </div>
-        <div className="md:flex mb-6">
-          <div className="md:w-1/3">
-            <legend className="md:w-1/3 uppercase tracking-wide text-sm sm:text-lg mb-6 relative whitespace-nowrap rounded-md bg-white px-4 py-2 text-sm font-semibold text-sky-900">Suspect Image</legend>
-          </div>
-          <div className="md:flex-1 px-3 text-center">
-            <div className="button bg-gold hover:bg-gold-dark text-cream mx-auto cusor-pointer relative">
-              <input className="opacity-0 absolute pin-x pin-y" type="file" name="cover_image" />
-              Add Suspect Image
-            </div>
-          </div>
-        </div>
-        <div className="md:flex mb-6 border border-t-1 border-b-0 border-x-0 border-cream-dark">
-          <div className="md:flex-1 px-3 text-center md:text-right pt-10">
-            <input type="hidden" name="sponsor" value="0" />
-            <input className="inline-flex items-center text-slate-100 uppercase justify-center h-12 px-6 font-medium tracking-wide transition duration-200 rounded  shadow-md bg-sky-900 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none" type="submit" value="Send Request" />
-          </div>
-        </div>
-      </form>
-    </section>
-  </>
+    <>
+ 
+    <br/>
+   
+     <div class="grid  mx-24 lg:mx-auto   bg-sky-50   rounded-lg shadow-xl w-4/5  md:w-9/12 lg:w-1/2">
+       <div class="flex justify-center py-4">
+         <div class="flex bg-gray-50 rounded-full md:p-4 p-2 border-2 border-sky-800">
+         <svg
+                 className="w-12 text-sky-900"
+                 viewBox="0 0 24 24"
+                 strokeLinejoin="round"
+                 strokeWidth="2"
+                 strokeLinecap="round"
+                 strokeMiterlimit="10"
+                 stroke="currentColor"
+                 fill="none"
+               >
+                 <rect x="3" y="1" width="7" height="12" />
+                 <rect x="3" y="17" width="7" height="6" />
+                 <rect x="14" y="1" width="7" height="6" />
+                 <rect x="14" y="11" width="7" height="12" />
+               </svg>
+         </div>
+       </div>
+   
+       <div class="flex justify-center">
+         <div class="flex">
+           <h1 class="text-gray-600 font-bold md:text-2xl text-xl">Send Request</h1>
+         </div>
+       </div>
+   
+       <div class="grid grid-cols-1 mt-5 mx-7">
+         <label class="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">Input 1</label>
+         <input class="py-2 px-3 rounded-lg border-2 border-sky-300 mt-1 focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent" type="text" placeholder="Input 1" />
+       </div>
+   
+       <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 mt-5 mx-7">
+         <div class="grid grid-cols-1">
+           <label class="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">Input 2</label>
+           <input class="py-2 px-3 rounded-lg border-2 border-sky-300 mt-1 focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent" type="text" placeholder="Input 2" />
+         </div>
+         <div class="grid grid-cols-1">
+           <label class="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">Input 3</label>
+           <input class="py-2 px-3 rounded-lg border-2 border-sky-300 mt-1 focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent" type="text" placeholder="Input 3" />
+         </div>
+       </div>
+   
+       <div class="grid grid-cols-1 mt-5 mx-7">
+         <label class="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">Selection</label>
+         <select class="py-2 px-3 rounded-lg border-2 border-sky-300 mt-1 focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent">
+           <option>Option 1</option>
+           <option>Option 2</option>
+           <option>Option 3</option>
+         </select>
+       </div>
+   
+       <div class="grid grid-cols-1 mt-5 mx-7">
+         <label class="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">Another Input</label>
+         <input class="py-2 px-3 rounded-lg border-2 border-sky-300 mt-1 focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent" type="text" placeholder="Another Input" />
+       </div>
+   
+       <div class="grid grid-cols-1 mt-5 mx-7">
+         <label class="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold mb-1">Upload Photo</label>
+           <div class='flex items-center justify-center w-full'>
+               <label class='flex flex-col border-4 border-dashed w-full h-32 hover:bg-gray-100 hover:border-sky-300 group'>
+                   <div class='flex flex-col items-center justify-center pt-7'>
+                     <svg class="w-10 h-10 text-sky-400 group-hover:text-sky-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                     <p class='lowercase text-sm text-gray-400 group-hover:text-sky-600 pt-1 tracking-wider'>Select a photo</p>
+                   </div>
+                 <input type='file' class="hidden" />
+               </label>
+           </div>
+       </div>
+   
+       <div class='flex items-center justify-center  md:gap-8 gap-4 pt-5 pb-5'>
+         <button class='w-auto bg-gray-500 hover:bg-gray-700 rounded-lg shadow-xl font-medium text-white px-4 py-2'>Cancel</button>
+         <button class='w-auto bg-sky-500 hover:bg-sky-700 rounded-lg shadow-xl font-medium text-white px-4 py-2'>Create</button>
+       </div>
+   
+     </div>
+   
+     <br/>
+   
+    </>
    );
 
 

@@ -4,7 +4,7 @@ return(
  
  <br/>
 
-  <div class="grid w-full mx-auto bg-sky-50   rounded-lg shadow-xl  md:w-9/12 lg:w-1/2">
+  <div class="grid  mx-24 lg:mx-auto   bg-sky-50   rounded-lg shadow-xl w-4/5  md:w-9/12 lg:w-1/2">
     <div class="flex justify-center py-4">
       <div class="flex bg-gray-50 rounded-full md:p-4 p-2 border-2 border-sky-800">
       <svg
