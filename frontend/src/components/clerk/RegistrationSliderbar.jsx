@@ -1,3 +1,5 @@
+import { NavLink } from 'react-router-dom';
+
 const RegistrationSliderbar = () =>{
     return (
         <>
@@ -19,7 +21,9 @@ const RegistrationSliderbar = () =>{
                   <rect x="14" y="11" width="7" height="12" />
                 </svg>    </div>
     <nav className="flex flex-1 flex-col gap-y-4 pt-10">
-      <a href="#" className="group relative rounded-xl bg-gray-100 p-2 text-sky-600 hover:bg-gray-50">
+    <NavLink to={"/clerk"} className={({isActive})=>{
+                  return isActive? ' group relative rounded-xl text-sky-600 p-2 bg-gray-50' : ' group relative rounded-xl text-sky-600 p-2 bg-gray-50'
+                }}>
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
          <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6h9.75M10.5 6a1.5 1.5 0 1 1-3 0m3 0a1.5 1.5 0 1 0-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-9.75 0h9.75" />
        </svg>
@@ -32,7 +36,7 @@ const RegistrationSliderbar = () =>{
             Dashboard <span className=""></span>
           </div>
         </div>
-      </a>
+      </NavLink>
 
       <a href="#" className="text-gary-400 group relative rounded-xl text-sky-600 p-2 bg-gray-50">
       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -51,7 +55,9 @@ const RegistrationSliderbar = () =>{
       </a>
       
       
-      <a href="#" className="text-gary-400 group relative rounded-xl text-sky-600 p-2 bg-gray-50">
+      <NavLink to={"add/"} className={({isActive})=>{
+                  return isActive? ' group relative rounded-xl text-sky-600 p-2 bg-gray-50' : ' group relative rounded-xl text-sky-600 p-2 bg-gray-50'
+                }}>
       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
       </svg>
@@ -63,7 +69,7 @@ const RegistrationSliderbar = () =>{
             Add 
           </div>
         </div>
-      </a>
+        </NavLink>
 
       <a href="#" className="text-gary-400 group relative rounded-xl text-sky-600 p-2 bg-gray-50">
       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
