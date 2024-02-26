@@ -19,6 +19,8 @@ import PostWanted from './components/Police/PostWanted';
 import AdminRoot from './routes/adminRoot';
 import LocalRoot from './routes/LocaladminRoot';
 
+import WantedTable from './components/Police/wantedList';
+
 
 const router = createBrowserRouter([
   {
@@ -73,6 +75,10 @@ const router = createBrowserRouter([
       {
         path: "post/",
         element: <PostWanted />,
+      },
+      {
+        path: "list/",
+        element: <WantedTable />,
       },
 
     ],
