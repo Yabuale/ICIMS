@@ -18,7 +18,7 @@ import PoliceReq from './components/Police/PoliceReq';
 import PostWanted from './components/Police/PostWanted';
 import AdminRoot from './routes/adminRoot';
 import LocalRoot from './routes/LocaladminRoot';
-
+import ClerkAdd from './components/clerk/ClerkAdd';
 
 const router = createBrowserRouter([
   {
@@ -58,6 +58,10 @@ const router = createBrowserRouter([
     element:<ClerkRoot />,
     children:[
       { index: true, element: <RegistrationClerk/> },
+      {
+        path:"add/",
+        element: <ClerkAdd />
+      }
 
     ],
   }
