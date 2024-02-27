@@ -24,6 +24,7 @@ import CriminalList from './components/clerk/CriminalList';
 import ListAccounts from './components/localAdmin/ListAccounts';
 import LocalAdminList from './components/Admin/LocalAdminList';
 import AddLocalAdmin from './components/Admin/AddLocalAdmin';
+import AddAccount from './components/localAdmin/AddAccount';
 const router = createBrowserRouter([
   {
     path: "/",
@@ -112,6 +113,10 @@ const router = createBrowserRouter([
       {
         path: "accounts/",
         element: <ListAccounts />,
+      },
+      {
+        path: "create/",
+        element: <AddAccount />,
       },
       
 
