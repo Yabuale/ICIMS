@@ -1,14 +1,14 @@
 import { Outlet } from "react-router-dom";
-import PoliceRequest from "../pages/PoliceRequest";
-import PoliceSlideBar from "../components/Police/PoliceSlideBar";
+import AdminSlidebar from "../components/Admin/AdminSlidebar";
 
+import AdminDashboard from "../pages/AdminDashboard";
 const AdminRoot = ()=>{
     return(
 <>
 <div className="flex text-gray-900   ">
-  <PoliceSlideBar />
+  <AdminSlidebar />
   <div className="lg:w-4/5 flex-col lg:m-auto sm:w-screen ">
-  <Outlet />                                                                          
+  <Outlet />                                                                         
    </div>
   </div>
 </>

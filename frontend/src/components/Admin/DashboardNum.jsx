@@ -3,7 +3,7 @@ const DashboardNum = () =>{
    
 
       <div>
-	<div class="container px-6 mx-auto grid">
+	<div class="container ml-24">
     <h2 class="my-6 mb-1 text-2xl text-center font-semibold text-sky-900">
 			Welcome, Admin
 		</h2>
