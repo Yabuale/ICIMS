@@ -22,8 +22,8 @@ import ClerkAdd from './components/clerk/ClerkAdd';
 import WantedTable from './components/Police/wantedList';
 import CriminalList from './components/clerk/CriminalList';
 import ListAccounts from './components/localAdmin/ListAccounts';
-import AddAccount from './components/localAdmin/AddAccount';
-
+import LocalAdminList from './components/Admin/LocalAdminList';
+import AddLocalAdmin from './components/Admin/AddLocalAdmin';
 const router = createBrowserRouter([
   {
     path: "/",
@@ -55,8 +55,15 @@ const router = createBrowserRouter([
     path:"admin/",
     element:<AdminRoot />,children:[
       { index: true, element: <AdminDashboard/> },
+      {
+        path: "localadmins/",
+        element: <LocalAdminList />
+      },
+      {
+        path: "addlocaladmin/",
+        element: <AddLocalAdmin />
+      }
       
-
     ],
     
 
