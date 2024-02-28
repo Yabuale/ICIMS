@@ -24,6 +24,7 @@ import CriminalList from './components/clerk/CriminalList';
 import ListAccounts from './components/localAdmin/ListAccounts';
 import LocalAdminList from './components/Admin/LocalAdminList';
 import AddLocalAdmin from './components/Admin/AddLocalAdmin';
+import SearchComponent from './components/clerk/ClerkSearch';
 const router = createBrowserRouter([
   {
     path: "/",
@@ -62,7 +63,7 @@ const router = createBrowserRouter([
       {
         path: "addlocaladmin/",
         element: <AddLocalAdmin />
-      }
+      },
       
     ],
     
@@ -80,6 +81,10 @@ const router = createBrowserRouter([
       {
         path:"list/",
         element: <CriminalList />
+      },
+      {
+        path: "clerksearch/",
+        element: <SearchComponent />
       }
 
     ],
