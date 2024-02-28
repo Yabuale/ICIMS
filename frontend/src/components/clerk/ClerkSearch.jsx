@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-function SearchComponent() {
+function SearchClerk() {
     const [open, setOpen] = useState(false);
   return ( 
     <>
@@ -129,4 +129,4 @@ function SearchComponent() {
   );
 }
 
-export default SearchComponent;
+export default SearchClerk;
