@@ -22,11 +22,9 @@ class Criminal(models.Model):
     identifying_features = models.TextField(blank=True)
     address = models.CharField(max_length=200)
     contact_information = models.CharField(max_length=200)
-    criminal_record = models.TextField(blank=True)
-    arrest_warrants = models.TextField(blank=True)
     gang_affiliations = models.TextField(blank=True)
-    case_history = models.TextField(blank=True)
-    photographs = models.ImageField(upload_to='criminal_photos/', blank=True)
+    case_history = models.TextField(blank=False)
+    #photo = models.ImageField(upload_to='criminal_photos/', blank=True)
     created_date = models.DateTimeField(auto_now_add=True)
     #created_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
 
