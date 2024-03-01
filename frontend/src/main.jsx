@@ -26,6 +26,7 @@ import LocalAdminList from './components/Admin/LocalAdminList';
 import AddLocalAdmin from './components/Admin/AddLocalAdmin';
 import AddAccount from './components/localAdmin/AddAccount';
 import SearchClerk from './components/clerk/ClerkSearch';
+import AddBranch from './components/Admin/AddBranch';
 
 const router = createBrowserRouter([
   {
@@ -65,6 +66,10 @@ const router = createBrowserRouter([
       {
         path: "addlocaladmin/",
         element: <AddLocalAdmin />
+      },
+      {
+        path: "addbranch/",
+        element: <AddBranch />
       },
       
     ],
