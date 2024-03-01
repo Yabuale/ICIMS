@@ -1,3 +1,6 @@
+import React from 'react';
+import { Link } from 'react-router-dom';
+
 const AdminCards = () =>{
 
     return(
@@ -11,7 +14,9 @@ const AdminCards = () =>{
            </svg>
     
           </div>
-          <button class="text-darken mb-3 text-xl font-medium lg:px-14 bg-blue-400 hover:bg-blue-300 text-white p-5 rounded-2xl" href="#">Accounts</button>
+          <Link to="localadmins/">
+            <button className="text-darken mb-3 text-xl font-medium lg:px-14 bg-blue-400 hover:bg-blue-300 text-white p-5 rounded-2xl">Accounts</button>
+        </Link>
           <p> <br/> 
           <br/>
           </p>
@@ -26,7 +31,9 @@ const AdminCards = () =>{
              </svg>
     
           </div>
-          <button class="text-darken mb-3 text-xl font-medium lg:px-14 bg-blue-400 hover:bg-blue-300 text-white p-5 rounded-2xl" href="#">Search</button>
+          <Link to="localadmins/">
+            <button className="text-darken mb-3 text-xl font-medium lg:px-14 bg-blue-400 hover:bg-blue-300 text-white p-5 rounded-2xl">Search</button>
+        </Link>
           <p> <br/> 
           <br/>
           </p>
@@ -40,7 +47,9 @@ const AdminCards = () =>{
              </svg>
     
           </div>
-          <button class="text-darken mb-3 text-xl font-medium lg:px-14 bg-blue-400 hover:bg-blue-300 text-white p-5 rounded-2xl" href="#">Add Branch</button>
+          <Link to="addbranch/">
+            <button className="text-darken mb-3 text-xl font-medium lg:px-14 bg-blue-400 hover:bg-blue-300 text-white p-5 rounded-2xl">Add Branch</button>
+        </Link>
           <p> <br/> 
           <br/>
           </p>
@@ -57,7 +66,9 @@ const AdminCards = () =>{
                 fill="white"></path>
             </svg>
           </div>
-          <button class="text-darken mb-3 text-xl font-medium lg:px-14 bg-blue-400 hover:bg-blue-300 text-white p-5 rounded-2xl" href="#">Add Local Admin</button>
+          <Link to="addlocaladmin/">
+            <button className="text-darken mb-3 text-xl font-medium lg:px-14 bg-blue-400 hover:bg-blue-300 text-white p-5 rounded-2xl">Add Local Admin</button>
+        </Link>
           <p> <br/> 
           <br/>
           </p>
