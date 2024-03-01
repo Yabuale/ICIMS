@@ -43,3 +43,13 @@ class CustomUser(AbstractUser):
 
     def __str__(self):
         return self.email
+
+class Branch(models.Model): 
+    branch_name  = models.CharField(max_length=100)
+    woreda = models.CharField(max_length=100)
+    zone = models.CharField(max_length=100)
+    region = models.CharField(max_length=100)
+    phone_no = models.CharField(max_length=100)
+    eamil_address = models.CharField(max_length=100)
+    def str(self):
+        return self.branch_name

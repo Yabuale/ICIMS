@@ -21,6 +21,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('wanted.urls')),
     path('criminals/', include('criminal.urls')),
-    
-
+    path('systemadmin/', include('system_admin.urls')),
+    path('clerk/', include('clerk.urls')),
+    path('police/', include('police.urls')),
 ]
