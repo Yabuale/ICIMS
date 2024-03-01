@@ -40,7 +40,7 @@ const AdminCards = () =>{
              </svg>
     
           </div>
-          <button class="text-darken mb-3 text-xl font-medium lg:px-14 bg-blue-400 hover:bg-blue-300 text-white p-5 rounded-2xl" href="#">Add</button>
+          <button class="text-darken mb-3 text-xl font-medium lg:px-14 bg-blue-400 hover:bg-blue-300 text-white p-5 rounded-2xl" href="#">Add Branch</button>
           <p> <br/> 
           <br/>
           </p>

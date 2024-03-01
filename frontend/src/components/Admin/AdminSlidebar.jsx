@@ -61,6 +61,20 @@ const AdminSlidebar = () =>{
         <NavLink to={"addlocaladmin/"} className={({isActive})=>{
                   return isActive? ' group relative rounded-xl text-white p-2 bg-sky-800' : ' group relative rounded-xl text-sky-600 p-2 bg-gray-50'
                 }}>
+      <svg fill="currentColor" viewBox="0 0 64 64" data-name="Layer 1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><title></title><path d="M24.76,28.1A10.35,10.35,0,1,1,35.1,17.75,10.36,10.36,0,0,1,24.76,28.1Zm0-16.69a6.35,6.35,0,1,0,6.34,6.34A6.35,6.35,0,0,0,24.76,11.41Z"></path><path d="M24.76,56.59a28.11,28.11,0,0,1-16.4-5.22,2,2,0,0,1-.83-1.43c0-.28,0-.54,0-.82a17.26,17.26,0,1,1,34.51,0,7.31,7.31,0,0,1,0,.81,2,2,0,0,1-.83,1.44c-.68.48-1.39.94-2.1,1.36a2,2,0,1,1-2-3.45c.33-.2.66-.4,1-.61a13.25,13.25,0,0,0-26.49,0,24.13,24.13,0,0,0,13.25,3.92,24.87,24.87,0,0,0,3.67-.27,2,2,0,0,1,.61,4A27.84,27.84,0,0,1,24.76,56.59Z"></path><path d="M47.85,30.54a2,2,0,0,1-2-2V15.24a2,2,0,0,1,4,0v13.3A2,2,0,0,1,47.85,30.54Z"></path><path d="M54.5,23.89H41.2a2,2,0,0,1,0-4H54.5a2,2,0,0,1,0,4Z"></path></g></svg>
+        <div className="absolute inset-y-0 left-12 hidden items-center group-hover:flex">
+          <div className="relative whitespace-nowrap rounded-md bg-white px-4 py-2 text-sm font-semibold text-sky-900 drop-shadow-lg">
+            <div className="absolute inset-0 -left-1 flex items-center">
+              <div className="h-2 w-2 rotate-45 bg-white"></div>
+            </div>
+            Add Local Admin
+          </div>
+        </div>
+        </NavLink>
+
+        <NavLink to={"addbranch/"} className={({isActive})=>{
+                  return isActive? ' group relative rounded-xl text-white p-2 bg-sky-800' : ' group relative rounded-xl text-sky-600 p-2 bg-gray-50'
+                }}>
       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
       </svg>
@@ -69,25 +83,10 @@ const AdminSlidebar = () =>{
             <div className="absolute inset-0 -left-1 flex items-center">
               <div className="h-2 w-2 rotate-45 bg-white"></div>
             </div>
-            Add 
+            Add Branch
           </div>
         </div>
         </NavLink>
-
-      <a href="#" className="text-gary-400 group relative rounded-xl text-sky-600 p-2 bg-gray-50">
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-  <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
-</svg>
-
-        <div className="absolute inset-y-0 left-12 hidden items-center group-hover:flex">
-          <div className="relative whitespace-nowrap rounded-md bg-white px-4 py-2 text-sm font-semibold text-sky-900 drop-shadow-lg">
-            <div className="absolute inset-0 -left-1 flex items-center">
-              <div className="h-2 w-2 rotate-45 bg-white"></div>
-            </div>
-            Search
-          </div>
-        </div>
-      </a>
     </nav>
     <br/>
 <br/>
