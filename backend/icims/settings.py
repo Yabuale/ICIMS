@@ -1,3 +1,5 @@
+import os
+
 """
 Django settings for icims project.
 
@@ -58,7 +60,7 @@ ROOT_URLCONF = 'icims.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
