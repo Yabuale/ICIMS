@@ -1,10 +1,9 @@
 import random
 import string
 from django.conf import settings
-from django.core.mail import EmailMultiAlternatives
-from django.core.mail import EmailMessage
-from django.core.mail import send_mail
+from django.core.mail import EmailMultiAlternatives, send_mail,EmailMessage
 import smtplib
+from django.template.loader import render_to_string
 
 def passwordGenerator():
 
@@ -25,66 +24,56 @@ def passwordGenerator():
 
     return password
 
-def send_tender():
-    Tender_subscribers = ['yeabsraalebachew9@gmail.com']
-    subject = "Test Email from Django"
-    message = "This is a test email sent from your Django application."
-    from_email = "yeabsiraalebachew@gmail.com"
-    recipient_list = ["yeabsraalebachew9@gmail.com"]
 
-    
-
-    try:
-        mail_subject = "Fsdfsdfsd"
-        for to_email in Tender_subscribers:
-            message = "Sdfsdf sdfhsd fsdh"  # Assuming plain text message
-            send_mail(subject, message, from_email, recipient_list)
-            print(f"tender news sent to {to_email}")
-    except Exception as e:
-        print("Email Exception ", e)
-        return (False, e)
 
 def sendm():
-        # Get the subject and message from the form
-        subject = "hgdjdgd"
-        message = "fgfjgfh ghfg"
+    # Get the subject from the form
+    subject = "Subject of the email"
+    
+    # Set up SMTP settings for Outlook
+    smtp_server = "smtp.office365.com"
+    port = 587
+    username = "yeabsraalebachew@outlook.com"
+    password = "1995beyene"  
+    recipient_list = ['naolkuma02@gmail.com']
 
-        # Set up SMTP settings for Outlook
-        smtp_server = "smtp.office365.com"
-        port = 587
-        username = "yeabsraalebachew@outlook.com"
-        password = "1995beyene"
-        recipient_list = ['yeabsraalebachew9@gmail.com']
+    # Load HTML template
+    html_message = render_to_string('email.html', {'variable': 'value'})  
 
-        # Create an EmailMessage object with the necessary information
-        email = EmailMessage(
-            subject,
-            message,
-            'yeabsraalebachew@outlook.com', 
-            recipient_list,
-            
-        )
+   
+    email = EmailMultiAlternatives(
+        subject,
+        "Text content of the email",  
+        'yeabsraalebachew@outlook.com',
+        recipient_list,
+    )
 
-        # Set the SMTP server and port
-        server = smtplib.SMTP(smtp_server, port)
-        server.starttls()
+    
+    email.attach_alternative(html_message, "text/html")
 
-        try:
-            # Log in to your Outlook account using your email address and password
-            server.login(username, password)
+    
+    server = smtplib.SMTP(smtp_server, port)
+    server.starttls()
 
-            # Send the email using the sendmail() method
-            server.sendmail(email.from_email, email.to, email.message().as_string())
-            message = "Email sent successfully!"
+    try:
+       
+        server.login(username, password)
 
-        except Exception as e:
-            message = "An error occurred: " + str(e)
-            print(message)
-            
+        #
+        server.sendmail(email.from_email, email.to, email.message().as_string())
+        message = "Email sent successfully!"
 
-        finally:
-            # Close the connection to the SMTP server
-            server.quit()
+    except Exception as e:
+        message = "An error occurred: " + str(e)
+        print(message)
+
+    finally:
+        
+        server.quit()
+
+
+
+
 
         
 
