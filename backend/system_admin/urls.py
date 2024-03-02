@@ -4,5 +4,7 @@ from . import views
 
 urlpatterns = [
     path('branch/', branchView.as_view()),
+    path('branch/add', views.addBranch),
+    
 
 ]
