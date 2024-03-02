@@ -11,7 +11,19 @@ class branchView(APIView):
         serializer = branchSerializer(criminals, many=True)
         return Response(serializer.data)
 
-
+@api_view(['POST'])
+def addBranch(request):
+    print(request.data)
+    print(request.data)
+    print(request.data)
+    print(request.data)
+    print(request.data)
+    serializer = branchSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response({"success": "Branch record added"} )
+    else:
+        return Response(serializer.errors, status=400)
 
 
 
