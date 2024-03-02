@@ -23,17 +23,20 @@ def addCriminal(request):
 
 
 def send(request):
-    sendm()
-    print("here")
-    print("here")
-    print("here")
-    print("here")
-    print("here")
-    print("here")
-    print("here")
-    print("here")
-    print("here")
-    print("here")
+    
+    print(request.user.email)
+    print(request.user.email)
+    print(request.user.email)
+    print(request.user.email)
+    print(request.user.email)
+    print(request.user.email)
+    print(request.user.email)
+    print(request.user.email)
+    print(request.user.email)
+    print(request.user.email)
+    
+   
+    
 
 
 

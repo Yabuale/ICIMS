@@ -43,6 +43,10 @@ INSTALLED_APPS = [
     'wanted',
     'criminal',
     'accounts',
+    'system_admin',
+    'local_admin',
+    'police',
+    'clerk'
 ]
 
 MIDDLEWARE = [
