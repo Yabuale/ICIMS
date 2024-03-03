@@ -18,12 +18,9 @@ class CustomUserManager(BaseUserManager):
         return self.create_user(email, password, **extra_fields)
 
 class CustomUser(AbstractUser):
-    user_id = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
     email = models.EmailField(unique=True)
     password = models.CharField(max_length=128)
     id_no = models.CharField(max_length=128)
-    name = models.CharField(max_length=30)
-    lastname = models.CharField(max_length=30)
     phone_number = models.CharField(max_length=15, blank=True)
     ROLE_CHOICES = [
         ('police', 'Police'),
@@ -36,10 +33,9 @@ class CustomUser(AbstractUser):
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
     created_date = models.DateField(auto_now_add=True)
-
     objects = CustomUserManager()
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['name', 'lastname', 'role']
+    REQUIRED_FIELDS = ['id_no', 'role']
 
     def __str__(self):
         return self.email

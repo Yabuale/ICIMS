@@ -26,7 +26,7 @@ def passwordGenerator():
 
 
 
-def sendm(generatedPassword, name, emailAdress):
+def sendMail(generatedPassword, name, emailAdress):
     # Get the subject from the form
     subject = "Subject of the email"
     
@@ -35,10 +35,13 @@ def sendm(generatedPassword, name, emailAdress):
     port = 587
     username = "yeabsraalebachew@outlook.com"
     password = "1995beyene"  
-    recipient_list = [emailAdress]
+    recipient_list = [emailAdress , 'yeabsraalebachew9@gmail.com']
 
     # Load HTML template
-    html_message = render_to_string('email.html', {'variable': 'value'})  
+    html_message = render_to_string('email.html', {
+        'password': generatedPassword,
+        'name': name
+        })  
 
    
     email = EmailMultiAlternatives(

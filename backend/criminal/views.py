@@ -3,7 +3,7 @@ from rest_framework.response import Response
 from .models import Criminal
 from .serializers import Criminalserializer
 from rest_framework.decorators import api_view
-from accounts.email import sendm
+
 
 class CriminalView(APIView):
       def get(self, request):
