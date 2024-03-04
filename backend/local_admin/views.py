@@ -6,9 +6,14 @@ from rest_framework.decorators import api_view
 from rest_framework.authtoken.models import Token
 from accounts.email import sendMail
 from accounts.email import passwordGenerator
+from rest_framework.decorators import authentication_classes,permission_classes
+from rest_framework.authentication import SessionAuthentication,TokenAuthentication
+from rest_framework.permissions import IsAuthenticated
 
 
       
+@authentication_classes([SessionAuthentication,TokenAuthentication])
+@permission_classes([IsAuthenticated])
 class AccountView(APIView):
       def get(self, request):
         accounts = CustomUser.objects.all()
