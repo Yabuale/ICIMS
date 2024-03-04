@@ -7,12 +7,32 @@ from rest_framework.decorators import api_view
 from rest_framework.authtoken.models import Token
 from accounts.email import sendMail
 from accounts.email import passwordGenerator
+from django.shortcuts import get_object_or_404
 
 class branchView(APIView):
       def get(self, request):
         criminals = Branch.objects.all()
         serializer = branchSerializer(criminals, many=True)
         return Response(serializer.data)
+
+class branchDetail(APIView):
+    def get(self,request,pk):
+        branch =get_object_or_404(Branch, pk=pk)
+        serializer = branchSerializer(instance=branch)
+        return Response(serializer.data)
+    def patch(self,request,pk):
+        criminal = get_object_or_404(Branch, pk=pk)
+        serializer = branchSerializer(criminal , data=request.data, partial = True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({"msg": "success" , "updated":serializer.data})
+        return Response(serializer.errors, status=400)
+    def delete(self,request,pk):
+        criminal = get_object_or_404(Branch, pk=pk)
+        criminal.delete()
+        return Response({"msg":"deleted successfully"})
+        
+
       
 class localAccountView(APIView):
       def get(self, request):
