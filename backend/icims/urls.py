@@ -22,4 +22,5 @@ urlpatterns = [
     path('', include('wanted.urls')),
     path('criminals/', include('criminal.urls')),
     path('systemadmin/', include('system_admin.urls')),
+    path('localadmin/', include('local_admin.urls')),
 ]
