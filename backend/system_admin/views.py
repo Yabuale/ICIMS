@@ -21,15 +21,15 @@ class branchDetail(APIView):
         serializer = branchSerializer(instance=branch)
         return Response(serializer.data)
     def patch(self,request,pk):
-        criminal = get_object_or_404(Branch, pk=pk)
-        serializer = branchSerializer(criminal , data=request.data, partial = True)
+        branch = get_object_or_404(Branch, pk=pk)
+        serializer = branchSerializer(Branch , data=request.data, partial = True)
         if serializer.is_valid():
             serializer.save()
             return Response({"msg": "success" , "updated":serializer.data})
         return Response(serializer.errors, status=400)
     def delete(self,request,pk):
-        criminal = get_object_or_404(Branch, pk=pk)
-        criminal.delete()
+        branch = get_object_or_404(Branch, pk=pk)
+        branch.delete()
         return Response({"msg":"deleted successfully"})
         
 
@@ -39,6 +39,21 @@ class localAccountView(APIView):
         accounts = CustomUser.objects.all()
         serializer = accountSerializer(accounts, many=True)
         return Response(serializer.data)
+
+class localAccountDetail(APIView):
+    def get(self,request,pk):
+        account = get_object_or_404(CustomUser, pk=pk)
+        serializer = accountSerializer(instance=account)
+        return Response(serializer.data)
+    
+    def patch(self,request,pk):
+        account = get_object_or_404(CustomUser, pk=pk)
+        serializer = accountSerializer(account , data=request.data, partial = True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({"msg": "success" , "updated":serializer.data})
+        return Response(serializer.errors, status=400)
+
 
 @api_view(['POST'])
 def addBranch(request):
