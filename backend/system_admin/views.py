@@ -22,7 +22,7 @@ class branchDetail(APIView):
         return Response(serializer.data)
     def patch(self,request,pk):
         branch = get_object_or_404(Branch, pk=pk)
-        serializer = branchSerializer(Branch , data=request.data, partial = True)
+        serializer = branchSerializer(branch , data=request.data, partial = True)
         if serializer.is_valid():
             serializer.save()
             return Response({"msg": "success" , "updated":serializer.data})
