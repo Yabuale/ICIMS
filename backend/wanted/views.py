@@ -9,7 +9,7 @@ class WantedCriminalView(APIView):
       def get(self, request):
         criminals = WantedCriminal.objects.all()
         serializer = WantedSerializer(criminals, many=True)
-        return Response(serializer.data)
+        return Response({"wanted":serializer.data})
 
 class WantedDetail(APIView):
     def get (self, request, pk):
