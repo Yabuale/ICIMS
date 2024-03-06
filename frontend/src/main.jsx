@@ -28,6 +28,7 @@ import AddAccount from './components/localAdmin/AddAccount';
 import SearchClerk from './components/clerk/ClerkSearch';
 import AddBranch from './components/Admin/AddBranch';
 import ClerkRequest from './components/clerk/ClerkRequests';
+import Readmore from './pages/Readmore';
 const router = createBrowserRouter([
   {
     path: "/",
@@ -49,6 +50,10 @@ const router = createBrowserRouter([
       {
         path: "login/",
         element: <Login />,
+      },
+      {
+        path: "readmore/",
+        element: <Readmore />,
       },
     ],
   },
