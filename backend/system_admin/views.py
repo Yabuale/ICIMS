@@ -60,7 +60,7 @@ def addBranch(request):
     serializer = branchSerializer(data=request.data)
     if serializer.is_valid():
         serializer.save()
-        return Response({"success": "Branch record added"} )
+        return Response({"success": "Branch record added"}, status=201 )
     else:
         return Response(serializer.errors, status=400)
 
