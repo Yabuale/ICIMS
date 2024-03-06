@@ -36,9 +36,9 @@ def addWanted(request):
     serializer = WantedSerializer(data=request.data)
     if serializer.is_valid():
         serializer.save()
-        return Response({"success": "Wanted criminal added successfully"} )
+        return Response({"success": "Wanted criminal posted successfully"} , status=201)
     else:
-        return Response(serializer.errors, status=400)
+        return Response({"msg":"Seems like there is an error in the input you entered, please check your input and try again"}, status=400)
     
 
     
