@@ -7,6 +7,11 @@ class branchSerializer(serializers.ModelSerializer):
         model = Branch
         fields = '__all__'
 
+class branchNameSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Branch
+        fields = ['branch_name']
+
 class accountSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
