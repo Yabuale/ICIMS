@@ -22,6 +22,9 @@ For macOS and Linux:<br>
 
 # Install the required packages:<br>
 <code>pip install -r requirements.txt</code><br>
+<code> python manage.py makemigrations </code> this will create migrations and creates the database.<br>
+
+<code> python manage.py migrate </code> Applies any pending database migrations.<br>
 
 # Development
 To start the Django development server, run the following command:<br>
@@ -29,7 +32,7 @@ To start the Django development server, run the following command:<br>
 This will start the server at http://localhost:8000/ and you can access the API endpoints from your browser or API testing tool.<br>
 
 # Additional Scripts
-<code> python manage.py migrate </code> Applies any pending database migrations.<br>
+
 <code> python manage.py createsuperuser </code> Creates a superuser account for accessing the Django admin panel. <br>
 <code> python manage.py collectstatic </code> Collects static files into a single directory for easy serving.
 Contributing
