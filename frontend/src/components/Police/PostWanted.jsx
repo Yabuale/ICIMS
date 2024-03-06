@@ -1,5 +1,8 @@
 import axios from 'axios'
 import { useState } from 'react';
+import ConfModal from '../conformModal';
+
+
 
 const PostWanted = () =>{
  const [name, setName] = useState('')
@@ -12,8 +15,10 @@ const PostWanted = () =>{
  const [reward, setReward] = useState(0.00)
  const [contact_information, setContact_information] = useState('')
  const [description, setDescription] = useState('')
+ const [showconfModal, showconformModal] = useState(false);
 const url = 'http://127.0.0.1:8000/police/addwanted'
  const handleSubmit = async (e) =>{
+  showconformModal(false)
   e.preventDefault();
     const ages=parseInt(age);
     const rewards = parseInt(reward);
@@ -23,13 +28,18 @@ const url = 'http://127.0.0.1:8000/police/addwanted'
   console.log(resp.data)
    } catch(error){
     console.log(error.response)
+    console.log(error.response.header)
    }
  } 
+ const handleOpenModal = () => {
+  showconformModal(true); // Open the modal on button click
+};
 
 return( 
  <>
  
  <br/>
+
 
   <div className="grid  mx-24 lg:mx-auto   bg-sky-50   rounded-lg shadow-xl w-4/5  md:w-9/12 lg:w-1/2">
     <div className="flex justify-center py-4">
@@ -70,8 +80,10 @@ return(
       </div>
       <div className="grid grid-cols-1">
       <label className="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">gender</label>
-      <select className="py-2 px-3 rounded-lg border-2 border-sky-300 mt-1 focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent" value={gender} id="gender" onChange={(e)=> setGender(e.target.value)}>
-        <option>male</option>
+      <select className="py-2 px-3 rounded-lg border-2 border-sky-300 mt-1 focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent" value={gender} id="gender" onChange={(e)=> setGender(e.target.value)} placeholder="gender">
+        
+      <option> </option>
+      <option>male</option>
         <option>female</option>
         
       </select>
@@ -123,12 +135,16 @@ return(
 
     <div className='flex items-center justify-center  md:gap-8 gap-4 pt-5 pb-5'>
       <button className='w-auto bg-gray-500 hover:bg-gray-700 rounded-lg shadow-xl font-medium text-white px-4 py-2'>Cancel</button>
-      <button className='w-auto bg-sky-500 hover:bg-sky-700 rounded-lg shadow-xl font-medium text-white px-4 py-2' type='submit'>Create</button>
+      <div>
+      <button className='w-auto bg-sky-500 hover:bg-sky-700 rounded-lg shadow-xl font-medium text-white px-4 py-2' type='button' onClick={handleOpenModal}>Create</button>
+      {showconfModal && <ConfModal showconfModal={showconfModal} message={'you are about to post a wanted criminal please conform by clicking post'} clickbutton={'post'} onClose={() => showconformModal(false)} />}
+      </div>
     </div>
     </form>
   </div>
 
   <br/>
+  
 
  </>
 
