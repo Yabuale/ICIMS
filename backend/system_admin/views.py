@@ -2,7 +2,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from accounts.models import Branch
 from accounts.models import CustomUser
-from accounts.serializers import branchSerializer,accountSerializer
+from accounts.serializers import branchSerializer,accountSerializer,branchNameSerializer
 from rest_framework.decorators import api_view
 from rest_framework.authtoken.models import Token
 from accounts.email import sendMail
@@ -11,8 +11,14 @@ from django.shortcuts import get_object_or_404
 
 class branchView(APIView):
       def get(self, request):
-        criminals = Branch.objects.all()
-        serializer = branchSerializer(criminals, many=True)
+        branch = Branch.objects.all()
+        serializer = branchSerializer(branch, many=True)
+        return Response(serializer.data)
+
+class branchNameView(APIView):
+      def get(self, request):
+        branch = Branch.objects.all()
+        serializer = branchNameSerializer(branch, many=True)
         return Response(serializer.data)
 
 class branchDetail(APIView):
@@ -77,9 +83,10 @@ def addAccount(request):
         sendMail(password, user.first_name, user.email)
         token = Token.objects.create(user=user)
         user.save()
-        return Response({"token": token.key, "user" :serializer.data} )
+        return Response({"success":"You have sucessfully created local account"}, status=201 )
     else:
         return Response(serializer.errors, status=400)
+    
 
 
 

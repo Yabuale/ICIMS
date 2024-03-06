@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import ConfModal from '../conformModal';
 import ErrorModal from '../errorModal';
 import SuccessModal from '../successModal';
@@ -10,36 +10,53 @@ const AddLocalAdmin = () =>{
  const [errStatus, setErrStatus]=useState('500')
  const[errMsg, setErrMsg]=useState('The server might be down, please try again later we will try to solve the problem as soon as possible')
  const[succMsg,setSuccMsg]=useState("sdfsdfsdfsdfsdfsdfsdf")
- const [username, setUername] = useState('')
+
  const [first_name, setFirst_name] = useState('')
  const [last_name, setLast_name]= useState('')
  const [email, setEmail]= useState('')
- const [age, setAge] = useState(0)
- const [gender, setGender] = useState('')
- const [alias, setAlias] = useState('')
- const [last_known_location, setLast_known_location] = useState('')
- const [nationality, setNationality] = useState('')
- const [criminal_offenses, setCriminal_offenses] = useState('')
- const [reward, setReward] = useState(0.00)
- const [contact_information, setContact_information] = useState('')
- const [description, setDescription] = useState('')
+ const password="dsfsd";
+ const [id_no, setId_no]= useState('')
+ const [phone_number, setPhone_number] = useState('')
+ const role = 'local'
+ const [branch, setBranch] = useState('')
+ const is_active=true; 
+ const username = email;
+ const [branchNames, setBranchNames] = useState([]);
  const [showconfModal, showconformModal] = useState(false);
  const [showerrModal,showerrorModal] = useState(false)
  const [showsccModal, showsuccessModal] = useState(false)
+ useEffect (() => {
+  const fetchBranchNames = async () => {
+    try {
+      const response = await axios.get('http://127.0.0.1:8000/systemadmin/branch/names/');
+      setBranchNames(response.data.map(branch => ({
+        value: branch.branch_name,
+        label: branch.branch_name,
+      })));
+    } catch (error) {
+      console.error('Error fetching branch names:', error);
+      setError(error); 
+    } finally {
+      
+    }
+  };
+
+  fetchBranchNames();
+}, []);
  
-const url = 'http://127.0.0.1:8000/police/addwanted'
+const url = 'http://127.0.0.1:8000/systemadmin/accounts/add/'
  const handleSubmit = async (e) =>{
   showconformModal(false)
   e.preventDefault();
-    const ages=parseInt(age);
-    const rewards = parseInt(reward);
+  
    try{
-  const resp =await axios.post(url, {name:name,alias:alias,description:description,age:ages,gender:gender,nationality:nationality,criminal_offenses:criminal_offenses,last_known_location:last_known_location,reward:rewards,contact_information:contact_information});
+  const resp =await axios.post(url, {username:username,first_name:first_name,last_name:last_name,email:email,password:password,id_no:id_no,phone_number:phone_number,role:role,branch:branch,is_active:is_active});
   if(resp.status === 201){
     setSuccMsg(resp.data.success)
     showsuccessModal(true)
   }
    } catch(error){
+    console.log(error.response)
     showerrorModal(true)
    if(error.response.status === 400 ){
     setErrStatus(error.response.status);
@@ -56,7 +73,6 @@ return(
  <>
  
  <br/>
-
 
   <div className="grid  mx-24 lg:mx-auto   bg-sky-50   rounded-lg shadow-xl w-4/5  md:w-9/12 lg:w-1/2">
     <div className="flex justify-center py-4">
@@ -85,76 +101,52 @@ return(
       </div>
     </div>
      <form onSubmit={handleSubmit}>
-    <div className="grid grid-cols-1 mt-5 mx-7">
-      <label className="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">Name</label>
-      <input className="py-2 px-3 rounded-lg border-2 border-sky-300 mt-1 focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent" type="text" placeholder="name" value={name} id="name" onChange={(e)=> setName(e.target.value)} />
-    </div>
-
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 mt-5 mx-7">
+    
+     <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 mt-5 mx-7">
       <div className="grid grid-cols-1">
-        <label className="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">age</label>
-        <input className="py-2 px-3 rounded-lg border-2 border-sky-300 mt-1 focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent" type="number" placeholder="age"  value={age} id="age" onChange={(e)=> setAge(e.target.value)}/>
+        <label className="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">First name</label>
+        <input className="py-2 px-3 rounded-lg border-2 border-sky-300 mt-1 focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent" type="text" placeholder="name"  value={first_name} id="firstname" onChange={(e)=> setFirst_name(e.target.value)}/>
       </div>
       <div className="grid grid-cols-1">
-      <label className="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">gender</label>
-      <select className="py-2 px-3 rounded-lg border-2 border-sky-300 mt-1 focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent" value={gender} id="gender" onChange={(e)=> setGender(e.target.value)} placeholder="gender">
+        <label className="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">Last name</label>
+        <input className="py-2 px-3 rounded-lg border-2 border-sky-300 mt-1 focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent" type="text" placeholder="last name"  value={last_name} id="lastname" onChange={(e)=> setLast_name(e.target.value)}/>
+      </div>
+    </div>
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 mt-5 mx-7">
+      <div className="grid grid-cols-1">
+        <label className="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">Phone number</label>
+        <input className="py-2 px-3 rounded-lg border-2 border-sky-300 mt-1 focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent" type="text" placeholder="name"  value={phone_number} id="firstname" onChange={(e)=> setPhone_number(e.target.value)}/>
+      </div>
+      <div className="grid grid-cols-1">
+      <label className="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">branch</label>
+      <select className="py-2 px-3 rounded-lg border-2 border-sky-300 mt-1 focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent" value={branch} id="gender" onChange={(e)=> setBranch(e.target.value)} placeholder="gender">
         
-      <option> </option>
-      <option>male</option>
-        <option>female</option>
+      <option value="">Select Branch</option>
+        {branchNames.map(branch => (
+          <option key={branch.value} value={branch.value}>
+            {branch.label}
+          </option>
+        ))}
         
       </select>
     </div>
     </div>
     <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 mt-5 mx-7">
       <div className="grid grid-cols-1">
-        <label className="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">alias</label>
-        <input className="py-2 px-3 rounded-lg border-2 border-sky-300 mt-1 focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent" type="text" placeholder="alias" value={alias} id="alias" onChange={(e)=> setAlias(e.target.value)} />
+        <label className="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">email</label>
+        <input className="py-2 px-3 rounded-lg border-2 border-sky-300 mt-1 focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent" type="email" placeholder="example@gmail.com" value={email} id="email" onChange={(e)=> setEmail(e.target.value)} />
       </div>
       <div className="grid grid-cols-1">
-        <label className="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">nationality</label>
-        <input className="py-2 px-3 rounded-lg border-2 border-sky-300 mt-1 focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent" type="text" placeholder="nationality" value={nationality} id="nationality" onChange={(e)=> setNationality(e.target.value)} />
+        <label className="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">Id No.</label>
+        <input className="py-2 px-3 rounded-lg border-2 border-sky-300 mt-1 focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent" type="text" placeholder="Id_no" value={id_no} id="nationality" onChange={(e)=> setId_no(e.target.value)} />
       </div>
-    </div>
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 mt-5 mx-7">
-      <div className="grid grid-cols-1">
-        <label className="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">Last seen</label>
-        <input className="py-2 px-3 rounded-lg border-2 border-sky-300 mt-1 focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent" type="text" placeholder="Last seen" value={last_known_location} id="last_known_location" onChange={(e)=> setLast_known_location(e.target.value)} />
-      </div>
-      <div className="grid grid-cols-1">
-        <label className="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">Reward</label>
-        <input className="py-2 px-3 rounded-lg border-2 border-sky-300 mt-1 focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent" type="number" placeholder="reward" value={reward} id="reward" onChange={(e)=> setReward(e.target.value)} />
-      </div>
-    </div>
-
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 mt-5 mx-7">
-      <div className="grid grid-cols-1">
-        <label className="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">criminal offense</label>
-        <input className="py-2 px-3 rounded-lg border-2 border-sky-300 mt-1 focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent" type="text" placeholder="offense" value={criminal_offenses} id="criminal_offenses" onChange={(e)=> setCriminal_offenses(e.target.value)}/>
-      </div>
-      <div className="grid grid-cols-1">
-        <label className="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">contact information</label>
-        <input className="py-2 px-3 rounded-lg border-2 border-sky-300 mt-1 focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent" type="text" placeholder="contact information" value={contact_information} id="contact_information" onChange={(e)=> setContact_information(e.target.value)} />
-      </div>
-    </div>
-
-    
-
-    <div className="grid grid-cols-1 mt-5 mx-7">
-      <label className="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">description</label>
-      <textarea  className="py-2 px-3 rounded-lg border-2 border-sky-300 mt-1 focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent" type="text" placeholder="description" rows="5" value={description} id="description" onChange={(e)=> setDescription(e.target.value)} />
-    </div>
-
-    <div className="grid grid-cols-1 mt-5 mx-7">
-      <label className="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold mb-1">Upload Photo</label>
-        
     </div>
 
     <div className='flex items-center justify-center  md:gap-8 gap-4 pt-5 pb-5'>
       <button className='w-auto bg-gray-500 hover:bg-gray-700 rounded-lg shadow-xl font-medium text-white px-4 py-2'>Cancel</button>
       <div>
       <button className='w-auto bg-sky-500 hover:bg-sky-700 rounded-lg shadow-xl font-medium text-white px-4 py-2' type='button' onClick={handleOpenModal}>Create</button>
-      {showconfModal && <ConfModal showconfModal={showconfModal} message={'you are about to post a wanted criminal please conform by clicking post'} clickbutton={'post'} onClose={() => showconformModal(false)} />}
+      {showconfModal && <ConfModal showconfModal={showconfModal} message={'you are about to create a local admin for branch ' + branch +' please click Add to conform'} clickbutton={'Add'} onClose={() => showconformModal(false)} />}
       {showerrModal && <ErrorModal showerrModal={showerrModal} errMsg={errMsg} errStatus={errStatus} onClose={() => showerrorModal(false)} />}
       {showsccModal && <SuccessModal showsccModal={showsccModal} succMsg={succMsg} onClose={() => showsuccessModal(false)} />}
       </div>
