@@ -1,10 +1,15 @@
 import axios from 'axios'
 import { useState } from 'react';
 import ConfModal from '../conformModal';
+import ErrorModal from '../errorModal';
+import SuccessModal from '../successModal';
 
 
 
 const PostWanted = () =>{
+ const [errStatus, setErrStatus]=useState('500')
+ const[errMsg, setErrMsg]=useState('The server might be down, please try again later we will try to solve the problem as soon as possible')
+ const[succMsg,setSuccMsg]=useState("sdfsdfsdfsdfsdfsdfsdf")
  const [name, setName] = useState('')
  const [age, setAge] = useState(0)
  const [gender, setGender] = useState('')
@@ -16,6 +21,9 @@ const PostWanted = () =>{
  const [contact_information, setContact_information] = useState('')
  const [description, setDescription] = useState('')
  const [showconfModal, showconformModal] = useState(false);
+ const [showerrModal,showerrorModal] = useState(false)
+ const [showsccModal, showsuccessModal] = useState(false)
+ 
 const url = 'http://127.0.0.1:8000/police/addwanted'
  const handleSubmit = async (e) =>{
   showconformModal(false)
@@ -23,13 +31,19 @@ const url = 'http://127.0.0.1:8000/police/addwanted'
     const ages=parseInt(age);
     const rewards = parseInt(reward);
    try{
-    
   const resp =await axios.post(url, {name:name,alias:alias,description:description,age:ages,gender:gender,nationality:nationality,criminal_offenses:criminal_offenses,last_known_location:last_known_location,reward:rewards,contact_information:contact_information});
-  console.log(resp.data)
+  if(resp.status === 201){
+    setSuccMsg(resp.data.success)
+    showsuccessModal(true)
+  }
    } catch(error){
-    console.log(error.response)
-    console.log(error.response.header)
-   }
+    showerrorModal(true)
+   if(error.response.status === 400 ){
+    setErrStatus(error.response.status);
+    setErrMsg(error.response.data.success);
+     }
+    
+  }
  } 
  const handleOpenModal = () => {
   showconformModal(true); // Open the modal on button click
@@ -138,6 +152,8 @@ return(
       <div>
       <button className='w-auto bg-sky-500 hover:bg-sky-700 rounded-lg shadow-xl font-medium text-white px-4 py-2' type='button' onClick={handleOpenModal}>Create</button>
       {showconfModal && <ConfModal showconfModal={showconfModal} message={'you are about to post a wanted criminal please conform by clicking post'} clickbutton={'post'} onClose={() => showconformModal(false)} />}
+      {showerrModal && <ErrorModal showerrModal={showerrModal} errMsg={errMsg} errStatus={errStatus} onClose={() => showerrorModal(false)} />}
+      {showsccModal && <SuccessModal showsccModal={showsccModal} succMsg={succMsg} onClose={() => showsuccessModal(false)} />}
       </div>
     </div>
     </form>
