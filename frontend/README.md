@@ -15,7 +15,7 @@ Prerequisites<br>
 Installation<br>
 Clone the repository:
 git clone <br>
-Navigate to the project directory:<br>
+Navigate to the project directory :<br>
 <code>cd frontend</code>
 Install the dependencies:<br>
 
