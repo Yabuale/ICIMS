@@ -10,7 +10,7 @@ const AddLocalAdmin = () =>{
  const [errStatus, setErrStatus]=useState('500')
  const[errMsg, setErrMsg]=useState('The server might be down, please try again later we will try to solve the problem as soon as possible')
  const[succMsg,setSuccMsg]=useState("sdfsdfsdfsdfsdfsdfsdf")
-
+const[isLoading,setLoading]=useState(false)
  const [first_name, setFirst_name] = useState('')
  const [last_name, setLast_name]= useState('')
  const [email, setEmail]= useState('')
@@ -46,21 +46,23 @@ const AddLocalAdmin = () =>{
  
 const url = 'http://127.0.0.1:8000/systemadmin/accounts/add/'
  const handleSubmit = async (e) =>{
-  showconformModal(false)
+  setLoading(true)
   e.preventDefault();
-  
    try{
   const resp =await axios.post(url, {username:username,first_name:first_name,last_name:last_name,email:email,password:password,id_no:id_no,phone_number:phone_number,role:role,branch:branch,is_active:is_active});
   if(resp.status === 201){
     setSuccMsg(resp.data.success)
+    setLoading(false)
+    showconformModal(false)
     showsuccessModal(true)
   }
    } catch(error){
     console.log(error.response)
+    setLoading(false)
     showerrorModal(true)
    if(error.response.status === 400 ){
     setErrStatus(error.response.status);
-    setErrMsg(error.response.data.success);
+    setErrMsg("Bad request, recheck your inputs and try again");
      }
     
   }
@@ -146,7 +148,7 @@ return(
       <button className='w-auto bg-gray-500 hover:bg-gray-700 rounded-lg shadow-xl font-medium text-white px-4 py-2'>Cancel</button>
       <div>
       <button className='w-auto bg-sky-500 hover:bg-sky-700 rounded-lg shadow-xl font-medium text-white px-4 py-2' type='button' onClick={handleOpenModal}>Create</button>
-      {showconfModal && <ConfModal showconfModal={showconfModal} message={'you are about to create a local admin for branch ' + branch +' please click Add to conform'} clickbutton={'Add'} onClose={() => showconformModal(false)} />}
+      {showconfModal && <ConfModal showconfModal={showconfModal} isLoading={isLoading} message={'you are about to create a local admin for branch ' + branch +' please click Add to conform'} clickbutton={'Add'} onClose={() => showconformModal(false)} />}
       {showerrModal && <ErrorModal showerrModal={showerrModal} errMsg={errMsg} errStatus={errStatus} onClose={() => showerrorModal(false)} />}
       {showsccModal && <SuccessModal showsccModal={showsccModal} succMsg={succMsg} onClose={() => showsuccessModal(false)} />}
       </div>
