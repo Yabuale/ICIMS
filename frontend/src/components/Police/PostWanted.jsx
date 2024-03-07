@@ -3,13 +3,11 @@ import { useState } from 'react';
 import ConfModal from '../conformModal';
 import ErrorModal from '../errorModal';
 import SuccessModal from '../successModal';
-
-
-
 const PostWanted = () =>{
  const [errStatus, setErrStatus]=useState('500')
  const[errMsg, setErrMsg]=useState('The server might be down, please try again later we will try to solve the problem as soon as possible')
  const[succMsg,setSuccMsg]=useState("sdfsdfsdfsdfsdfsdfsdf")
+ const[isLoading,setLoading]=useState(false)
  const [name, setName] = useState('')
  const [age, setAge] = useState(0)
  const [gender, setGender] = useState('')
@@ -26,17 +24,24 @@ const PostWanted = () =>{
  
 const url = 'http://127.0.0.1:8000/police/addwanted'
  const handleSubmit = async (e) =>{
-  showconformModal(false)
+  
   e.preventDefault();
+  setLoading(true)
+  
     const ages=parseInt(age);
     const rewards = parseInt(reward);
    try{
+    
   const resp =await axios.post(url, {name:name,alias:alias,description:description,age:ages,gender:gender,nationality:nationality,criminal_offenses:criminal_offenses,last_known_location:last_known_location,reward:rewards,contact_information:contact_information});
   if(resp.status === 201){
     setSuccMsg(resp.data.success)
+    setLoading(false)
+    showconformModal(false)
     showsuccessModal(true)
   }
    } catch(error){
+    setLoading(false)
+    showconformModal(false)
     showerrorModal(true)
    if(error.response.status === 400 ){
     setErrStatus(error.response.status);
@@ -151,7 +156,7 @@ return(
       <button className='w-auto bg-gray-500 hover:bg-gray-700 rounded-lg shadow-xl font-medium text-white px-4 py-2'>Cancel</button>
       <div>
       <button className='w-auto bg-sky-500 hover:bg-sky-700 rounded-lg shadow-xl font-medium text-white px-4 py-2' type='button' onClick={handleOpenModal}>Create</button>
-      {showconfModal && <ConfModal showconfModal={showconfModal} message={'you are about to post a wanted criminal please conform by clicking post'} clickbutton={'post'} onClose={() => showconformModal(false)} />}
+      {showconfModal && <ConfModal showconfModal={showconfModal} isLoading={isLoading} message={'you are about to post a wanted criminal please conform by clicking post'} clickbutton={'post'} onClose={() => showconformModal(false)} />}
       {showerrModal && <ErrorModal showerrModal={showerrModal} errMsg={errMsg} errStatus={errStatus} onClose={() => showerrorModal(false)} />}
       {showsccModal && <SuccessModal showsccModal={showsccModal} succMsg={succMsg} onClose={() => showsuccessModal(false)} />}
       </div>
