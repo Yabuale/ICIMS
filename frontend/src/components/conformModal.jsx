@@ -29,8 +29,10 @@ const ConfModal=({showconfModal,onClose , message,isLoading, clickbutton})=> {
                       Cancel
                   </button>
                   
-                  <button className="mb-2 md:mb-0 bg-sky-700 border border-sky-700 px-5 py-2 text-sm shadow-sm font-medium tracking-wider text-white rounded-full hover:shadow-lg  hover:bg-sky-600" type='submit'>
-                  <span class="border-white h-3 w-3 mx-auto animate-spin rounded-full border-8 border-t-sky-700" style={{ display: isLoading ? 'block' : 'none' }}> </span>
+                  
+
+                  <button className="mb-2 md:mb-0 bg-sky-700 border border-sky-700 px-5 py-2 text-sm shadow-sm font-medium tracking-wider text-white rounded-full hover:shadow-lg  hover:bg-sky-600" >
+                  <span class="border-white h-5 w-5 mx-auto animate-spin rounded-full border-4 border-t-sky-700" style={{ display: isLoading ? 'block' : 'none' }}> </span>
                   <span style={{ display: !isLoading ? 'block' : 'none' }}>{clickbutton}</span>
                   
                   </button>
