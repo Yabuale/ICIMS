@@ -71,20 +71,6 @@ const LocalAdminSlidebar = () =>{
         </div>
       </NavLink>
 
-      <a href="#" className="text-gary-400 group relative rounded-xl text-sky-600 p-2 bg-gray-50">
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-  <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
-</svg>
-
-        <div className="absolute inset-y-0 left-12 hidden items-center group-hover:flex">
-          <div className="relative whitespace-nowrap rounded-md bg-white px-4 py-2 text-sm font-semibold text-sky-900 drop-shadow-lg">
-            <div className="absolute inset-0 -left-1 flex items-center">
-              <div className="h-2 w-2 rotate-45 bg-white"></div>
-            </div>
-            Search
-          </div>
-        </div>
-      </a>
     </nav>
     <br/>
     <br/>

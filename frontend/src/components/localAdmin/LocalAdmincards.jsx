@@ -1,3 +1,6 @@
+import React from 'react';
+import { Link } from 'react-router-dom';
+
 const LocalAdmincards = () =>{
 
     return(
@@ -11,7 +14,9 @@ const LocalAdmincards = () =>{
            </svg>
     
           </div>
+          <Link to="accounts/">
           <button class="text-darken mb-3 text-xl font-medium lg:px-14 bg-blue-400 hover:bg-blue-300 text-white p-5 rounded-2xl" href="#">Local Accounts</button>
+          </Link>
           <p> <br/> 
           <br/>
           </p>
@@ -26,7 +31,9 @@ const LocalAdmincards = () =>{
              </svg>
     
           </div>
+          <Link to="accounts/">
           <button class="text-darken mb-3 text-xl font-medium lg:px-14 bg-blue-400 hover:bg-blue-300 text-white p-5 rounded-2xl" href="#">Search</button>
+          </Link>
           <p> <br/> 
           <br/>
           </p>
@@ -40,7 +47,9 @@ const LocalAdmincards = () =>{
              </svg>
     
           </div>
+          <Link to="create/">
           <button class="text-darken mb-3 text-xl font-medium lg:px-14 bg-blue-400 hover:bg-blue-300 text-white p-5 rounded-2xl" href="#">Add</button>
+          </Link>
           <p> <br/> 
           <br/>
           </p>
