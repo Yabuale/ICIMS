@@ -99,7 +99,7 @@ return(
 
     <div className="flex justify-center">
       <div className="flex">
-        <h1 className="text-gray-600 font-bold md:text-2xl text-xl">Post Wanted</h1>
+        <h1 className="text-gray-600 font-bold md:text-2xl text-xl">Add Local admin</h1>
       </div>
     </div>
      <form onSubmit={handleSubmit}>

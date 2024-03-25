@@ -45,9 +45,10 @@ def addAccount(request):
         user.set_password(password)
         #send password to users email
         sendMail(password, user.first_name, user.email)
+        print(user.email,password)
         token = Token.objects.create(user=user)
         user.save()
-        return Response({"token": token.key, "user" :serializer.data} )
+        return Response({"success":"local account has been created successfully","token": token.key, "user" :serializer.data} ,status=201)
     else:
         return Response(serializer.errors, status=400)
 

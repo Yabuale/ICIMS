@@ -52,7 +52,7 @@ const router = createBrowserRouter([
         element: <Login />,
       },
       {
-        path: "readmore/",
+        path: "readmore/:wantedId",
         element: <Readmore />,
       },
     ],
