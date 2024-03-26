@@ -1,3 +1,4 @@
+import { NavLink } from "react-router-dom";
 const WantedCard = (props) => {
     const { id,name,alias,description,age,criminal_offenses,last_known_location, date_posted} = props;
   
@@ -12,7 +13,7 @@ const WantedCard = (props) => {
           <div className="flex"><p className="mr-10"><span className="text-sky-800 font-bold">Last seen:</span> {last_known_location}  </p> 
           <p><span className="text-sky-800 font-bold">wanted for:</span> {criminal_offenses}</p></div>
           <p className="leading-relaxed text-base mt-2 mb-2">{description} </p>
-          <a href={`http://127.0.0.1:8000/detail/${id}`} target="_blank" className="text-blue-500 hover:text-blue-700 flex transition ease-in-out delay-100  hover:-translate-y-0 hover:translate-x-1 duration-300">Read more <span className=" block hover:translate-x-2 duration-300 ">-&gt;</span></a>
+          <NavLink to={`readmore/${id}`} className="text-blue-500 hover:text-blue-700 flex transition ease-in-out delay-100  hover:-translate-y-0 hover:translate-x-1 duration-300">Read more <span className=" block hover:translate-x-2 duration-300 ">-&gt;</span></NavLink>
         </div>
       </div>
     );

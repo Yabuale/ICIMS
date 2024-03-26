@@ -29,6 +29,8 @@ import SearchClerk from './components/clerk/ClerkSearch';
 import AddBranch from './components/Admin/AddBranch';
 import ClerkRequest from './components/clerk/ClerkRequests';
 import Readmore from './pages/Readmore';
+import EditWanted from './components/Police/editWanted';
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -109,6 +111,9 @@ const router = createBrowserRouter([
     path:"police/",
     element:<PoliceRoot />,
     children:[
+      {
+     errorElement: <NotFound />,
+    children:[
       { index: true, element: <Police/> },
       {
         path: "request/",
@@ -122,10 +127,16 @@ const router = createBrowserRouter([
         path: "list/",
         element: <WantedTable />,
       },
+      {
+        path:"edit/:wantedId",
+        element:<EditWanted/>
+      }
 
     ],
 
-  },{
+  }
+]}
+,{
     path:"localadmin/",
     element:<LocalRoot />,
     children:[

@@ -9,7 +9,7 @@ class WantedCriminalView(APIView):
       def get(self, request):
         criminals = WantedCriminal.objects.all()
         serializer = WantedSerializer(criminals, many=True)
-        return Response({"wanted":serializer.data})
+        return Response(serializer.data)
 
 class WantedDetail(APIView):
     def get (self, request, pk):
@@ -21,8 +21,8 @@ class WantedDetail(APIView):
         serializer = WantedSerializer(criminal , data=request.data, partial = True)
         if serializer.is_valid():
             serializer.save()
-            return Response({"msg": "success" , "updated":serializer.data})
-        return Response(serializer.errors, status=400)
+            return Response({"success": "Wanted criminal updated successfully"})
+        return Response({"msg":"Seems like there is an error in the input you entered, please check your input and try again"}, status=400)
     def delete(self,request,pk):
         criminal = get_object_or_404(WantedCriminal, pk=pk)
         criminal.delete()
