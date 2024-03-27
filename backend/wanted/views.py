@@ -4,6 +4,7 @@ from .models import WantedCriminal
 from .serializers import WantedSerializer
 from rest_framework.decorators import api_view
 from django.shortcuts import get_object_or_404
+from criminal.models import Criminal
 
 class WantedCriminalView(APIView):
       def get(self, request):
@@ -16,8 +17,20 @@ class WantedDetail(APIView):
         criminal = get_object_or_404(WantedCriminal, pk=pk)
         serializer = WantedSerializer(instance=criminal)
         return Response(serializer.data)
-    
 
+
+@api_view(['POST'])
+def checkStat(request):
+    try:
+        ssn = request.data["ssn"]
+        print(ssn)
+        a = get_object_or_404(Criminal,SSN=ssn)
+        if a:
+            return Response({"status": "Success"})
+        else:
+            return Response({"status": "not"})
+    except Exception as e:
+        return Response({"status": "Error", "message": str(e)})
     
 
     
