@@ -1,5 +1,6 @@
 
 from django.db import models
+from accounts.models import CustomUser
 # from django.contrib.auth.models import User
 
 class Criminal(models.Model):
@@ -26,7 +27,7 @@ class Criminal(models.Model):
     case_history = models.TextField(blank=False)
     #photo = models.ImageField(upload_to='criminal_photos/', blank=True)
     created_date = models.DateTimeField(auto_now_add=True)
-    #created_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    #created_by = models.ForeignKey(CustomUser, on_delete=models.SET_NULL, null=True)
 
     def str(self):
         return f'{self.first_name} {self.last_name}'

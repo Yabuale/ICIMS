@@ -48,7 +48,43 @@ const ClerkAdd = () =>{
            </div>
            <div class="grid grid-cols-1">
              <label class="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">date of birth</label>
-             <input class="py-2 px-3 rounded-lg border-2 border-sky-300 mt-1 focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent" type="text" placeholder="date of birth" />
+             <input class="py-2 px-3 rounded-lg border-2 border-sky-300 mt-1 focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent" type="date" placeholder="date of birth" />
+           </div>
+           <div class="grid grid-cols-1">
+             <label class="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">Nationality</label>
+             <input class="py-2 px-3 rounded-lg border-2 border-sky-300 mt-1 focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent" type="text" placeholder="nationality" />
+           </div>
+           <div class="grid grid-cols-1">
+             <label class="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">Height</label>
+             <input class="py-2 px-3 rounded-lg border-2 border-sky-300 mt-1 focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent" type="number" placeholder="date of birth" />
+           </div>
+           <div class="grid grid-cols-1">
+             <label class="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">weight</label>
+             <input class="py-2 px-3 rounded-lg border-2 border-sky-300 mt-1 focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent" type="number" placeholder="nationality" />
+           </div>
+           <div class="grid grid-cols-1">
+             <label class="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">eye color</label>
+             <input class="py-2 px-3 rounded-lg border-2 border-sky-300 mt-1 focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent" type="text" placeholder="eye color" />
+           </div>
+           <div class="grid grid-cols-1">
+             <label class="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">hair color</label>
+             <input class="py-2 px-3 rounded-lg border-2 border-sky-300 mt-1 focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent" type="text" placeholder="hair color" />
+           </div>
+           <div class="grid grid-cols-1">
+             <label class="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">Tattoos</label>
+             <input class="py-2 px-3 rounded-lg border-2 border-sky-300 mt-1 focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent" type="checkbox" />
+           </div>
+           <div class="grid grid-cols-1">
+             <label class="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">Scars</label>
+             <input class="py-2 px-3 rounded-lg border-2 border-sky-300 mt-1 focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent" type="checkbox" />
+           </div>
+           <div class="grid grid-cols-1">
+             <label class="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">Contact information</label>
+             <input class="py-2 px-3 rounded-lg border-2 border-sky-300 mt-1 focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent" type="text" placeholder="contact info" />
+           </div>
+           <div class="grid grid-cols-1">
+             <label class="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">Gang affiliations</label>
+             <input class="py-2 px-3 rounded-lg border-2 border-sky-300 mt-1 focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent" type="checkbox"  />
            </div>
          </div>
      
@@ -64,6 +100,10 @@ const ClerkAdd = () =>{
            <label class="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">Address</label>
            <input class="py-2 px-3 rounded-lg border-2 border-sky-300 mt-1 focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent" type="text" placeholder="Address" />
          </div>
+         <div className="grid grid-cols-1 mt-5 mx-7">
+      <label className="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">identifying_features</label>
+      <textarea  className="py-2 px-3 rounded-lg border-2 border-sky-300 mt-1 focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent" type="text" placeholder="identifying_features" rows="5" />
+    </div>
      
          <div class="grid grid-cols-1 mt-5 mx-7">
            <label class="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold mb-1">Upload Photo</label>
