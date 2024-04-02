@@ -30,7 +30,7 @@ import AddBranch from './components/Admin/AddBranch';
 import ClerkRequest from './components/clerk/ClerkRequests';
 import Readmore from './pages/Readmore';
 import EditWanted from './components/Police/editWanted';
-
+import ContactForm from './pages/ContactForm';
 const router = createBrowserRouter([
   {
     path: "/",
@@ -57,6 +57,11 @@ const router = createBrowserRouter([
         path: "readmore/:wantedId",
         element: <Readmore />,
       },
+      {
+        path: "resources/",
+        element: <ContactForm />,
+      },
+
     ],
   },
 ],
