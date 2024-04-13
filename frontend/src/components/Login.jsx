@@ -101,7 +101,10 @@ const Login=() =>{
              </svg>
 
 
-            <span className="hidden mx-2 sm:inline">Go back</span>
+            <button className="hidden mx-2 sm:inline" type="button"
+            onClick={() => {
+                navigate(-1);
+              }}>Go back</button>
         </button>
 
         <a href="#" className="p-2 mx-2 text-sm font-medium text-gray-500 transition-colors duration-300 transform bg-gray-300 rounded-lg hover:bg-gray-200">

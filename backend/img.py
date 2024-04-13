@@ -28,6 +28,7 @@ best_match_image = None
 for image_path in images:
     result = DeepFace.verify(image_path, test_image,enforce_detection=False)
     similarity_score = result["distance"]
+    print("\n",result)
     print(f"Image: {image_path}, Similarity score: {similarity_score}")
 
     # Check if this image has a better similarity score than the current best match

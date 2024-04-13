@@ -1,5 +1,8 @@
+import { useNavigate } from "react-router-dom";
+
 
 const ClerkAdd = () =>{
+  const navigate = useNavigate()
    return(
       <>
  
