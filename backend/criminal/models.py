@@ -25,9 +25,10 @@ class Criminal(models.Model):
     contact_information = models.CharField(max_length=200)
     gang_affiliations = models.TextField(blank=True)
     case_history = models.TextField(blank=False)
-    #photo = models.ImageField(upload_to='criminal_photos/', blank=True)
-    created_date = models.DateTimeField(auto_now_add=True)
-    #created_by = models.ForeignKey(CustomUser, on_delete=models.SET_NULL, null=True)
+    photo = models.ImageField(upload_to='criminal_photos/', blank=True)
+    created_date = models.DateField(auto_now_add=True)
+    created_by = models.ForeignKey(CustomUser, on_delete=models.SET_NULL, null=True)
+    document = models.FileField(upload_to='criminal_documents/', blank=True ,null=True)
 
     def str(self):
         return f'{self.first_name} {self.last_name}'

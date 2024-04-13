@@ -1,11 +1,14 @@
 import axios from 'axios'
+import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import ConfModal from '../conformModal';
 import ErrorModal from '../errorModal';
 import SuccessModal from '../successModal';
+
 const PostWanted = () =>{
  const [errStatus, setErrStatus]=useState('500')
  const[errMsg, setErrMsg]=useState('The server might be down, please try again later we will try to solve the problem as soon as possible')
+ const [photo, setPhoto] = useState(null);
  const[succMsg,setSuccMsg]=useState("sdfsdfsdfsdfsdfsdfsdf")
  const[isLoading,setLoading]=useState(false)
  const [name, setName] = useState('')
@@ -32,7 +35,11 @@ const url = 'http://127.0.0.1:8000/police/addwanted'
     const rewards = parseInt(reward);
    try{
     
-  const resp =await axios.post(url, {name:name,alias:alias,description:description,age:ages,gender:gender,nationality:nationality,criminal_offenses:criminal_offenses,last_known_location:last_known_location,reward:rewards,contact_information:contact_information});
+  const resp =await axios.post(url, {name:name,alias:alias,description:description,photo:photo,age:ages,gender:gender,nationality:nationality,criminal_offenses:criminal_offenses,last_known_location:last_known_location,reward:rewards, contact_information:contact_information}, {
+    headers: {
+        'Content-Type': 'multipart/form-data'
+    }
+});
   if(resp.status === 201){
     setSuccMsg(resp.data.success)
     setLoading(false)
@@ -53,7 +60,7 @@ const url = 'http://127.0.0.1:8000/police/addwanted'
  const handleOpenModal = () => {
   showconformModal(true); // Open the modal on button click
 };
-
+const navigate = useNavigate();
 return( 
  <>
  
@@ -147,13 +154,24 @@ return(
       <textarea  className="py-2 px-3 rounded-lg border-2 border-sky-300 mt-1 focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent" type="text" placeholder="description" rows="5" value={description} id="description" onChange={(e)=> setDescription(e.target.value)} />
     </div>
 
-    <div className="grid grid-cols-1 mt-5 mx-7">
-      <label className="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold mb-1">Upload Photo</label>
-        
-    </div>
+    <div class="grid grid-cols-1 mt-5 mx-7">
+           <label class="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold mb-1">Upload Photo</label>
+             <div class='flex items-center justify-center w-full'>
+                 <label class='flex flex-col border-4 border-dashed w-full h-32 hover:bg-gray-100 hover:border-sky-300 group'>
+                     <div class='flex flex-col items-center justify-center pt-7'>
+                       <svg class="w-10 h-10 text-sky-400 group-hover:text-sky-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                       <p class='lowercase text-sm text-gray-400 group-hover:text-sky-600 pt-1 tracking-wider'>Select a photo</p>
+                     </div>
+                   <input type="file" class="hidden" onChange={(e) => setPhoto(e.target.files[0])} />
+                 </label>
+             </div>
+         </div>
 
     <div className='flex items-center justify-center  md:gap-8 gap-4 pt-5 pb-5'>
-      <button className='w-auto bg-gray-500 hover:bg-gray-700 rounded-lg shadow-xl font-medium text-white px-4 py-2'>Cancel</button>
+      <button className='w-auto bg-gray-500 hover:bg-gray-700 rounded-lg shadow-xl font-medium text-white px-4 py-2 ' type="button"
+            onClick={() => {
+                navigate(-1);
+              }}>Cancel</button>
       <div>
       <button className='w-auto bg-sky-500 hover:bg-sky-700 rounded-lg shadow-xl font-medium text-white px-4 py-2' type='button' onClick={handleOpenModal}>Create</button>
       {showconfModal && <ConfModal showconfModal={showconfModal} isLoading={isLoading} message={'you are about to post a wanted criminal please conform by clicking post'} clickbutton={'post'} onClose={() => showconformModal(false)} />}
