@@ -16,7 +16,9 @@ const Login=() =>{
     const resp =await axios.post(url, {email,password});
     if(resp.status === 200){
      console.log("logged in")
-     console.log(resp.data.user)
+     console.log(resp.data)
+     const stringifiedObject = JSON.stringify(resp.data);
+     localStorage.setItem('user', stringifiedObject)
      if(resp.data.user.role === "local"){
         console.log("here")
         navigate("/localadmin")

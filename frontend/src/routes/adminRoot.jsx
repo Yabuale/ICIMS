@@ -1,8 +1,25 @@
 import { Outlet } from "react-router-dom";
 import AdminSlidebar from "../components/Admin/AdminSlidebar";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 import AdminDashboard from "../pages/AdminDashboard";
 const AdminRoot = ()=>{
+  const navigate = useNavigate()
+  useEffect(() => {
+    const storedData = localStorage.getItem('user');
+    let user;
+    if (storedData) {
+      
+      user= JSON.parse(storedData)
+      if (user.user.role !== "admin"  ){
+        navigate("/login")
+      }
+    }
+    else{
+      navigate("/login")
+    }
+  }, []);
     return(
 <>
 <div className="flex text-gray-900   ">
