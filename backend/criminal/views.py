@@ -16,9 +16,10 @@ def addCriminal(request):
     serializer = Criminalserializer(data=request.data)
     if serializer.is_valid():
         serializer.save()
-        return Response({"success": "Criminal record added"} )
+        return Response({"success": "Criminal record added"},status=201 )
     else:
-        return Response(serializer.errors, status=400)
+        print(serializer.errors)
+        return Response({"success": "Bad request please recheck your input"}, status=400)
 
 
 
