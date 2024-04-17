@@ -1,9 +1,21 @@
 import { useEffect,useState } from "react";
 import { NavLink } from "react-router-dom";
+import ConfdelModal from "../confDel";
+import SuccessModal from "../successModal";
+import ErrorModal from "../errorModal";
 import axios from "axios";
 
 const WantedTable = () => {
+    const[succMsg,setSuccMsg]=useState("sdfsdfsdfsdfsdfsdfsdf")
+    const [errStatus, setErrStatus]=useState('500')
+    const[errMsg, setErrMsg]=useState('The server might be down, please try again later we will try to solve the problem as soon as possible')
+    const[isLoading,setLoading]=useState(false)
+    const [id, setId]=useState(null)
+    const [showdelModal, showdeleteModal] = useState(false);
+    const [showerrModal,showerrorModal] = useState(false);
+    const [showsccModal, showsuccessModal] = useState(false);
     const [wantedCriminal, setWantedCriminal] = useState(null);
+
 
     useEffect(() => {
         const fetchWantedCriminal = async () => {
@@ -11,7 +23,7 @@ const WantedTable = () => {
             const response = await axios.get(`http://127.0.0.1:8000/police/wanted`);
             if(response.status === 200){
             setWantedCriminal(response.data)
-            console.log(wantedCriminal[0])
+            
             }
            
           } catch (error) {
@@ -23,6 +35,39 @@ const WantedTable = () => {
     
        
       }, []);
+
+      const handledelete = async (e) => {
+        e.preventDefault();
+        setLoading(true)
+
+       const url2 =`http://127.0.0.1:8000/police/wanteddetail/${id}/`
+
+        try{
+            const resp =await axios.delete(url2);
+            if(resp.status === 200){
+              setSuccMsg(resp.data.success)
+              setLoading(false)
+              showdeleteModal(false)
+              showsuccessModal(true)
+            }
+        } catch(error){
+              setLoading(false)
+              showdeleteModal(false)
+              showerrorModal(true)
+             if(error.response.status === 404 ){
+              setErrStatus(error.response.status);
+              setErrMsg(error.response.data.success);
+               }
+              
+            }
+        console.log(id);
+      };
+
+      const handleOpenModal = (id) => {
+        setId(id)
+        showdeleteModal(true); // Open the modal on button click
+      };
+      
 
       if (!wantedCriminal || wantedCriminal.length === 0) {
         return <>
@@ -128,11 +173,18 @@ const WantedTable = () => {
 </td>
 <td className="px-4 py-4 text-sm whitespace-nowrap">
     <div className="flex items-center gap-x-6">
-        <button className="text-gray-500 transition-colors duration-200   hover:text-red-500 focus:outline-none">
+        <form onSubmit={handledelete}>
+        
+        
+        <button className="text-gray-500 transition-colors duration-200   hover:text-red-500 focus:outline-none" type="button" onClick={ () =>  handleOpenModal(wanted.id)} >
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-5 h-5">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
             </svg>
         </button>
+        {showdelModal && <ConfdelModal showdelModal={showdelModal} isLoading={isLoading} message={'you are about to delete a post, This process cannot be undone'} clickbutton={'Delete'} onClose={() => showdeleteModal(false)} />}
+            {showerrModal && <ErrorModal showerrModal={showerrModal} errMsg={errMsg} errStatus={errStatus} onClose={() => showerrorModal(false)} />}
+           {showsccModal && <SuccessModal showsccModal={showsccModal} succMsg={succMsg} onClose={() => showsuccessModal(false)} />}
+        </form>
 
         <NavLink to={`/police/edit/${wanted.id}`} className="text-gray-500 transition-colors duration-200  hover:text-yellow-500 focus:outline-none">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-5 h-5">
@@ -183,7 +235,7 @@ const WantedTable = () => {
             <span>
                 Next
             </span>
-
+            
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-5 h-5 rtl:-scale-x-100">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3" />
             </svg>
