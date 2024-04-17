@@ -22,10 +22,15 @@ class WantedDetail(APIView):
         if serializer.is_valid():
             serializer.save()
             return Response({"success": "Wanted criminal updated successfully"})
-        return Response({"msg":"Seems like there is an error in the input you entered, please check your input and try again"}, status=400)
+        return Response({"success":"Seems like there is an error in the input you entered, please check your input and try again"}, status=400)
     def delete(self,request,pk):
-        criminal = get_object_or_404(WantedCriminal, pk=pk)
+        try:
+            criminal = WantedCriminal.objects.get(pk=pk)
+        except WantedCriminal.DoesNotExist:
+             return Response({'success': 'Criminal not found'}, status=404)
+    
         criminal.delete()
+        return Response({'success': 'Criminal deleted successfully'}, status=200)
 
     
         

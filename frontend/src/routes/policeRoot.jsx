@@ -11,7 +11,7 @@ const PoliceRoot = ()=>{
     if (storedData) {
       
       user= JSON.parse(storedData)
-      if (user.user.role !== "police"  ){
+      if (user.user.role !== "local"  ){
         navigate("/login")
       }
     }
