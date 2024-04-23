@@ -23,10 +23,10 @@ const About = () =>{
                   </svg>
                 </div>
                 <div className="text-gray-800  text-2xl font-semibold text-center">
-                  <h2>Robust workflow</h2>
+                  <h2>Integration</h2>
                 </div>
                 <div className="text-gray-600  mt-2 text-lg text-center ">
-                  <p>Workflows can help streamline and automate repeatable business tasks.</p>
+                  <p>Seamlessly integrate your project with popular third-party services.</p>
                 </div>
               </div>
               <div className="cursor-pointer hover:shadow py-6 xl:px-4 rounded xl:w-96 w-60 flex justify-center items-center flex-col">
@@ -38,10 +38,10 @@ const About = () =>{
                   </svg>
                 </div>
                 <div className="text-gray-800  text-2xl font-semibold text-center">
-                  <h2>Flexibility</h2>
+                  <h2>Multi-language Support</h2>
                 </div>
                 <div className="text-gray-600  mt-2 text-lg text-center">
-                  <p>A flexible software architecture is able to changes in usability requirements</p>
+                  <p>Allow users to switch between languages seamlessly</p>
                 </div>
               </div>
               <div className="cursor-pointer hover:shadow py-6 xl:px-4 rounded xl:w-96 w-60 flex justify-center items-center flex-col">
@@ -68,10 +68,10 @@ const About = () =>{
                   </svg>
                 </div>
                 <div className="text-gray-800  text-2xl font-semibold text-center">
-                  <h2>Multiple layouts</h2>
+                  <h2>Enhanced Search</h2>
                 </div>
                 <div className="text-gray-600  mt-2 text-lg text-center">
-                  <p>Smaller components are easier to maintain. Program can be divided</p>
+                  <p>search functionality with advanced filters for enhanced accuracy and efficiency</p>
                 </div>
               </div>
               <div className="cursor-pointer hover:shadow py-6 xl:px-4 rounded xl:w-96 w-60 flex justify-center items-center flex-col">
