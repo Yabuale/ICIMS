@@ -34,6 +34,7 @@ const Wanted = (props) => {
             id={item.id}
             alias={item.alias}
             date_posted={item.date_posted}
+            photo={item.photo}
           />
         ))}
       </div>
