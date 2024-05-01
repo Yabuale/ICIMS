@@ -1,9 +1,21 @@
 import { useEffect,useState } from "react";
 import { NavLink } from "react-router-dom";
+import ConfdelModal from "../confDel";
+import ErrorModal from "../errorModal";
+import SuccessModal from "../successModal";
 import axios from "axios";
 
 const LocalAdminList = () => {
+    
+    const[succMsg,setSuccMsg]=useState("sdfsdfsdfsdfsdfsdfsdf")
+    const [errStatus, setErrStatus]=useState('500')
+    const[errMsg, setErrMsg]=useState('The server might be down, please try again later we will try to solve the problem as soon as possible')
+    const[isLoading,setLoading]=useState(false)
+    const [id, setId]=useState(null)
     const [localAccount, setLocalAccount] = useState(null);
+    const [showdelModal, showdeleteModal] = useState(false);
+    const [showerrModal,showerrorModal] = useState(false);
+    const [showsccModal, showsuccessModal] = useState(false);
 
     useEffect(() => {
         const fetchLocalaccounts = async () => {
@@ -23,6 +35,38 @@ const LocalAdminList = () => {
     
        
       }, []);
+      const handledelete = async (e) => {
+        e.preventDefault();
+        setLoading(true)
+
+       const url2 =`http://127.0.0.1:8000/localadmin/accounts/${id}/`
+
+        try{
+            const resp =await axios.delete(url2);
+            if(resp.status === 200){
+              setSuccMsg(resp.data.success)
+              setLoading(false)
+              showdeleteModal(false)
+              showsuccessModal(true)
+            }
+        } catch(error){
+              setLoading(false)
+              showdeleteModal(false)
+              showerrorModal(true)
+             if(error.response.status === 404 ){
+              setErrStatus(error.response.status);
+              setErrMsg(error.response.data.success);
+               }
+              
+            }
+        console.log(id);
+      };
+
+      const handleOpenModal = (id) => {
+        setId(id)
+        showdeleteModal(true); // Open the modal on button click
+      };
+      
 
       if (!localAccount || localAccount.length === 0) {
         return <>
@@ -44,13 +88,12 @@ const LocalAdminList = () => {
         <>
         <br/>
         <br/>
-<section className="container px-4  mx-24      shadow-2xl bg-sky-50 p-10 rounded-2xl w-4/5  md:w-9/12 lg:w-4/5">
+<section className="container px-4  mx-24      shadow-2xl bg-sky-50 p-10 rounded-2xl ">
     <div className="flex items-center gap-x-3">
-        <h2 className="text-lg font-medium text-sky-950 ">Local Admins</h2>
+        <h2 className="text-lg font-medium text-sky-950 ">Local Accounts</h2>
 
         <span className="px-3 py-1 text-xs text-sky-950 bg-sky-200 rounded-full  ">{localAccount.length} accounts</span>
     </div>
-
     <div className="flex flex-col mt-6  lg:pr-1 ">
         <div className=" w-full">
             <div className="">
@@ -87,7 +130,7 @@ const LocalAdminList = () => {
                                 </th>
 
                                 <th scope="col" className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-white ">Branch</th>
-
+                                <th scope="col" className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-white ">Role</th>
                                 <th scope="col" className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-white ">created date</th>
                                 <th scope="col" className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-white ">Action</th>
                                 
@@ -116,7 +159,7 @@ const LocalAdminList = () => {
     <div className="inline-flex items-center px-3 py-1 rounded-full gap-x-2 bg-emerald-100/60 ">
         <span className="h-1.5 w-1.5 rounded-full bg-emerald-500"></span>
 
-        <h2 className="text-sm font-normal text-emerald-500">Active</h2>
+        <h2 className="text-sm font-normal text-sky-500">{account.is_active == "True" ? "active": "deactivated"}</h2>
     </div>
 </td>
 <td className="px-4 py-4 text-sm text-gray-500 whitespace-nowrap">
@@ -126,18 +169,31 @@ const LocalAdminList = () => {
 <td className="px-4 py-4 text-sm text-gray-500  whitespace-nowrap">{account.branch}</td>
 <td className="px-4 py-4 text-sm whitespace-nowrap">
     <div className="flex items-center gap-x-2">
+        <p>{account.role}</p>
+    </div>
+</td>
+
+<td className="px-4 py-4 text-sm whitespace-nowrap">
+    <div className="flex items-center gap-x-2">
         <p>{account.created_date}</p>
     </div>
 </td>
 <td className="px-4 py-4 text-sm whitespace-nowrap">
     <div className="flex items-center gap-x-6">
-        <button className="text-gray-500 transition-colors duration-200   hover:text-red-500 focus:outline-none">
+    <form onSubmit={handledelete}>
+        
+        
+        <button className="text-gray-500 transition-colors duration-200   hover:text-red-500 focus:outline-none" type="button" onClick={ () =>  handleOpenModal(account.id)} >
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-5 h-5">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
             </svg>
         </button>
+        {showdelModal && <ConfdelModal showdelModal={showdelModal} isLoading={isLoading} message={'you are about to deactivate an account'} clickbutton={'Deactivate'} onClose={() => showdeleteModal(false)} />}
+            {showerrModal && <ErrorModal showerrModal={showerrModal} errMsg={errMsg} errStatus={errStatus} onClose={() => showerrorModal(false)} />}
+           {showsccModal && <SuccessModal showsccModal={showsccModal} succMsg={succMsg} onClose={() => showsuccessModal(false)} />}
+        </form>
 
-        <NavLink to={`/police/edit/${account.id}`} className="text-gray-500 transition-colors duration-200  hover:text-yellow-500 focus:outline-none">
+        <NavLink to={`/admin/edit/${account.id}`} className="text-gray-500 transition-colors duration-200  hover:text-yellow-500 focus:outline-none">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-5 h-5">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
             </svg>

@@ -38,10 +38,12 @@ class AccountDetail(APIView):
             account = CustomUser.objects.get(pk=pk)
         except CustomUser.DoesNotExist:
              return Response({'success': 'account not found'}, status=404)
-    
-        account.is_active= False
-        account.save
-        return Response({'success': 'account deactivated successfully'}, status=200)
+        if account.is_active:
+           account.is_active= False
+           account.save
+           return Response({'success': 'account deactivated successfully'}, status=200)
+        else:
+            return Response({'success': 'account already deactivated'}, status=400)
 
 
 

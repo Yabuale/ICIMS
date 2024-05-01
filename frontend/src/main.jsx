@@ -32,6 +32,7 @@ import Readmore from './pages/Readmore';
 import EditWanted from './components/Police/editWanted';
 import ContactForm from './pages/ContactForm';
 import EditAccount from './components/localAdmin/editAccount';
+import EditLocalAccount from './components/Admin/editAccount';
 const router = createBrowserRouter([
   {
     path: "/",
@@ -70,7 +71,11 @@ const router = createBrowserRouter([
   },
   {
     path:"admin/",
-    element:<AdminRoot />,children:[
+    element:<AdminRoot />,
+    children:[
+      {
+     errorElement: <NotFound />,
+    children:[
       { index: true, element: <AdminDashboard/> },
       {
         path: "localadmins/",
@@ -84,9 +89,14 @@ const router = createBrowserRouter([
         path: "addbranch/",
         element: <AddBranch />
       },
+      {
+        path:"edit/:accountID",
+        element:<EditLocalAccount/>
+      }
       
     ],
-    
+  }
+]
 
   },
   {

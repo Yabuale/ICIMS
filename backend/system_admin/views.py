@@ -59,6 +59,18 @@ class localAccountDetail(APIView):
             serializer.save()
             return Response({"msg": "success" , "updated":serializer.data})
         return Response(serializer.errors, status=400)
+    def delete(self,request,pk):
+        #account = get_object_or_404(CustomUser, pk=pk)
+        try:
+            account = CustomUser.objects.get(pk=pk)
+        except CustomUser.DoesNotExist:
+             return Response({'success': 'account not found'}, status=404)
+        if account.is_active: 
+           account.is_active= False
+           account.save
+           return Response({'success': 'account deactivated successfully'}, status=200)
+        else:
+            return Response({'success': 'account already deactivated'}, status=400)
 
 
 @api_view(['POST'])
