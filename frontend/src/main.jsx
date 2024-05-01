@@ -31,6 +31,7 @@ import ClerkRequest from './components/clerk/ClerkRequests';
 import Readmore from './pages/Readmore';
 import EditWanted from './components/Police/editWanted';
 import ContactForm from './pages/ContactForm';
+import EditAccount from './components/localAdmin/editAccount';
 const router = createBrowserRouter([
   {
     path: "/",
@@ -145,6 +146,9 @@ const router = createBrowserRouter([
     path:"localadmin/",
     element:<LocalRoot />,
     children:[
+      {
+     errorElement: <NotFound />,
+    children:[
       { index: true, element: <LocalAdmin/> },
       {
         path: "accounts/",
@@ -154,9 +158,15 @@ const router = createBrowserRouter([
         path: "create/",
         element: <AddAccount />,
       },
+      {
+        path:"edit/:accountID",
+        element:<EditAccount/>
+      }
       
 
     ],
+  }
+]
 
   }
 ]);

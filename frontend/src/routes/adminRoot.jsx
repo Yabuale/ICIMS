@@ -12,7 +12,7 @@ const AdminRoot = ()=>{
     if (storedData) {
       
       user= JSON.parse(storedData)
-      if (user.user.role !== "admin"  ){
+      if (user.user.role !== "local"  ){
         navigate("/login")
       }
     }

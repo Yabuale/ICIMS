@@ -30,8 +30,19 @@ class AccountDetail(APIView):
         serializer = accountSerializer(account , data=request.data, partial = True)
         if serializer.is_valid():
             serializer.save()
-            return Response({"msg": "success" , "updated":serializer.data})
-        return Response(serializer.errors, status=400)
+            return Response({"success": "account updated sucessfully"})
+        return Response({"success":"Seems like there is an error in the input you entered, please check your input and try again"}, status=400)
+    def delete(self,request,pk):
+        #account = get_object_or_404(CustomUser, pk=pk)
+        try:
+            account = CustomUser.objects.get(pk=pk)
+        except CustomUser.DoesNotExist:
+             return Response({'success': 'account not found'}, status=404)
+    
+        account.is_active= False
+        account.save
+        return Response({'success': 'account deactivated successfully'}, status=200)
+
 
 
 @api_view(['POST'])
