@@ -23,7 +23,7 @@ const LocalAdminList = () => {
             const response = await axios.get(`http://127.0.0.1:8000/systemadmin/accounts/`);
             if(response.status === 200){
             setLocalAccount(response.data)
-            console.log(wantedCriminal[0])
+            
             }
            
           } catch (error) {
@@ -32,7 +32,7 @@ const LocalAdminList = () => {
         };
     
         fetchLocalaccounts();
-    
+        
        
       }, []);
       const handledelete = async (e) => {
@@ -159,7 +159,7 @@ const LocalAdminList = () => {
     <div className="inline-flex items-center px-3 py-1 rounded-full gap-x-2 bg-emerald-100/60 ">
         <span className="h-1.5 w-1.5 rounded-full bg-emerald-500"></span>
 
-        <h2 className="text-sm font-normal text-sky-500">{account.is_active == "True" ? "active": "deactivated"}</h2>
+        <h2 className="text-sm font-normal text-sky-500">{String(account.is_active)==="true"  ? "active": "deactivated"}</h2>
     </div>
 </td>
 <td className="px-4 py-4 text-sm text-gray-500 whitespace-nowrap">

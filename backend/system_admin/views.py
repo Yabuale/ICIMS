@@ -1,10 +1,10 @@
-from rest_framework.views import APIView
-from rest_framework.response import Response
+from rest_framework.views import APIView # type: ignore
+from rest_framework.response import Response # type: ignore
 from accounts.models import Branch
 from accounts.models import CustomUser
 from accounts.serializers import branchSerializer,accountSerializer,branchNameSerializer
-from rest_framework.decorators import api_view
-from rest_framework.authtoken.models import Token
+from rest_framework.decorators import api_view # type: ignore
+from rest_framework.authtoken.models import Token # type: ignore
 from accounts.email import sendMail
 from accounts.email import passwordGenerator
 from django.shortcuts import get_object_or_404
@@ -67,7 +67,8 @@ class localAccountDetail(APIView):
              return Response({'success': 'account not found'}, status=404)
         if account.is_active: 
            account.is_active= False
-           account.save
+           account.save()
+           print(account.is_active)
            return Response({'success': 'account deactivated successfully'}, status=200)
         else:
             return Response({'success': 'account already deactivated'}, status=400)

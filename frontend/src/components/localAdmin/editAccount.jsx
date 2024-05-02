@@ -23,6 +23,8 @@ const[isLoading,setLoading]=useState(false)
  const [showconfModal, showconformModal] = useState(false);
  const [showerrModal,showerrorModal] = useState(false)
  const [showsccModal, showsuccessModal] = useState(false)
+ const[is_active,setActive]=useState(false)
+
  
 
  useEffect(() => {
@@ -47,6 +49,7 @@ const[isLoading,setLoading]=useState(false)
         setRole(response.data.role)
         setEmail(response.data.email)
         setId_no(response.data.id_no)
+        setActive(response.is_active)
         }
         else{
          navigate("/localadmin/accounts")
@@ -71,7 +74,7 @@ const url = `http://127.0.0.1:8000/localadmin/accounts/${accountID}/`
   setLoading(true)
   e.preventDefault();
    try{
-  const resp =await axios.patch(url, {first_name,last_name,email,id_no,phone_number,role});
+  const resp =await axios.patch(url, {first_name,last_name,email,id_no,phone_number,role,is_active });
   if(resp.status === 200){
     setSuccMsg(resp.data.success)
     setLoading(false)
@@ -159,6 +162,19 @@ return(
       <div className="grid grid-cols-1">
         <label className="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">Id No.</label>
         <input className="py-2 px-3 rounded-lg border-2 border-sky-300 mt-1 focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent" type="text" placeholder="Id_no" value={id_no} id="nationality" onChange={(e)=> setId_no(e.target.value)} />
+      </div>
+    </div>
+
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 mt-5 mx-7">
+      
+      <div className="grid grid-cols-1">
+        <label className="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">Activate.</label>
+        <input className="py-2 px-3 rounded-lg border-2 border-sky-300 mt-1 focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent" type="checkbox" placeholder="active" checked={is_active} id="active" onChange={(e)=> setActive(e.target.value)} />
+      </div>
+
+      <div className="grid grid-cols-1">
+        <label className="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold"></label>
+        <input className="py-2 px-3 rounded-lg border-2 border-sky-300 mt-1 focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent opacity-0" type="text" placeholder="hidden"   />
       </div>
     </div>
 
