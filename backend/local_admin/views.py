@@ -1,14 +1,14 @@
-from rest_framework.views import APIView
-from rest_framework.response import Response
+from rest_framework.views import APIView # type: ignore
+from rest_framework.response import Response # type: ignore
 from accounts.models import CustomUser
 from accounts.serializers import accountSerializer
-from rest_framework.decorators import api_view
-from rest_framework.authtoken.models import Token
+from rest_framework.decorators import api_view # type: ignore
+from rest_framework.authtoken.models import Token # type: ignore
 from accounts.email import sendMail
 from accounts.email import passwordGenerator
-from rest_framework.decorators import authentication_classes,permission_classes
-from rest_framework.authentication import SessionAuthentication,TokenAuthentication
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.decorators import authentication_classes,permission_classes # type: ignore
+from rest_framework.authentication import SessionAuthentication,TokenAuthentication # type: ignore
+from rest_framework.permissions import IsAuthenticated # type: ignore
 from django.shortcuts import get_object_or_404
 
       
@@ -30,8 +30,21 @@ class AccountDetail(APIView):
         serializer = accountSerializer(account , data=request.data, partial = True)
         if serializer.is_valid():
             serializer.save()
-            return Response({"msg": "success" , "updated":serializer.data})
-        return Response(serializer.errors, status=400)
+            return Response({"success": "account updated sucessfully"})
+        return Response({"success":"Seems like there is an error in the input you entered, please check your input and try again"}, status=400)
+    def delete(self,request,pk):
+        #account = get_object_or_404(CustomUser, pk=pk)
+        try:
+            account = CustomUser.objects.get(pk=pk)
+        except CustomUser.DoesNotExist:
+             return Response({'success': 'account not found'}, status=404)
+        if account.is_active:
+           account.is_active= False
+           account.save()
+           return Response({'success': 'account deactivated successfully'}, status=200)
+        else:
+            return Response({'success': 'account already deactivated'}, status=400)
+
 
 
 @api_view(['POST'])

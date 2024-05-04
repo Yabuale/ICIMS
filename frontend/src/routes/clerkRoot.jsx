@@ -10,7 +10,7 @@ const ClerkRoot = () => {
     if (storedData) {
       
       user= JSON.parse(storedData)
-      if (user.user.role !== "clerk"  ){
+      if (user.user.role !== "local"  ){
         navigate("/login")
       }
     }

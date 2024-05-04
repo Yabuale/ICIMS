@@ -80,7 +80,7 @@ const Readmore = () => {
         </svg>
       </a>
     </div>
-    <img src="https://avatars.githubusercontent.com/u/101497477?v=4" className="object-contain w-full h-64 bg-center rounded" alt="Kutty" />
+    <img src={`http://127.0.0.1:8000/${wantedCriminal.photo}`} className="object-contain w-full h-64 bg-center rounded" alt="Kutty" />
   </div>
 
   <div className="w-full mx-auto prose md:w-3/4 lg:w-1/2">
