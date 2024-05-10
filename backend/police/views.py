@@ -4,6 +4,11 @@ from wanted.models import WantedCriminal
 from wanted.serializers import WantedSerializer
 from rest_framework.decorators import api_view
 from django.shortcuts import get_object_or_404
+from criminal.serializers import Requestserializer
+from criminal.serializers import Responceserializer
+from criminal.models import Requests
+from criminal.models import Responces
+
 
 class WantedCriminalView(APIView):
       def get(self, request):
@@ -47,3 +52,16 @@ def addWanted(request):
     
 
     
+class Requests(APIView):
+    """ def get (self, request, pk):
+        requests = get_object_or_404(Requests, pk=pk)
+        serializer = Requestserializer(instance=requests)
+        return Response(serializer.data)"""
+    
+    def post(self,request):
+        serializer = Requestserializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({"success": "Your request has been sent"} , status=200)
+        else:
+            return Response({"success":serializer.errors}, status=400)
