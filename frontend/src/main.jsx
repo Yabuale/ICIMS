@@ -33,6 +33,7 @@ import EditWanted from './components/Police/editWanted';
 import ContactForm from './pages/ContactForm';
 import EditAccount from './components/localAdmin/editAccount';
 import EditLocalAccount from './components/Admin/editAccount';
+import ClerkEdit from './components/clerk/clerkEdit';
 const router = createBrowserRouter([
   {
     path: "/",
@@ -99,9 +100,16 @@ const router = createBrowserRouter([
 ]
 
   },
+
+
+
+
   {
     path:"clerk/",
     element:<ClerkRoot />,
+    children:[
+      {
+     errorElement: <NotFound />,
     children:[
       { index: true, element: <RegistrationClerk/> },
       {
@@ -119,10 +127,20 @@ const router = createBrowserRouter([
       {
         path: "clerkrequest/",
         element: <ClerkRequest />
+      },
+      {
+        path:"edit/:wantedId",
+        element:<ClerkEdit/>
       }
 
     ],
+    
   }
+]
+  }
+
+
+
   ,{
     path:"police/",
     element:<PoliceRoot />,
