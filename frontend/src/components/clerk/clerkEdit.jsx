@@ -17,6 +17,7 @@ const ClerkEdit = () =>{
   const[succMsg,setSuccMsg]=useState("sdfsdfsdfsdfsdfsdfsdf")
   const[isLoading,setLoading]=useState(false)
   const [SSN, setSsn] = useState('');
+  const [middle_name, setMiddleName] = useState('');
   const [first_name, setFirstName] = useState('');
   const [last_name, setLastName] = useState('');
   const [date_of_birth, setDateOfBirth] = useState('');
@@ -57,6 +58,7 @@ const ClerkEdit = () =>{
       setWantedCriminal(response.data);
       setSsn(response.data.SSN)
       setFirstName(response.data.first_name);
+      setMiddleName(response.data.middle_name)
       setLastName(response.data.last_name);
       setDateOfBirth(response.data.date_of_birth);
       setGender(response.data.gender);
@@ -110,6 +112,7 @@ const ClerkEdit = () =>{
   const resp =await axios.patch(url, {
     SSN,
     first_name,
+    middle_name,
     last_name,
     date_of_birth,
     gender,
@@ -184,15 +187,21 @@ const ClerkEdit = () =>{
            </div>
          </div>
          <form onSubmit={handleSubmit}>
-         <div className="grid grid-cols-1 mt-5 mx-7">
+         <div className='grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 mt-5 mx-7'>
+         <div className="grid grid-cols-1">
            <label className="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">SSN</label>
            <input className="py-2 px-3 rounded-lg border-2 border-sky-300 mt-1 focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent" type="text" placeholder="name" value={SSN} id="name" onChange={(e)=> setSsn(e.target.value)} />
+         </div>
+         <div className="grid grid-cols-1">
+             <label className="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">first name</label>
+             <input className="py-2 px-3 rounded-lg border-2 border-sky-300 mt-1 focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent" type="text" placeholder="first name"  value={first_name} id="name" onChange={(e)=> setFirstName(e.target.value)} />
+           </div>
          </div>
      
          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 mt-5 mx-7">
            <div className="grid grid-cols-1">
-             <label className="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">first name</label>
-             <input className="py-2 px-3 rounded-lg border-2 border-sky-300 mt-1 focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent" type="text" placeholder="first name"  value={first_name} id="name" onChange={(e)=> setFirstName(e.target.value)} />
+             <label className="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">middle name</label>
+             <input className="py-2 px-3 rounded-lg border-2 border-sky-300 mt-1 focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent" type="text" placeholder="first name"  value={middle_name} id="name" onChange={(e)=> setMiddleName(e.target.value)} />
            </div>
            <div className="grid grid-cols-1">
              <label className="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">last name</label>
