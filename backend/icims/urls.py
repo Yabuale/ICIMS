@@ -27,6 +27,7 @@ urlpatterns = [
     path('systemadmin/', include('system_admin.urls')),
     path('localadmin/', include('local_admin.urls')),
     path('police/', include('police.urls')),
+    path('clerk/', include('clerk.urls')),
     
 ]
 if settings.DEBUG:

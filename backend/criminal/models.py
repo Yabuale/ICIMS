@@ -10,6 +10,7 @@ class Criminal(models.Model):
     )
     SSN  = models.CharField(max_length=100)
     first_name = models.CharField(max_length=100)
+    middle_name = models.CharField(max_length=100,blank=True)
     last_name = models.CharField(max_length=100)
     date_of_birth = models.DateField()
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES)
