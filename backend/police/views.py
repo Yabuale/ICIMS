@@ -65,3 +65,14 @@ class Requests(APIView):
             return Response({"success": "Your request has been sent"} , status=200)
         else:
             return Response({"success":serializer.errors}, status=400)
+        
+
+class Respview(APIView):
+      def get(self, request,pk):
+        req = Responces.objects.all()
+        serializer = Responceserializer(req, many=True)
+        return Response(serializer.data, status=200)
+      def delete(self,request,pk):
+          req =get_object_or_404(Responces,pk=pk)
+          req.delete()
+          return Response({"fsdfds":"sdf"},status=200)

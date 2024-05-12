@@ -1,6 +1,13 @@
 import { NavLink } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const PoliceSlideBar = () =>{
+  const navigate=useNavigate()
+  const logout = () => {  
+    const storedData = localStorage.getItem('user');
+    localStorage.removeItem('user')
+    navigate("/login") 
+    };
    return(
        <>
        <aside className="flex  mt-5 fixed   rounded-xl  w-20 flex-col items-center border-r ml-2 bg-blue-100 shadow-2xl">
@@ -73,7 +80,9 @@ const PoliceSlideBar = () =>{
        </div>
      </NavLink>
 
-     <a href="#" className="text-gary-400 group relative rounded-xl text-sky-600 p-2 bg-gray-50">
+     <NavLink to={"responces/"} className={({isActive})=>{
+                  return isActive? ' group relative rounded-xl text-white p-2 bg-sky-800' : ' group relative rounded-xl text-sky-600 p-2 bg-gray-50'
+                }} >
      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
   <path strokeLinecap="round" strokeLinejoin="round" d="M9 3.75H6.912a2.25 2.25 0 0 0-2.15 1.588L2.35 13.177a2.25 2.25 0 0 0-.1.661V18a2.25 2.25 0 0 0 2.25 2.25h15A2.25 2.25 0 0 0 21.75 18v-4.162c0-.224-.034-.447-.1-.661L19.24 5.338a2.25 2.25 0 0 0-2.15-1.588H15M2.25 13.5h3.86a2.25 2.25 0 0 1 2.012 1.244l.256.512a2.25 2.25 0 0 0 2.013 1.244h3.218a2.25 2.25 0 0 0 2.013-1.244l.256-.512a2.25 2.25 0 0 1 2.013-1.244h3.859M12 3v8.25m0 0-3-3m3 3 3-3" />
 </svg>
@@ -86,7 +95,11 @@ const PoliceSlideBar = () =>{
            Response
          </div>
        </div>
-     </a>
+     </NavLink>
+
+
+
+
      <NavLink to={"list/"} className={({isActive})=>{
                   return isActive? ' group relative rounded-xl text-white p-2 bg-sky-800' : ' group relative rounded-xl text-sky-600 p-2 bg-gray-50'
                 }}
@@ -108,7 +121,7 @@ const PoliceSlideBar = () =>{
 <br/>
 <br/>
    <div className="flex flex-col items-center gap-y-4 py-10">
-     <a className="group relative rounded-xl p-2 text-sky-600 hover:bg-sky-100">
+     <button className="group relative rounded-xl p-2 text-sky-600 hover:bg-sky-100" type='button' onClick={logout}>
      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
          <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15m3 0 3-3m0 0-3-3m3 3H9" />
    </svg>
@@ -121,7 +134,7 @@ const PoliceSlideBar = () =>{
          </div>
        </div>
 
-     </a>
+     </button>
 
      <button className="mt-2 rounded-full bg-gray-100">
        <img className="h-10 w-10 rounded-full" src="https://avatars.githubusercontent.com/u/101497477?s=400&u=1302843442c4be8ed24edf32dd3fea7cbb122091&v=4" alt="" />
