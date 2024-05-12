@@ -8,9 +8,8 @@ const ClerkRoot = () => {
     const storedData = localStorage.getItem('user');
     let user;
     if (storedData) {
-      
       user= JSON.parse(storedData)
-      if (user.user.role !== "local"  ){
+      if (user.user.role !== "clerk"  ){
         navigate("/login")
       }
     }

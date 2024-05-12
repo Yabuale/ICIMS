@@ -1,6 +1,15 @@
 
 import { NavLink } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 const LocalAdminSlidebar = () =>{
+  const navigate=useNavigate()
+
+  const logout = () => {  
+    const storedData = localStorage.getItem('user');
+    localStorage.removeItem('user')
+    navigate("/login") 
+    };
+  
     return(
         <>
         <aside className="flex  mt-5 fixed   rounded-xl  w-20 flex-col items-center border-r ml-2 bg-blue-100 shadow-2xl">
@@ -79,12 +88,12 @@ const LocalAdminSlidebar = () =>{
     <br/>
 
     <div className="flex flex-col items-center gap-y-4 py-10">
-      <a className="group relative rounded-xl p-2 text-sky-600 hover:bg-sky-100">
+      <button className="group relative rounded-xl p-2 text-sky-600 hover:bg-sky-100" type="button" onClick={logout}>
       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeLinecap="1.5" stroke="currentColor" className="w-6 h-6">
           <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15m3 0 3-3m0 0-3-3m3 3H9" />
     </svg>
     <div className="absolute inset-y-0 left-12 hidden items-center group-hover:flex">
-          <div className="relative whitespace-nowrap rounded-md bg-white px-4 py-2 text-sm font-semibold text-sky-900 drop-shadow-lg">
+          <div className="relative whitespace-nowrap rounded-md bg-white px-4 py-2 text-sm font-semibold text-sky-900 drop-shadow-lg" >
             <div className="absolute inset-0 -left-1 flex items-center">
               <div className="h-2 w-2 rotate-45 bg-white"></div>
             </div>
@@ -92,7 +101,7 @@ const LocalAdminSlidebar = () =>{
           </div>
         </div>
 
-      </a>
+      </button>
 
       <button className="mt-2 rounded-full bg-gray-100">
         <img className="h-10 w-10 rounded-full" src="https://avatars.githubusercontent.com/u/101497477?s=400&u=1302843442c4be8ed24edf32dd3fea7cbb122091&v=4" alt="" />

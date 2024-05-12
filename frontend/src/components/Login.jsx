@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import {useNavigate} from "react-router-dom"
 import axios from "axios";
 
@@ -7,6 +7,33 @@ const Login=() =>{
     const navigate = useNavigate();
     const [email,setEmail] = useState('');
     const [password,setPassword]= useState('');
+
+    useEffect(() => {
+        const storedData = localStorage.getItem('user');
+        let user;
+        if (storedData) { 
+          user= JSON.parse(storedData)
+          if (user.user.role === "local" && user.user.is_active ){
+            navigate("localadmin")
+            
+          }
+          if (user.user.role === "admin" && user.user.is_active ){
+            navigate("admin")
+            
+          }
+          if (user.user.role === "police" && user.user.is_active ){
+            navigate("police")
+            
+          }
+          if (user.user.role === "clerk" && user.user.is_active ){
+            navigate("clerk")
+            
+          }
+        }
+        else{
+         
+        }
+      }, []);
     
     const url = `http://127.0.0.1:8000/accounts/login/`
  const handleSubmit = async (e) =>{
@@ -20,7 +47,6 @@ const Login=() =>{
      const stringifiedObject = JSON.stringify(resp.data);
      localStorage.setItem('user', stringifiedObject)
      if(resp.data.user.role === "local"){
-        console.log("here")
         navigate("/localadmin")
      }
      else if(resp.data.user.role === "admin"){
