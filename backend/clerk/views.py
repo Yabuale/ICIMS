@@ -122,14 +122,33 @@ def searchname(request):
 
 @api_view(['POST'])
 def notfoundresp(request):
-
-
+    id = request.data['id']
+    req = get_object_or_404(Requests, pk=id)
+    resp = Responces(
+        from_acc = req.to_acc,
+        to_acc= None,
+        url="none",
+        message="there was no record in the database to your rquest",
+        match_found=False
+    )
+    resp.save()
     return Response({"Fdfs":"sfsdf"}, status=200)
+
+
 
 
 @api_view(['POST'])
 def foundresp(request):
-
-
+    id = request.data['id']
+    url = request.data['url']
+    req = get_object_or_404(Requests, pk=id)
+    resp = Responces(
+        from_acc = req.to_acc,
+        to_acc= None,
+        message="there was a record in the database to your rquest",
+        url=url,
+        match_found=True
+    )
+    resp.save()
     return Response({"Fdfs":"sfsdf"}, status=200)
     
