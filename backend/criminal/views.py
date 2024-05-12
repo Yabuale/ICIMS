@@ -3,6 +3,11 @@ from rest_framework.response import Response
 from .models import Criminal
 from .serializers import Criminalserializer
 from rest_framework.decorators import api_view
+from django.shortcuts import get_object_or_404
+from criminal.serializers import Requestserializer
+from criminal.serializers import Responceserializer
+from criminal.models import Requests
+from criminal.models import Responces
 
 
 class CriminalView(APIView):
@@ -23,22 +28,30 @@ def addCriminal(request):
 
 
 
-def send(request):
-    
-    print(request.user.email)
-    print(request.user.email)
-    print(request.user.email)
-    print(request.user.email)
-    print(request.user.email)
-    print(request.user.email)
-    print(request.user.email)
-    print(request.user.email)
-    print(request.user.email)
-    print(request.user.email)
+
     
    
     
-
+class Criminal_detail(APIView):
+    def get (self, request, pk):
+        criminal = get_object_or_404(Criminal, pk=pk)
+        serializer = Criminalserializer(instance=criminal)
+        return Response(serializer.data)
+    def patch(self,request,pk):
+        criminal = get_object_or_404(Criminal, pk=pk)
+        serializer = Criminalserializer(criminal , data=request.data, partial = True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({"success": "criminal updated successfully"})
+        return Response({"success":"Seems like there is an error in the input you entered, please check your input and try again"}, status=400)
+    def delete(self,request,pk):
+        try:
+            criminal = Criminal.objects.get(pk=pk)
+        except Criminal.DoesNotExist:
+             return Response({'success': 'Criminal not found'}, status=404)
+    
+        criminal.delete()
+        return Response({'success': 'Criminal deleted successfully'}, status=200)
 
 
     

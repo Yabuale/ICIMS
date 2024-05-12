@@ -1,19 +1,24 @@
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { useEffect } from 'react';
 import ConfModal from '../conformModal';
 import ErrorModal from '../errorModal';
 import SuccessModal from '../successModal';
-const ClerkAdd = () =>{
+const ClerkEdit = () =>{
+
+  const { wantedId } = useParams();
+  const [wantedCriminal, setWantedCriminal] = useState('null');
+
   const navigate = useNavigate()
   const [errStatus, setErrStatus]=useState('500')
   const[errMsg, setErrMsg]=useState('The server might be down, please try again later we will try to solve the problem as soon as possible')
   const[succMsg,setSuccMsg]=useState("sdfsdfsdfsdfsdfsdfsdf")
   const[isLoading,setLoading]=useState(false)
-
   const [SSN, setSsn] = useState('');
-  const [first_name, setFirstName] = useState('');
   const [middle_name, setMiddleName] = useState('');
+  const [first_name, setFirstName] = useState('');
   const [last_name, setLastName] = useState('');
   const [date_of_birth, setDateOfBirth] = useState('');
   let [gender, setGender] = useState('');
@@ -31,14 +36,63 @@ const ClerkAdd = () =>{
   const [case_history, setCaseHistory] = useState('fj');
   const [photo, setPhoto] = useState(null); // For file uploads, null initially
   const [document, setDocument] = useState(null); 
-
-
-
   const [showconfModal, showconformModal] = useState(false);
   const [showerrModal,showerrorModal] = useState(false)
   const [showsccModal, showsuccessModal] = useState(false)
+ const url = `http://127.0.0.1:8000/criminals/criminaldetail/${wantedId}/`
+ useEffect(() => {
+  // Check if wantedId is a valid number
+  if (isNaN(wantedId)) {
+    throw new Response("", {
+      status: 404,
+      statusText: "Not Found",
+    });
+    
+    return;
+  }
 
-  const url = 'http://127.0.0.1:8000/criminals/addcriminal'
+  const fetchWantedCriminal = async () => {
+    try {
+      const response = await axios.get(`http://127.0.0.1:8000/criminals/criminaldetail/${wantedId}/`);
+      if(response.status === 200){
+      setWantedCriminal(response.data);
+      setSsn(response.data.SSN)
+      setFirstName(response.data.first_name);
+      setMiddleName(response.data.middle_name)
+      setLastName(response.data.last_name);
+      setDateOfBirth(response.data.date_of_birth);
+      setGender(response.data.gender);
+      setNationality(response.data.nationality);
+      setHeight(response.data.height);
+      setWeight(response.weight);
+      setEyeColor(response.data.eye_color);
+      setHairColor(response.data.hair_color);
+      setTattoos(response.data.tattoos);
+      setScars(response.data.scars);
+      setIdentifyingFeatures(response.data.identifying_features)
+      setAddress(response.data.address)
+      setContactInformation(response.data.contact_information)
+      setGangAffiliations(response.data.gang_affiliations)
+      
+      }
+      else{
+       navigate("/clerk/list")
+      }
+    } catch (error) {
+       console.log("Afasfasf")
+       navigate("/clerk/list")
+    }
+  };
+
+  fetchWantedCriminal();
+
+  // Cleanup function
+  return () => {
+    // Any cleanup code if needed
+  };
+}, []);
+
+
  const handleSubmit = async (e) =>{
   
   e.preventDefault();
@@ -55,7 +109,7 @@ const ClerkAdd = () =>{
 
     
     
-  const resp =await axios.post(url, {
+  const resp =await axios.patch(url, {
     SSN,
     first_name,
     middle_name,
@@ -80,7 +134,7 @@ const ClerkAdd = () =>{
         'Content-Type': 'multipart/form-data'
     }
 });
-  if(resp.status === 201){
+  if(resp.status === 200){
     setSuccMsg(resp.data.success)
     setLoading(false)
     showconformModal(false)
@@ -133,7 +187,7 @@ const ClerkAdd = () =>{
            </div>
          </div>
          <form onSubmit={handleSubmit}>
-          <div className='grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 mt-5 mx-7'>
+         <div className='grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 mt-5 mx-7'>
          <div className="grid grid-cols-1">
            <label className="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">SSN</label>
            <input className="py-2 px-3 rounded-lg border-2 border-sky-300 mt-1 focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent" type="text" placeholder="name" value={SSN} id="name" onChange={(e)=> setSsn(e.target.value)} />
@@ -145,11 +199,10 @@ const ClerkAdd = () =>{
          </div>
      
          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 mt-5 mx-7">
-         <div className="grid grid-cols-1">
-             <label className="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">Middle name</label>
-             <input className="py-2 px-3 rounded-lg border-2 border-sky-300 mt-1 focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent" type="text" placeholder="middle name"  value={middle_name} id="middlename" onChange={(e)=> setMiddleName(e.target.value)} />
+           <div className="grid grid-cols-1">
+             <label className="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">middle name</label>
+             <input className="py-2 px-3 rounded-lg border-2 border-sky-300 mt-1 focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent" type="text" placeholder="first name"  value={middle_name} id="name" onChange={(e)=> setMiddleName(e.target.value)} />
            </div>
-           
            <div className="grid grid-cols-1">
              <label className="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">last name</label>
              <input className="py-2 px-3 rounded-lg border-2 border-sky-300 mt-1 focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent" type="text" placeholder="last name" value={last_name} id="name" onChange={(e)=> setLastName(e.target.value)} />
@@ -248,8 +301,8 @@ const ClerkAdd = () =>{
             onClick={() => {
                 navigate(-1);
               }} >Cancel </button>
-           <button className='w-auto bg-sky-500 hover:bg-sky-700 rounded-lg shadow-xl font-medium text-white px-4 py-2' type='button' onClick={handleOpenModal}>Create</button>
-      {showconfModal && <ConfModal showconfModal={showconfModal} isLoading={isLoading} message={'you are about to add a criminal'} clickbutton={'create'} onClose={() => showconformModal(false)} />}
+           <button className='w-auto bg-sky-500 hover:bg-sky-700 rounded-lg shadow-xl font-medium text-white px-4 py-2' type='button' onClick={handleOpenModal}>Update</button>
+      {showconfModal && <ConfModal showconfModal={showconfModal} isLoading={isLoading} message={'you are about tto update a record'} clickbutton={'update'} onClose={() => showconformModal(false)} />}
       {showerrModal && <ErrorModal showerrModal={showerrModal} errMsg={errMsg} errStatus={errStatus} onClose={() => showerrorModal(false)} />}
       {showsccModal && <SuccessModal showsccModal={showsccModal} succMsg={succMsg} onClose={() => showsuccessModal(false)} />}
          </div>
@@ -263,4 +316,4 @@ const ClerkAdd = () =>{
 
 
 };
-export default ClerkAdd;
+export default ClerkEdit;
