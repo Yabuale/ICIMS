@@ -8,4 +8,6 @@ urlpatterns = [
     path('searchimg', views.searchimg),
     path('searchname', views.searchname),
     path('searchssn', views.searchssn),
+    path('found', views.foundresp),
+    path('notfound', views.notfoundresp),
 ]

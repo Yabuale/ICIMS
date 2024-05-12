@@ -8,7 +8,7 @@ import { NavLink } from "react-router-dom";
 
 const ClerkRequest = () =>{  
     const [req, setReq] = useState(null);
-    const [wantedCriminal, setWantedCriminal] = useState(null);
+   
     useEffect(() => {
         const fetchWantedCriminal = async () => {
           try {
