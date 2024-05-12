@@ -1,7 +1,198 @@
-import React, { useState } from 'react';
+
+import React, { useEffect, useState } from "react";
+import { useParams ,useNavigate} from "react-router-dom";
+import axios from "axios";
+import ConfModal from '../conformModal';
+import ErrorModal from '../errorModal';
+import SuccessModal from '../successModal';
 
 function SearchClerk() {
-    const [open, setOpen] = useState(false);
+    
+  const [name, setName] = useState('')
+  const [fname, setFname] = useState('')
+  const [lname, setLname] = useState('')
+  const [idno, setIdno] = useState('')
+  const [photo, setPhoto] = useState(null);
+
+    const [errStatus, setErrStatus]=useState('404')
+    const[errMsg, setErrMsg]=useState('sorry no record was found')
+    const[succMsg,setSuccMsg]=useState("match found")
+    const[isLoading,setLoading]=useState(false)
+    const[record,setRecord]=useState(null);
+  
+    const [showconfModal, showconformModal] = useState(false);
+    const [showerrModal,showerrorModal] = useState(false)
+    const [showsccModal, showsuccessModal] = useState(false)
+    const handleimg = async () =>{
+      const url = 'http://127.0.0.1:8000/clerk/searchdimg'
+     
+      try{
+        setLoading(true)
+        showconformModal(true)
+      const resp =await axios.post(url, {
+        img:photo
+        }, {
+        headers: {
+            'Content-Type': 'multipart/form-data'
+        }
+    });
+      if(resp.status === 200){
+        
+        showconformModal(false)
+        setLoading(false)
+        setRecord(resp.data)
+      }
+    }catch(error){
+      showconformModal(false)
+      setLoading(false)
+      showerrorModal(true)
+    }
+     } 
+    
+     const handlename = async () =>{
+      const url = 'http://127.0.0.1:8000/clerk/searchname'
+      try{
+        setLoading(true)
+      showconformModal(true)
+      const resp =await axios.post(url, {
+        name:name, fname:fname,lname:lname
+        }, {
+        headers: {
+            'Content-Type': 'multipart/form-data'
+        }
+    });
+      if(resp.status === 200){
+        showconformModal(false)
+        setLoading(false)
+        showsuccessModal(false)
+        setRecord(resp.data)
+      }
+    }
+    catch(error){
+      showconformModal(false)
+      setLoading(false)
+      showerrorModal(true)
+    }
+       
+     } 
+    
+     const handlessn = async (e) =>{
+      e.preventDefault();
+      setLoading(true)
+      showconformModal(true)
+      const url = 'http://127.0.0.1:8000/clerk/searchssn'
+      try{
+      const resp =await axios.post(url, {
+        ssn:idno
+        }, {
+        headers: {
+            'Content-Type': 'multipart/form-data'
+        }
+    });
+      if(resp.status === 200){
+        setLoading(false)
+        showconformModal(false)
+        showsuccessModal(false)
+        setRecord(resp.data)
+      }
+    
+      
+    }catch(error){
+      
+      showconformModal(false)
+      setLoading(false)
+      showerrorModal(true)
+     
+    }
+     } 
+     if (record) {
+      return <>
+     <article className="px-4 py-24 mx-auto max-w-7xl pt-40" itemID="#" itemScope itemType="http://schema.org/BlogPosting">
+      <div className="w-full mx-auto mb-10 text-left md:w-3/4 lg:w-1/2">
+        <div className="pb-6 mb-6 border-b border-gray-200">
+          <h1 className="mb-3 text-3xl font-bold text-sky-950 md:leading-tight md:text-4xl" itemProp="headline" title="Rise of Tailwind - A Utility First CSS Framework">
+            Criminal: 
+          </h1>
+        </div>
+        
+        <img src={`http://127.0.0.1:8000/${record.photo}`} className="object-contain w-full h-64 bg-center rounded" alt="Kutty" />
+      </div>
+    
+      <div className="w-full mx-auto prose md:w-3/4 lg:w-1/2">
+     
+      <div class="grid grid-cols-2 gap-4">
+      <p class="p-1">
+        SSN: {record.SSN}
+      </p>
+      <p class="p-1">
+        Name: {record.first_name} {record.middle_name} {record.last_name}
+      </p>
+      <p class="p-1">
+        date_of_birth: {record.date_of_birth}
+      </p>
+      <p class="p-1">
+        gender: {record.gender}
+      </p>
+      <p class="p-1">
+        nationality: {record.nationality}
+      </p>
+      <p class="p-1">
+        height: {record.height}
+      </p>
+      <p class="p-1">
+        weight: {record.weight}
+      </p>
+      <p class="p-1">
+        eye_color: {record.eye_color}
+      </p>
+      <p class="p-1">
+        hair_color: {record.hair_color}
+      </p>
+      <p class="p-1">
+        tattoos: {record.tattoos}
+      </p>
+      <p class="p-1">
+        scars: {record.scars}
+      </p>
+      <p class="p-1">
+        identifying_features: {record.identifying_features}
+      </p>
+    </div>
+    
+    <div class="grid grid-cols-2 gap-4">
+      <p class="p-1">
+        address: {record.address}
+      </p>
+      <p class="p-1">
+        contact_information: {record.contact_information}
+      </p>
+      <p class="p-1">
+        gang_affiliations: {record.gang_affiliations}
+      </p>
+      <p class="p-1">
+        created_date: {record.created_date}
+      </p>
+      <p class="col-span-2">
+        File: <a  href={`http://127.0.0.1:8000/${record.document}`} target="_blank">Click here to open the PDF</a>
+      </p>
+    </div>
+      </div>
+    
+      <div className="w-full mx-auto mt-10 mb-10 text-left md:w-3/4 lg:w-1/2 grid grid-cols-2 gap-4">
+        <button className="py-3  px-8 rounded-xl flex text-white font-semibold bg-sky-700"  type="button"
+                onClick={() => {
+                    setRecord(null)
+                  }}>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-5 h-5">
+      <path fillRule="evenodd" d="M7.793 2.232a.75.75 0 0 1-.025 1.06L3.622 7.25h10.003a5.375 5.375 0 0 1 0 10.75H10.75a.75.75 0 0 1 0-1.5h2.875a3.875 3.875 0 0 0 0-7.75H3.622l4.146 3.957a.75.75 0 0 1-1.036 1.085l-5.5-5.25a.75.75 0 0 1 0-1.085l5.5-5.25a.75.75 0 0 1 1.06.025Z" clipRule="evenodd" />
+    </svg>
+    &nbsp; Back</button>
+ 
+      </div>
+      
+      
+    </article></>;
+    }
   return ( 
     <>
     <div class="grid  mx-24 lg:mx-auto  pb-10 bg-sky-50 mt-24 justify-center  rounded-lg shadow-xl w-4/5  md:w-9/12 lg:w-1/2">
@@ -30,100 +221,65 @@ function SearchClerk() {
            <h1 class="text-gray-600 font-bold md:text-2xl text-xl">Search Criminal</h1>
          </div>
        </div>
-    <div className='flex items-center justify-center h-32'>
-    <div className='flex items-center justify-center h-32'>
-      <nav className="hidden mt-0 space-x-10 md:flex">
-        <div className="relative" onClick={() => setOpen(!open)}>
-          <button type="button" className="text-gray-500 group mr-4 p-4 inline-flex items-center rounded-md bg-white text-base font-medium hover:text-gray-900" aria-expanded={open ? 'true' : 'false'}>
-            <span>Search By</span>
-            <svg className={`text-gray-400 ml-2 h-5 w-5 group-hover:text-gray-500 duration-300 ${open ? 'rotate-180' : ''}`} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-              <path fillRule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clipRule="evenodd" />
-            </svg>
-          </button>
-
-          {open && (
-            <div className="absolute left-1/2 z-full mt-3 w-screen max-w-md -translate-x-1/2 transform px-2 sm:px-0">
-              <div className="overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
-                <div className="relative grid gap-6 bg-white px-5 py-6 sm:gap-8 sm:p-8">
-                  <a href="#" className="-m-3 flex items-start rounded-lg p-3 hover:bg-gray-50">
-                  <svg className="h-6 w-6 flex-shrink-0 text-template-secondary" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">
-    <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
-  </svg>
-                    <div className="ml-4">
-                      <p className="text-base font-medium text-gray-900">First Name</p>
-                      <p className="mt-1 text-sm text-gray-500">search by first name</p>
-                    </div>
-                  </a>
-                  <a href="#" className="-m-3 flex items-start rounded-lg p-3 hover:bg-gray-50">
-  <svg className="h-6 w-6 flex-shrink-0 text-template-secondary" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">
-    <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
-  </svg>
-  <div className="ml-4">
-    <p className="text-base font-medium text-gray-900">Last Name</p>
-    <p className="mt-1 text-sm text-gray-500">search by last name</p>
-  </div>
-</a>
-
-                  
-                </div>
-              </div>
-            </div>
-          )}
-        </div>
-      </nav>
-      
-    </div>
-        <div className="relative w-96 mt-2 mb-2 flex flex-wrap">
-        <input
-          type="search"
-          className="relative m-0 -mr-0.5 block min-w-0 flex-auto rounded-l border border-solid border-neutral-300 bg-transparent bg-clip-padding px-2 py-[0.15rem] sm:px-3 sm:py-[0.25rem] text-sm sm:text-base font-normal leading-[1.6] text-neutral-700 outline-none transition duration-200 ease-in-out focus:z-[3] focus:border-primary focus:text-neutral-700 focus:shadow-[inset_0_0_0_1px_rgb(59,113,202)] focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:placeholder:text-neutral-200 dark:focus:border-primary"
-          placeholder="Search"
-          aria-label="Search"
-          aria-describedby="button-addon1" />
-        
-        <button
-          className="relative z-[2] flex items-center rounded-r bg-sky-900 px-3 py-1.5 sm:px-6 sm:py-2 text-xs sm:text-sm font-medium uppercase leading-tight text-white shadow-md transition duration-150 ease-in-out hover:bg-sky-800 hover:shadow-lg focus:bg-sky-800 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-sky-1000 active:shadow-lg"
-          type="button"
-          id="button-addon1"
-          data-te-ripple-init
-          data-te-ripple-color="light">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 20 20"
-            fill="currentColor"
-            className="h-4 w-4 sm:h-5 sm:w-5">
-            <path
-              fillRule="evenodd"
-              d="M9 3.5a5.5 5.5 0 100 11 5.5 5.5 0 000-11zM2 9a7 7 0 1112.452 4.391l3.328 3.329a.75.75 0 11-1.06 1.06l-3.329-3.328A7 7 0 012 9z"
-              clipRule="evenodd" />
-          </svg>
-        </button>
-      </div>
     
-    </div>
+       
+     <div class="flex justify-center">
+         <div class="flex">
+           <h1 class="text-gray-600 font-bold md:text-2xl text-xl">Send Request</h1>
+         </div>
+       </div>
+
+       <div class="grid grid-cols-1 mt-5 mx-7">
+         <label class="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">Name</label>
+         <input class="py-2 px-3 rounded-lg border-2 border-sky-300 mt-1 focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent" type="text" placeholder="name"  value={name} id="name" onChange={(e)=> setName(e.target.value)}/>
+       </div>
+   
+       <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 mt-5 mx-7">
+         <div class="grid grid-cols-1">
+           <label class="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">Middle name</label>
+           <input class="py-2 px-3 rounded-lg border-2 border-sky-300 mt-1 focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent" type="text" placeholder="middle name" value={fname} id="fname" onChange={(e)=> setFname(e.target.value)} />
+         </div>
+         <div class="grid grid-cols-1">
+           <label class="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">Last Name</label>
+           <input class="py-2 px-3 rounded-lg border-2 border-sky-300 mt-1 focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent" type="text" placeholder="last name" value={lname} id="message" onChange={(e)=> setLname(e.target.value)} />
+         </div>
+       </div>
+
+       <button className="bg-sky-900 rounded-md p-2 m-2 text-white" type="button" onClick={handlename} >Search by name</button>
+       
+       <div class="grid grid-cols-1 mt-5 mx-7">
+         <label class="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">ID NUMBER</label>
+         <input class="py-2 px-3 rounded-lg border-2 border-sky-300 mt-1 focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent" type="text" placeholder="Another Input" value={idno} id="message" onChange={(e)=> setIdno(e.target.value)}/>
+       </div>
+
+       <button className="bg-sky-900 rounded-md p-2 m-2 text-white" type="button" onClick={handlessn}>Search by ID number</button>
     <div class="grid grid-cols-1 mt-5 mx-7">
-           <label class="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold mb-1">Upload Photo</label>
+           <label class="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold mb-1">Photo</label>
              <div class='flex items-center justify-center w-full'>
                  <label class='flex flex-col border-4 border-dashed w-full h-32 hover:bg-gray-100 hover:border-sky-300 group'>
                      <div class='flex flex-col items-center justify-center pt-7'>
                        <svg class="w-10 h-10 text-sky-400 group-hover:text-sky-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
                        <p class='lowercase text-sm text-gray-400 group-hover:text-sky-600 pt-1 tracking-wider'>Select a photo</p>
                      </div>
-                   <input type='file' class="hidden" />
+                   <input type="file" class="hidden" onChange={(e) => setPhoto(e.target.files[0])} />
                  </label>
              </div>
          </div>
-         <div  className="items-center">
-         <button
-  className="ml-32 mt-4 rounded-lg bg-sky-800 py-3 px-6 w-6/12 font-sans text-xs font-bold uppercase text-white shadow-md shadow-blue-500/20 transition-all hover:shadow-lg hover:shadow-blue-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-  data-ripple-light="true"
->
-  Search by Photo
-</button>
+         <button className="bg-sky-900 rounded-md p-2 m-2 text-white" type="button" 
+     onClick={handleimg}
+    >Search this photo</button>
 
-</div>
-      
-    
+    <div className='flex items-center justify-center  md:gap-8 gap-4 pt-5 pb-5'>
+      <button className='w-auto bg-gray-500 hover:bg-gray-700 rounded-lg shadow-xl font-medium text-white px-4 py-2 ' type="button"
+            onClick={() => {
+                navigate(-1);
+              }}>Cancel</button>
+     
+    </div>
+   
+    {showconfModal && <ConfModal showconfModal={showconfModal} isLoading={isLoading} message={'you are searching a record this might take a while please hold'} clickbutton={'search'} onClose={() => showconformModal(false)} />}
+      {showerrModal && <ErrorModal showerrModal={showerrModal} errMsg={errMsg} errStatus={errStatus} onClose={() => showerrorModal(false)} />}
+      {showsccModal && <SuccessModal showsccModal={showsccModal} succMsg={succMsg} onClose={() => showsuccessModal(false)} />}
          </div>
     </>
   );

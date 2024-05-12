@@ -145,7 +145,7 @@ catch(error){
   const url = 'http://127.0.0.1:8000/clerk/found'
   try{
   const resp =await axios.post(url, {
-    id:Id
+    id:Id,url:record.id
     }, {
     headers: {
         'Content-Type': 'multipart/form-data'
@@ -153,19 +153,20 @@ catch(error){
 });
   if(resp.status === 200){
     window.alert("your responce was sent")
+    
   }
 
   
 }catch(error){
   
-  window.alert("your responce was sent")
+  window.alert("there was an error while sending")
  
 }
  } 
 
  const notfoundresponce = async () =>{
   
-  const url = 'http://127.0.0.1:8000/clerk/found'
+  const url = 'http://127.0.0.1:8000/clerk/notfound'
   try{
   const resp =await axios.post(url, {
     id:Id
@@ -175,13 +176,14 @@ catch(error){
     }
 });
   if(resp.status === 200){
-    window.alert("your responce was sent")
+    setSuccMsg(" your responce was sent")
+    showsuccessModal(true)
   }
 
   
 }catch(error){
   
-  window.alert("your responce was sent")
+  window.alert("there was an error while sending")
  
 }
  } 
