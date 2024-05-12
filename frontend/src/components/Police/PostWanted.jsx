@@ -7,7 +7,7 @@ import SuccessModal from '../successModal';
 
 const PostWanted = () =>{
  const [errStatus, setErrStatus]=useState('500')
- const[errMsg, setErrMsg]=useState('The server might be down, please try again later we will try to solve the problem as soon as possible')
+ const[errMsg, setErrMsg]=useState({})
  const [photo, setPhoto] = useState(null);
  const[succMsg,setSuccMsg]=useState("sdfsdfsdfsdfsdfsdfsdf")
  const[isLoading,setLoading]=useState(false)
@@ -25,6 +25,10 @@ const PostWanted = () =>{
  const [showerrModal,showerrorModal] = useState(false)
  const [showsccModal, showsuccessModal] = useState(false)
  
+
+
+ 
+
 const url = 'http://127.0.0.1:8000/police/addwanted'
  const handleSubmit = async (e) =>{
   
@@ -55,11 +59,90 @@ const url = 'http://127.0.0.1:8000/police/addwanted'
     setErrMsg(error.response.data.success);
      }
     
-  }
+  
+}
  } 
  const handleOpenModal = () => {
-  showconformModal(true); // Open the modal on button click
+  if(validate()){
+  showconformModal(true);
+  }
 };
+
+const validate = () => {
+  let isvalid=true;
+  let errorMessage = {};
+  // Validate name
+  if (!name.trim()) {
+    isvalid=false;
+    errorMessage.name = "Name is required";
+  }
+
+  // Validate age
+  if (!age || isNaN(age) || age <= 18) {
+    isvalid=false;
+    errorMessage.age = "Please provide a valid age";
+  }
+
+  // Validate gender
+  if (!gender.trim()) {
+    isvalid=false;
+    errorMessage.gender = "Gender is required";
+  }
+
+  // Validate alias
+  if (!alias.trim()) {
+    isvalid=false;
+    errorMessage.alias = "Alias is required";
+  }
+
+  // Validate nationality
+  if (!nationality.trim()) {
+    isvalid=false;
+    errorMessage.nationality = "Nationality is required";
+  }
+
+  // Validate last known location
+  if (!last_known_location.trim()) {
+    isvalid=false;
+    errorMessage.last_known_location = "Last known location is required";
+  }
+
+  // Validate reward
+  if (!reward || isNaN(reward) || reward <= 0) {
+    isvalid=false;
+    errorMessage.reward = "Please provide a valid reward amount";
+  }
+
+  // Validate criminal offenses
+  if (!criminal_offenses.trim()) {
+    isvalid=false;
+    errorMessage.criminal_offenses = "Criminal offenses is required";
+  }
+
+  // Validate contact information
+  if (!contact_information.trim()) {
+    isvalid=false;
+    errorMessage.contact_information = "Contact information is required";
+  }
+
+  // Validate description
+  if (!description.trim()) {
+    isvalid=false;
+    errorMessage.description = "Description is required";
+  }
+
+  // Validate photo
+  if (!photo) {
+    isvalid=false;
+    errorMessage.photo = "Photo is required";
+  }
+
+  setErrMsg(errorMessage);
+
+  // Returns true if there are no errors
+  return isvalid;
+};
+
 const navigate = useNavigate();
 return( 
  <>
@@ -97,12 +180,22 @@ return(
     <div className="grid grid-cols-1 mt-5 mx-7">
       <label className="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">Name</label>
       <input className="py-2 px-3 rounded-lg border-2 border-sky-300 mt-1 focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent" type="text" placeholder="name" value={name} id="name" onChange={(e)=> setName(e.target.value)} />
+      {errors.name &&
+    <span className="text-red-500">
+      {errors.name}
+    </span>
+  }
     </div>
 
     <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 mt-5 mx-7">
       <div className="grid grid-cols-1">
         <label className="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">age</label>
         <input className="py-2 px-3 rounded-lg border-2 border-sky-300 mt-1 focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent" type="number" placeholder="age"  value={age} id="age" onChange={(e)=> setAge(e.target.value)}/>
+        {errors.age &&
+  <span className="text-red-500">
+    {errors.age}
+  </span>
+}
       </div>
       <div className="grid grid-cols-1">
       <label className="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">gender</label>
@@ -113,26 +206,51 @@ return(
         <option>female</option>
         
       </select>
+      {errors.gender &&
+  <span className="text-red-500">
+    {errors.gender}
+  </span>
+}
     </div>
     </div>
     <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 mt-5 mx-7">
       <div className="grid grid-cols-1">
         <label className="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">alias</label>
         <input className="py-2 px-3 rounded-lg border-2 border-sky-300 mt-1 focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent" type="text" placeholder="alias" value={alias} id="alias" onChange={(e)=> setAlias(e.target.value)} />
+        {errors.alias &&
+  <span className="text-red-500">
+    {errors.alias}
+  </span>
+}
       </div>
       <div className="grid grid-cols-1">
         <label className="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">nationality</label>
         <input className="py-2 px-3 rounded-lg border-2 border-sky-300 mt-1 focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent" type="text" placeholder="nationality" value={nationality} id="nationality" onChange={(e)=> setNationality(e.target.value)} />
+        {errors.nationality &&
+  <span className="text-red-500">
+    {errors.nationality}
+  </span>
+}
       </div>
     </div>
     <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 mt-5 mx-7">
       <div className="grid grid-cols-1">
         <label className="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">Last seen</label>
         <input className="py-2 px-3 rounded-lg border-2 border-sky-300 mt-1 focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent" type="text" placeholder="Last seen" value={last_known_location} id="last_known_location" onChange={(e)=> setLast_known_location(e.target.value)} />
+        {errors.last_known_location &&
+  <span className="text-red-500">
+    {errors.last_known_location}
+  </span>
+}
       </div>
       <div className="grid grid-cols-1">
         <label className="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">Reward</label>
         <input className="py-2 px-3 rounded-lg border-2 border-sky-300 mt-1 focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent" type="number" placeholder="reward" value={reward} id="reward" onChange={(e)=> setReward(e.target.value)} />
+        {errors.reward &&
+  <span className="text-red-500">
+    {errors.reward}
+  </span>
+}
       </div>
     </div>
 
@@ -140,10 +258,20 @@ return(
       <div className="grid grid-cols-1">
         <label className="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">criminal offense</label>
         <input className="py-2 px-3 rounded-lg border-2 border-sky-300 mt-1 focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent" type="text" placeholder="offense" value={criminal_offenses} id="criminal_offenses" onChange={(e)=> setCriminal_offenses(e.target.value)}/>
+        {errors.criminal_offenses &&
+  <span className="text-red-500">
+    {errors.criminal_offenses}
+  </span>
+}
       </div>
       <div className="grid grid-cols-1">
         <label className="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">contact information</label>
         <input className="py-2 px-3 rounded-lg border-2 border-sky-300 mt-1 focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent" type="text" placeholder="contact information" value={contact_information} id="contact_information" onChange={(e)=> setContact_information(e.target.value)} />
+        {errors.contact_information &&
+  <span className="text-red-500">
+    {errors.contact_information}
+  </span>
+}
       </div>
     </div>
 
@@ -152,6 +280,11 @@ return(
     <div className="grid grid-cols-1 mt-5 mx-7">
       <label className="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">description</label>
       <textarea  className="py-2 px-3 rounded-lg border-2 border-sky-300 mt-1 focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent" type="text" placeholder="description" rows="5" value={description} id="description" onChange={(e)=> setDescription(e.target.value)} />
+      {errors.description &&
+  <span className="text-red-500">
+    {errors.description}
+  </span>
+}
     </div>
 
     <div class="grid grid-cols-1 mt-5 mx-7">
@@ -164,6 +297,11 @@ return(
                      </div>
                    <input type="file" class="hidden" onChange={(e) => setPhoto(e.target.files[0])} />
                  </label>
+                 {errors.photo &&
+  <span className="text-red-500">
+    {errors.photo}
+  </span>
+}
              </div>
          </div>
 
