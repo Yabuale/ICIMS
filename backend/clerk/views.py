@@ -10,6 +10,8 @@ from criminal.models import Requests
 from criminal.models import Responces
 from criminal.models import Criminal
 from .img import check_img
+import os
+import tempfile
 
 class Reqview(APIView):
       def get(self, request):
@@ -52,7 +54,39 @@ def searchimg(request):
         return Response({"msg":"no match record of this photo found"}, status=404)
 
 
-    return Response({"sef":"img"})
+   
+@api_view(['POST'])
+def searchdimg(request):
+  img = request.data['img']
+  with tempfile.NamedTemporaryFile(delete=False) as temp_file:
+    for chunk in img.chunks():
+        temp_file.write(chunk)
+    temp_file_path = temp_file.name
+    match_found = False
+    criminal = Criminal.objects.all()
+    distance = 0.68
+    for cr in criminal:
+        img2='./'+cr.photo.url
+        a = check_img(temp_file_path,img2)
+        if a <= distance:
+           distance=a
+           match_found = True
+           possible_match = cr.id
+           break
+    if match_found:
+        print(distance)
+        print(possible_match)
+        criminal = get_object_or_404(criminal,pk=possible_match)
+        serializer = Criminalserializer(instance = criminal)
+        print("possible match found")
+        return Response(serializer.data, status=200)
+    else:
+        print("no match found")
+        return Response({"msg":"no match record of this photo found"}, status=404)
+    
+  
+
+
 @api_view(['POST'])
 def searchssn(request):
     try:
