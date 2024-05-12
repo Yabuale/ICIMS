@@ -180,22 +180,14 @@ return(
     <div className="grid grid-cols-1 mt-5 mx-7">
       <label className="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">Name</label>
       <input className="py-2 px-3 rounded-lg border-2 border-sky-300 mt-1 focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent" type="text" placeholder="name" value={name} id="name" onChange={(e)=> setName(e.target.value)} />
-      {errors.name &&
-    <span className="text-red-500">
-      {errors.name}
-    </span>
-  }
+      {errMsg.name && <p className="text-red-500 text-xs">{errMsg.name}</p>}
     </div>
 
     <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 mt-5 mx-7">
       <div className="grid grid-cols-1">
         <label className="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">age</label>
         <input className="py-2 px-3 rounded-lg border-2 border-sky-300 mt-1 focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent" type="number" placeholder="age"  value={age} id="age" onChange={(e)=> setAge(e.target.value)}/>
-        {errors.age &&
-  <span className="text-red-500">
-    {errors.age}
-  </span>
-}
+        {errMsg.age && <p className="text-red-500 text-xs">{errMsg.age}</p>}
       </div>
       <div className="grid grid-cols-1">
       <label className="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">gender</label>
@@ -206,51 +198,31 @@ return(
         <option>female</option>
         
       </select>
-      {errors.gender &&
-  <span className="text-red-500">
-    {errors.gender}
-  </span>
-}
+      {errMsg.gender && <p className="text-red-500 text-xs">{errMsg.gender}</p>}
     </div>
     </div>
     <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 mt-5 mx-7">
       <div className="grid grid-cols-1">
         <label className="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">alias</label>
         <input className="py-2 px-3 rounded-lg border-2 border-sky-300 mt-1 focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent" type="text" placeholder="alias" value={alias} id="alias" onChange={(e)=> setAlias(e.target.value)} />
-        {errors.alias &&
-  <span className="text-red-500">
-    {errors.alias}
-  </span>
-}
+        {errMsg.alias && <p className="text-red-500 text-xs">{errMsg.alias}</p>}
       </div>
       <div className="grid grid-cols-1">
         <label className="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">nationality</label>
         <input className="py-2 px-3 rounded-lg border-2 border-sky-300 mt-1 focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent" type="text" placeholder="nationality" value={nationality} id="nationality" onChange={(e)=> setNationality(e.target.value)} />
-        {errors.nationality &&
-  <span className="text-red-500">
-    {errors.nationality}
-  </span>
-}
+        {errMsg.nationality && <p className="text-red-500 text-xs">{errMsg.nationality}</p>}
       </div>
     </div>
     <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 mt-5 mx-7">
       <div className="grid grid-cols-1">
         <label className="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">Last seen</label>
         <input className="py-2 px-3 rounded-lg border-2 border-sky-300 mt-1 focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent" type="text" placeholder="Last seen" value={last_known_location} id="last_known_location" onChange={(e)=> setLast_known_location(e.target.value)} />
-        {errors.last_known_location &&
-  <span className="text-red-500">
-    {errors.last_known_location}
-  </span>
-}
+        {errMsg.last_known_location && <p className="text-red-500 text-xs">{errMsg.last_known_location}</p>}
       </div>
       <div className="grid grid-cols-1">
         <label className="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">Reward</label>
         <input className="py-2 px-3 rounded-lg border-2 border-sky-300 mt-1 focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent" type="number" placeholder="reward" value={reward} id="reward" onChange={(e)=> setReward(e.target.value)} />
-        {errors.reward &&
-  <span className="text-red-500">
-    {errors.reward}
-  </span>
-}
+        {errMsg.reward && <p className="text-red-500 text-xs">{errMsg.reward}</p>}
       </div>
     </div>
 
@@ -258,20 +230,12 @@ return(
       <div className="grid grid-cols-1">
         <label className="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">criminal offense</label>
         <input className="py-2 px-3 rounded-lg border-2 border-sky-300 mt-1 focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent" type="text" placeholder="offense" value={criminal_offenses} id="criminal_offenses" onChange={(e)=> setCriminal_offenses(e.target.value)}/>
-        {errors.criminal_offenses &&
-  <span className="text-red-500">
-    {errors.criminal_offenses}
-  </span>
-}
+        {errMsg.criminal_offenses && <p className="text-red-500 text-xs">{errMsg.criminal_offenses}</p>}
       </div>
       <div className="grid grid-cols-1">
         <label className="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">contact information</label>
         <input className="py-2 px-3 rounded-lg border-2 border-sky-300 mt-1 focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent" type="text" placeholder="contact information" value={contact_information} id="contact_information" onChange={(e)=> setContact_information(e.target.value)} />
-        {errors.contact_information &&
-  <span className="text-red-500">
-    {errors.contact_information}
-  </span>
-}
+        {errMsg.contact_information && <p className="text-red-500 text-xs">{errMsg.contact_information}</p>}
       </div>
     </div>
 
@@ -280,11 +244,7 @@ return(
     <div className="grid grid-cols-1 mt-5 mx-7">
       <label className="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">description</label>
       <textarea  className="py-2 px-3 rounded-lg border-2 border-sky-300 mt-1 focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent" type="text" placeholder="description" rows="5" value={description} id="description" onChange={(e)=> setDescription(e.target.value)} />
-      {errors.description &&
-  <span className="text-red-500">
-    {errors.description}
-  </span>
-}
+      {errMsg.description && <p className="text-red-500 text-xs">{errMsg.description}</p>}
     </div>
 
     <div class="grid grid-cols-1 mt-5 mx-7">
@@ -295,13 +255,9 @@ return(
                        <svg class="w-10 h-10 text-sky-400 group-hover:text-sky-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
                        <p class='lowercase text-sm text-gray-400 group-hover:text-sky-600 pt-1 tracking-wider'>Select a photo</p>
                      </div>
-                   <input type="file" class="hidden" onChange={(e) => setPhoto(e.target.files[0])} />
+                   <input type="file" class="hidden"  onChange={(e) => setPhoto(e.target.files[0])} />
                  </label>
-                 {errors.photo &&
-  <span className="text-red-500">
-    {errors.photo}
-  </span>
-}
+                
              </div>
          </div>
 

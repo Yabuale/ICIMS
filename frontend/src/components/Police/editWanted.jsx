@@ -8,7 +8,7 @@ import SuccessModal from '../successModal';
 
 const EditWanted = () =>{
  const [errStatus, setErrStatus]=useState('500')
- const[errMsg, setErrMsg]=useState('The server might be down, please try again later we will try to solve the problem as soon as possible')
+ const[errMsg, setErrMsg]=useState({})
  const[succMsg,setSuccMsg]=useState("sdfsdfsdfsdfsdfsdfsdf")
  const[isLoading,setLoading]=useState(false)
  const [photo, setPhoto] = useState(null);
@@ -104,8 +104,85 @@ const url = `http://127.0.0.1:8000/police/wanteddetail/${wantedId}/`
    }
   }
  } 
+
+ const validate = () => {
+  let isvalid=true;
+  let errorMessage = {};
+  // Validate name
+  if (!name.trim()) {
+    isvalid=false;
+    errorMessage.name = "Name is required";
+  }
+
+  // Validate age
+  if (!age || isNaN(age) || age <= 18) {
+    isvalid=false;
+    errorMessage.age = "Please provide a valid age";
+  }
+
+  // Validate gender
+  if (!gender.trim()) {
+    isvalid=false;
+    errorMessage.gender = "Gender is required";
+  }
+
+  // Validate alias
+  if (!alias.trim()) {
+    isvalid=false;
+    errorMessage.alias = "Alias is required";
+  }
+
+  // Validate nationality
+  if (!nationality.trim()) {
+    isvalid=false;
+    errorMessage.nationality = "Nationality is required";
+  }
+
+  // Validate last known location
+  if (!last_known_location.trim()) {
+    isvalid=false;
+    errorMessage.last_known_location = "Last known location is required";
+  }
+
+  // Validate reward
+  if (!reward || isNaN(reward) || reward <= 0) {
+    isvalid=false;
+    errorMessage.reward = "Please provide a valid reward amount";
+  }
+
+  // Validate criminal offenses
+  if (!criminal_offenses.trim()) {
+    isvalid=false;
+    errorMessage.criminal_offenses = "Criminal offenses is required";
+  }
+
+  // Validate contact information
+  if (!contact_information.trim()) {
+    isvalid=false;
+    errorMessage.contact_information = "Contact information is required";
+  }
+
+  // Validate description
+  if (!description.trim()) {
+    isvalid=false;
+    errorMessage.description = "Description is required";
+  }
+
+  // Validate photo
+  if (!photo) {
+    isvalid=false;
+    errorMessage.photo = "Photo is required";
+  }
+
+  setErrMsg(errorMessage);
+
+  // Returns true if there are no errors
+  return isvalid;
+};
  const handleOpenModal = () => {
-  showconformModal(true); // Open the modal on button click
+   if(validate()){
+  showconformModal(true);
+  } // Open the modal on button click
 };
 
 return( 
@@ -144,12 +221,14 @@ return(
     <div className="grid grid-cols-1 mt-5 mx-7">
       <label className="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">Name</label>
       <input className="py-2 px-3 rounded-lg border-2 border-sky-300 mt-1 focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent" type="text" placeholder="name" value={name} id="name" onChange={(e)=> setName(e.target.value)} />
+      {errMsg.name && <p className="text-red-500 text-xs">{errMsg.name}</p>}
     </div>
 
     <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 mt-5 mx-7">
       <div className="grid grid-cols-1">
         <label className="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">age</label>
         <input className="py-2 px-3 rounded-lg border-2 border-sky-300 mt-1 focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent" type="number" placeholder="age"  value={age} id="age" onChange={(e)=> setAge(e.target.value)}/>
+        {errMsg.age && <p className="text-red-500 text-xs">{errMsg.age}</p>}
       </div>
       <div className="grid grid-cols-1">
       <label className="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">gender</label>
@@ -158,28 +237,33 @@ return(
       <option> </option>
       <option>male</option>
         <option>female</option>
-        
+
       </select>
+      {errMsg.gender && <p className="text-red-500 text-xs">{errMsg.gender}</p>}
     </div>
     </div>
     <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 mt-5 mx-7">
       <div className="grid grid-cols-1">
         <label className="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">alias</label>
         <input className="py-2 px-3 rounded-lg border-2 border-sky-300 mt-1 focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent" type="text" placeholder="alias" value={alias} id="alias" onChange={(e)=> setAlias(e.target.value)} />
+        {errMsg.alias && <p className="text-red-500 text-xs">{errMsg.alias}</p>}
       </div>
       <div className="grid grid-cols-1">
         <label className="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">nationality</label>
         <input className="py-2 px-3 rounded-lg border-2 border-sky-300 mt-1 focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent" type="text" placeholder="nationality" value={nationality} id="nationality" onChange={(e)=> setNationality(e.target.value)} />
+        {errMsg.nationality && <p className="text-red-500 text-xs">{errMsg.nationality}</p>}
       </div>
     </div>
     <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 mt-5 mx-7">
       <div className="grid grid-cols-1">
         <label className="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">Last seen</label>
         <input className="py-2 px-3 rounded-lg border-2 border-sky-300 mt-1 focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent" type="text" placeholder="Last seen" value={last_known_location} id="last_known_location" onChange={(e)=> setLast_known_location(e.target.value)} />
+        {errMsg.last_known_location && <p className="text-red-500 text-xs">{errMsg.last_known_location}</p>}
       </div>
       <div className="grid grid-cols-1">
         <label className="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">Reward</label>
         <input className="py-2 px-3 rounded-lg border-2 border-sky-300 mt-1 focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent" type="number" placeholder="reward" value={reward} id="reward" onChange={(e)=> setReward(e.target.value)} />
+        {errMsg.reward && <p className="text-red-500 text-xs">{errMsg.reward}</p>}
       </div>
     </div>
 
@@ -187,10 +271,12 @@ return(
       <div className="grid grid-cols-1">
         <label className="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">criminal offense</label>
         <input className="py-2 px-3 rounded-lg border-2 border-sky-300 mt-1 focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent" type="text" placeholder="offense" value={criminal_offenses} id="criminal_offenses" onChange={(e)=> setCriminal_offenses(e.target.value)}/>
+        {errMsg.criminal_offenses && <p className="text-red-500 text-xs">{errMsg.criminal_offenses}</p>}
       </div>
       <div className="grid grid-cols-1">
         <label className="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">contact information</label>
         <input className="py-2 px-3 rounded-lg border-2 border-sky-300 mt-1 focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent" type="text" placeholder="contact information" value={contact_information} id="contact_information" onChange={(e)=> setContact_information(e.target.value)} />
+        {errMsg.contact_information && <p className="text-red-500 text-xs">{errMsg.contact_information}</p>}
       </div>
     </div>
 
@@ -199,6 +285,7 @@ return(
     <div className="grid grid-cols-1 mt-5 mx-7">
       <label className="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">description</label>
       <textarea  className="py-2 px-3 rounded-lg border-2 border-sky-300 mt-1 focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent" type="text" placeholder="description" rows="5" value={description} id="description" onChange={(e)=> setDescription(e.target.value)} />
+      {errMsg.description && <p className="text-red-500 text-xs">{errMsg.description}</p>}
     </div>
 
     <div className="grid grid-cols-1 mt-5 mx-7">
