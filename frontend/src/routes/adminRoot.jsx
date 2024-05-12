@@ -6,20 +6,7 @@ import { useEffect } from "react";
 import AdminDashboard from "../pages/AdminDashboard";
 const AdminRoot = ()=>{
   const navigate = useNavigate()
-  useEffect(() => {
-    const storedData = localStorage.getItem('user');
-    let user;
-    if (storedData) {
-      
-      user= JSON.parse(storedData)
-      if (user.user.role !== "systemadmin" && user.user.is_active ){
-        navigate("/login")
-      }
-    }
-    else{
-      navigate("/login")
-    }
-  }, []);
+  
     return(
 <>
 <div className="flex text-gray-900   ">
