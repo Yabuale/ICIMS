@@ -35,6 +35,9 @@ import EditAccount from './components/localAdmin/editAccount';
 import EditLocalAccount from './components/Admin/editAccount';
 import ClerkEdit from './components/clerk/clerkEdit';
 import Reqdetail from './components/clerk/reqDetail';
+import Resps from './components/Police/Resp';
+import DetailResp from './components/Police/detailResp';
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -169,6 +172,13 @@ const router = createBrowserRouter([
       {
         path:"edit/:wantedId",
         element:<EditWanted/>
+      },{
+        path:"responces",
+        element:<Resps/>
+      },
+      {
+        path:"respdetail/:Id",
+        element:<DetailResp/>
       }
 
     ],
