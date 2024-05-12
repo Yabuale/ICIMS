@@ -37,6 +37,8 @@ import ClerkEdit from './components/clerk/clerkEdit';
 import Reqdetail from './components/clerk/reqDetail';
 import Resps from './components/Police/Resp';
 import DetailResp from './components/Police/detailResp';
+import BranchList from './components/Admin/branches';
+import EditBranch from './components/Admin/editbranch';
 
 const router = createBrowserRouter([
   {
@@ -97,6 +99,16 @@ const router = createBrowserRouter([
       {
         path:"edit/:accountID",
         element:<EditLocalAccount/>
+      }
+      ,
+      {
+        path:"branchs/",
+        element:<BranchList/>
+      }
+      ,
+      {
+        path:"editbranch/:ID",
+        element:<EditBranch/>
       }
       
     ],

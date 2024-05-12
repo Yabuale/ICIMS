@@ -25,18 +25,18 @@ class branchDetail(APIView):
     def get(self,request,pk):
         branch =get_object_or_404(Branch, pk=pk)
         serializer = branchSerializer(instance=branch)
-        return Response(serializer.data)
+        return Response(serializer.data,status=200)
     def patch(self,request,pk):
         branch = get_object_or_404(Branch, pk=pk)
         serializer = branchSerializer(branch , data=request.data, partial = True)
         if serializer.is_valid():
             serializer.save()
-            return Response({"msg": "success" , "updated":serializer.data})
+            return Response({"success": "brach updated successfully" , "updated":serializer.data},status=200)
         return Response(serializer.errors, status=400)
     def delete(self,request,pk):
         branch = get_object_or_404(Branch, pk=pk)
         branch.delete()
-        return Response({"msg":"deleted successfully"})
+        return Response({"success":"deleted successfully"},status=200)
         
 
       
@@ -99,6 +99,13 @@ def addAccount(request):
         return Response({"success":"You have sucessfully created local account"}, status=201 )
     else:
         return Response(serializer.errors, status=400)
+
+@api_view(['GET'])
+def braches(request): 
+    branch = Branch.objects.all()
+    serialize = branchSerializer(branch, many=True)
+    return Response(serialize.data,status=200)
+
     
 
 

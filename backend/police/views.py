@@ -75,4 +75,4 @@ class Respview(APIView):
       def delete(self,request,pk):
           req =get_object_or_404(Responces,pk=pk)
           req.delete()
-          return Response({"fsdfds":"sdf"},status=200)
+          return Response({"fsdfds":"sdf"},status=200) 

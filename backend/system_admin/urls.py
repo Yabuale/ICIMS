@@ -10,7 +10,7 @@ urlpatterns = [
     path('branch/names/', branchNameView.as_view()),
     path('branch/<int:pk>/', branchDetail.as_view()),
     path('branch/add', views.addBranch),
+    path('branchs/', views.braches),
 
-    
 
 ]
