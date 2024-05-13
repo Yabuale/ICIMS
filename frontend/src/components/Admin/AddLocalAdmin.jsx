@@ -3,6 +3,7 @@ import { useState,useEffect } from 'react';
 import ConfModal from '../conformModal';
 import ErrorModal from '../errorModal';
 import SuccessModal from '../successModal';
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -28,6 +29,8 @@ const[isLoading,setLoading]=useState(false)
  const [showerrModal,showerrorModal] = useState(false)
  const [showsccModal, showsuccessModal] = useState(false)
  const [token,setToken]=useState(null)
+ const navigate=useNavigate()
+ 
 
  useEffect (() => {
   
@@ -233,7 +236,9 @@ return(
     </div>
 
     <div className='flex items-center justify-center  md:gap-8 gap-4 pt-5 pb-5'>
-      <button className='w-auto bg-gray-500 hover:bg-gray-700 rounded-lg shadow-xl font-medium text-white px-4 py-2'>Cancel</button>
+      <button className='w-auto bg-gray-500 hover:bg-gray-700 rounded-lg shadow-xl font-medium text-white px-4 py-2' type='button' onClick={() => {
+                navigate(-1);
+              }}>Cancel</button>
       <div>
       <button className='w-auto bg-sky-500 hover:bg-sky-700 rounded-lg shadow-xl font-medium text-white px-4 py-2' type='button' onClick={handleOpenModal}>Create</button>
       {showconfModal && <ConfModal showconfModal={showconfModal} isLoading={isLoading} message={'you are about to create a local admin for branch ' + branch +' please click Add to conform'} clickbutton={'Add'} onClose={() => showconformModal(false)} />}

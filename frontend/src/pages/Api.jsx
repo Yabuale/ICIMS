@@ -133,7 +133,7 @@ const Api = () =>{
             <pre id="code" className="text-gray-300">
         <code>
 //check if a person has criminal record using SSN <br/>
-POST http://127.0.0.1:8000/wanted<br/>
+POST http://127.0.0.1:8000/wanted/check<br/>
 body {"{"}<br/>
 
 "ssn": "ssn-xxx-yyy"<br/>

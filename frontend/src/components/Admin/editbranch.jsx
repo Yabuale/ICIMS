@@ -244,7 +244,9 @@ return(
     
 
     <div className='flex items-center justify-center  md:gap-8 gap-4 pt-5 pb-5'>
-      <button className='w-auto bg-gray-500 hover:bg-gray-700 rounded-lg shadow-xl font-medium text-white px-4 py-2'>Cancel</button>
+      <button className='w-auto bg-gray-500 hover:bg-gray-700 rounded-lg shadow-xl font-medium text-white px-4 py-2' type='button' onClick={() => {
+                navigate(-1);
+              }}>Cancel</button>
       <div>
       <button className='w-auto bg-sky-500 hover:bg-sky-700 rounded-lg shadow-xl font-medium text-white px-4 py-2' type='button' onClick={handleOpenModal}>Edit</button>
       {showconfModal && <ConfModal showconfModal={showconfModal} isLoading={isLoading} message={'you are about to edit a branch please conform by clicking edit'} clickbutton={'Edit'} onClose={() => showconformModal(false)} />}
