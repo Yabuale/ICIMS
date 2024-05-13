@@ -49,8 +49,11 @@ INSTALLED_APPS = [
     'police',
     'clerk',
     'corsheaders',
+    'dbbackup',  # django-dbbackup
+    "django_apscheduler",
 ]
-
+DBBACKUP_STORAGE = 'django.core.files.storage.FileSystemStorage'
+DBBACKUP_STORAGE_OPTIONS = {'location': BASE_DIR/ 'backup'}
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
