@@ -12,7 +12,7 @@ const EditBranch = () =>{
 const navigate=useNavigate()
 const {ID} =useParams()
  const [errStatus, setErrStatus]=useState('500')
- const[errMsg, setErrMsg]=useState({})
+ const[errMsg, setErrMsg]=useState('The server might be down, please try again later we will try to solve the problem as soon as possible')
  const[succMsg,setSuccMsg]=useState("sdfsdfsdfsdfsdfsdfsdf")
  const[isLoading,setLoading]=useState(false)
  const [branch_name, setBranch_name] = useState('')
@@ -22,6 +22,7 @@ const {ID} =useParams()
  const [phone_no, setPhone_no]= useState('')
  const [eamil_address, setEamil_address]= useState('')
  
+ const[errors, setErrors]=useState({})
  const [showconfModal, showconformModal] = useState(false);
  const [showerrModal,showerrorModal] = useState(false)
  const [showsccModal, showsuccessModal] = useState(false)
@@ -93,17 +94,25 @@ useEffect(() => {
   let isvalid=true;
   let errorMessage = {};
   
-  if (branch_name.length < 2) {
+  if (!branch_name) {
+    isvalid=false;
+    errorMessage.branch_name = 'Please enter a branch name.';
+   }
+  else if (branch_name.length < 3) {
     isvalid=false;
    errorMessage.branch_name = 'Branch name must be at least 3 characters long.';
-  } else if (!/^[A-Za-z]+$/.test(branch_name)) {
+  } else if (!/^[A-Za-z\s]+$/.test(branch_name)) {
     isvalid=false;
    errorMessage.branch_name = 'Branch name can only contain letters.';
   }
-  if (woreda.length < 3) {
+  if (!woreda) {
+    isvalid=false;
+    errorMessage.woreda = 'Please enter woreda.';
+   }
+  else if (woreda.length < 3) {
     isvalid=false;
    errorMessage.woreda = 'Woreda must be at least 3 characters long.';
-  } else if (!/^[A-Za-z]+$/.test(woreda)) {
+  } else if (!/^[A-Za-z\s]+$/.test(woreda)) {
     isvalid=false;
    errorMessage.woreda = 'Woreda can only contain letters.';
   }
@@ -111,10 +120,14 @@ useEffect(() => {
     isvalid=false;
     errorMessage.region = 'Please select a region.';
    }
-   if (zone.length < 3) {
+   if (!zone) {
+    isvalid=false;
+    errorMessage.zone = 'Please enter zone.';
+   }
+  else if (zone.length < 3) {
     isvalid=false;
    errorMessage.zone = 'Zone must be at least 3 characters long.';
-  } else if (!/^[A-Za-z]+$/.test(zone)) {
+  } else if (!/^[A-Za-z\s]+$/.test(zone)) {
     isvalid=false;
    errorMessage.zone = 'Zone can only contain letters.';
   }
@@ -128,7 +141,7 @@ useEffect(() => {
    }
   
   
-   setErrMsg(errorMessage);
+   setErrors(errorMessage);
    return isvalid; // Returns true if there are no errors
   }; 
  const handleOpenModal = () => {
@@ -174,7 +187,7 @@ return(
     <div className="grid grid-cols-1 mt-5 mx-7">
       <label className="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">Branch Name</label>
       <input className="py-2 px-3 rounded-lg border-2 border-sky-300 mt-1 focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent" type="text" placeholder="branch name" value={branch_name} id="branch_name" onChange={(e)=> setBranch_name(e.target.value)} />
-      {errMsg.branch_name && <p className="text-red-500 text-xs">{errMsg.branch_name}</p>}
+      {errors.branch_name && <p className="text-red-500 text-xs">{errors.branch_name}</p>}
 
     </div>
 
@@ -182,7 +195,7 @@ return(
       <div className="grid grid-cols-1">
         <label className="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">Woreda</label>
         <input className="py-2 px-3 rounded-lg border-2 border-sky-300 mt-1 focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent" type="text" placeholder="woreda"  value={woreda} id="woreda" onChange={(e)=> setWoreda(e.target.value)}/>
-        {errMsg.woreda && <p className="text-red-500 text-xs">{errMsg.woreda}</p>}
+        {errors.woreda && <p className="text-red-500 text-xs">{errors.woreda}</p>}
       </div>
       <div className="grid grid-cols-1">
       <label className="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">region</label>
@@ -200,26 +213,26 @@ return(
        <option value="tigray">Tigray</option>
         
       </select>
-      {errMsg.region && <p className="text-red-500 text-xs">{errMsg.region}</p>}
+      {errors.region && <p className="text-red-500 text-xs">{errors.region}</p>}
     </div>
     </div>
     <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 mt-5 mx-7">
       <div className="grid grid-cols-1">
         <label className="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">Zone</label>
         <input className="py-2 px-3 rounded-lg border-2 border-sky-300 mt-1 focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent" type="text" placeholder="zone" value={zone} id="zone" onChange={(e)=> setZone(e.target.value)} />
-        {errMsg.zone && <p className="text-red-500 text-xs">{errMsg.zone}</p>}
+        {errors.zone && <p className="text-red-500 text-xs">{errors.zone}</p>}
       </div>
       <div className="grid grid-cols-1">
         <label className="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">phone_no</label>
         <input className="py-2 px-3 rounded-lg border-2 border-sky-300 mt-1 focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent" type="text" placeholder="phone_no" value={phone_no} id="phone_no" onChange={(e)=> setPhone_no(e.target.value)} />
-        {errMsg.phone_no && <p className="text-red-500 text-xs">{errMsg.phone_no}</p>}
+        {errors.phone_no && <p className="text-red-500 text-xs">{errors.phone_no}</p>}
       </div>
     </div>
     <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 mt-5 mx-7">
       <div className="grid grid-cols-1">
         <label className="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">email address</label>
         <input className="py-2 px-3 rounded-lg border-2 border-sky-300 mt-1 focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent" type="email" placeholder="example@gmail.com" value={eamil_address} id="eamil_address" onChange={(e)=> setEamil_address(e.target.value)} />
-        {errMsg.eamil_address && <p className="text-red-500 text-xs">{errMsg.eamil_address}</p>}
+        {errors.eamil_address && <p className="text-red-500 text-xs">{errors.eamil_address}</p>}
       </div>
       
     </div>

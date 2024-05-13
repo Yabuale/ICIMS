@@ -36,6 +36,8 @@ const ClerkEdit = () =>{
   const [case_history, setCaseHistory] = useState('fj');
   const [photo, setPhoto] = useState(null); // For file uploads, null initially
   const [document, setDocument] = useState(null); 
+
+  const[errors, setErrors]=useState({})
   const [showconfModal, showconformModal] = useState(false);
   const [showerrModal,showerrorModal] = useState(false)
   const [showsccModal, showsuccessModal] = useState(false)
@@ -151,9 +153,136 @@ const ClerkEdit = () =>{
     
   }
  } 
+ const validate = () => {
+  let isvalid=true;
+  let errorMessage = {};
+  
+  if (!first_name) {
+    isvalid=false;
+    errorMessage.first_name = 'Please enter a first name.';
+   }
+  // Validate first name - minimum 2 characters and only letters
+  else if (first_name.length < 3) {
+    isvalid=false;
+   errorMessage.first_name = 'First name must be at least 3 characters long.';
+  } else if (!/^[A-Za-z]+$/.test(first_name)) {
+    isvalid=false;
+   errorMessage.first_name = 'First name can only contain letters.';
+  }
+  if (!middle_name) {
+    isvalid=false;
+    errorMessage.middle_name = 'Please enter a Middle name.';
+   }
+  // Validate first name - minimum 2 characters and only letters
+  else if (middle_name.length < 3) {
+    isvalid=false;
+   errorMessage.middle_name = 'Middle name must be at least 3 characters long.';
+  } else if (!/^[A-Za-z]+$/.test(middle_name)) {
+    isvalid=false;
+   errorMessage.middle_name = 'Middle name can only contain letters.';
+  }
+  if (!last_name) {
+    isvalid=false;
+    errorMessage.last_name = 'Please enter a last name.';
+   }
+  // Validate last name - minimum 3 characters and only letters
+  else if (last_name.length < 3) {
+    isvalid=false;
+   errorMessage.last_name = 'Last name must be at least 3 characters long.';
+  } else if (!/^[A-Za-z]+$/.test(last_name)) {
+    isvalid=false;
+   errorMessage.last_name = 'Last name can only contain letters.';
+  }
+  if (!date_of_birth) {
+    isvalid=false;
+    errorMessage.date_of_birth = 'Please enter a branch.';//do date validation
+   }
+
+   if (!nationality) {
+    isvalid=false;
+    errorMessage.nationality = 'Please enter nationality.';
+   }
+  // Validate first name - minimum 2 characters and only letters
+  else if (nationality.length < 3) {
+    isvalid=false;
+   errorMessage.nationality = 'nationality must be at least 3 characters long.';
+  } else if (!/^[A-Za-z]+$/.test(nationality)) {
+    isvalid=false;
+   errorMessage.nationality = 'nationality can only contain letters.';
+  }
+
+  if (!height) {
+    isvalid=false;
+    errorMessage.height = 'Please enter height.';  // do height validation
+   }
+
+   if (!weight) {
+    isvalid=false;
+    errorMessage.weight = 'Please enter weight.';  // do weight validation
+   }
+
+   if (!eye_color) {
+    isvalid=false;
+    errorMessage.eye_color = 'Please enter eye color.';  // do eye color validation
+   }
+
+   if (!hair_color) {
+    isvalid=false;
+    errorMessage.hair_color = 'Please enter hair color.';  // do hair color validation
+   }
+
+   if (!tattoos) {
+    isvalid=false;
+    errorMessage.tattoos = 'Please enter tattoos.';  // do tattoos validation
+   }
+
+   if (!scars) {
+    isvalid=false;
+    errorMessage.scars = 'Please enter scars.';  // do scars validation
+   }
+
+   if (!gang_affiliations) {
+    isvalid=false;
+    errorMessage.gang_affiliations = 'Please enter gang affiliation.';  // do gang affiliations validation
+   }
+
+   if (!gender) {
+    isvalid=false;
+    errorMessage.gender = 'Please select gender.';  // do gender validation
+   }
+
+   if (!identifying_features) {
+    isvalid=false;
+    errorMessage.identifying_features = 'Please enter identifying features.';  // do identifying features validation
+   }
+
+   if (!contact_information || !/^\d{10}$/.test(contact_information)) {
+    isvalid=false;
+    errorMessage.contact_information = 'Please enter your contact information.';
+   }
+
+   if (!address) {
+    isvalid=false;
+    errorMessage.address = 'Please enter address.';  // do address validation
+   }
+
+   if (!photo) {
+    isvalid=false;
+    errorMessage.photo = 'Please enter photo.';  // do photo validation
+   }
+
+   if (!document) {
+    isvalid=false;
+    errorMessage.document = 'Please enter document.';  // do document validation
+   }
+
+   setErrors(errorMessage);
+   return isvalid; // Returns true if there are no errors
+  }; 
  const handleOpenModal = () => {
+  if (validate()){
   showconformModal(true); // Open the modal on button click
-};
+}};
 
    return(
       <>
@@ -191,10 +320,12 @@ const ClerkEdit = () =>{
          <div className="grid grid-cols-1">
            <label className="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">SSN</label>
            <input className="py-2 px-3 rounded-lg border-2 border-sky-300 mt-1 focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent" type="text" placeholder="name" value={SSN} id="name" onChange={(e)=> setSsn(e.target.value)} />
+           {errors.SSN && <p className="text-red-500 text-xs">{errors.SSN}</p>}
          </div>
          <div className="grid grid-cols-1">
              <label className="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">first name</label>
              <input className="py-2 px-3 rounded-lg border-2 border-sky-300 mt-1 focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent" type="text" placeholder="first name"  value={first_name} id="name" onChange={(e)=> setFirstName(e.target.value)} />
+             {errors.first_name && <p className="text-red-500 text-xs">{errors.first_name}</p>}
            </div>
          </div>
      
@@ -202,50 +333,62 @@ const ClerkEdit = () =>{
            <div className="grid grid-cols-1">
              <label className="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">middle name</label>
              <input className="py-2 px-3 rounded-lg border-2 border-sky-300 mt-1 focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent" type="text" placeholder="first name"  value={middle_name} id="name" onChange={(e)=> setMiddleName(e.target.value)} />
+             {errors.middle_name && <p className="text-red-500 text-xs">{errors.middle_name}</p>}
            </div>
            <div className="grid grid-cols-1">
              <label className="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">last name</label>
              <input className="py-2 px-3 rounded-lg border-2 border-sky-300 mt-1 focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent" type="text" placeholder="last name" value={last_name} id="name" onChange={(e)=> setLastName(e.target.value)} />
+             {errors.last_name && <p className="text-red-500 text-xs">{errors.last_name}</p>}
            </div>
            <div className="grid grid-cols-1">
              <label className="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">date of birth</label>
              <input className="py-2 px-3 rounded-lg border-2 border-sky-300 mt-1 focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent" type="date"  value={date_of_birth} id="name" onChange={(e)=> setDateOfBirth(e.target.value)} />
+             {errors.date_of_birth && <p className="text-red-500 text-xs">{errors.date_of_birth}</p>}
            </div>
            <div className="grid grid-cols-1">
              <label className="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">Nationality</label>
              <input className="py-2 px-3 rounded-lg border-2 border-sky-300 mt-1 focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent" type="text" placeholder="nationality" value={nationality} id="name" onChange={(e)=> setNationality(e.target.value)}/>
+             {errors.nationality && <p className="text-red-500 text-xs">{errors.nationality}</p>}
            </div>
            <div className="grid grid-cols-1">
              <label className="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">Height</label>
              <input className="py-2 px-3 rounded-lg border-2 border-sky-300 mt-1 focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent" type="number" placeholder="height" value={height} id="name" onChange={(e)=> setHeight(e.target.value)} />
+             {errors.height && <p className="text-red-500 text-xs">{errors.height}</p>}
            </div>
            <div className="grid grid-cols-1">
              <label className="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">weight</label>
              <input className="py-2 px-3 rounded-lg border-2 border-sky-300 mt-1 focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent" type="number" placeholder="weight" value={weight} id="name" onChange={(e)=> setWeight(e.target.value)} />
+             {errors.weight && <p className="text-red-500 text-xs">{errors.weight}</p>}
            </div>
            <div className="grid grid-cols-1">
              <label className="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">eye color</label>
              <input className="py-2 px-3 rounded-lg border-2 border-sky-300 mt-1 focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent" type="text" placeholder="eye color" value={eye_color} id="name" onChange={(e)=> setEyeColor(e.target.value)} />
+             {errors.eye_color && <p className="text-red-500 text-xs">{errors.eye_color}</p>}
            </div>
            <div className="grid grid-cols-1">
              <label className="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">hair color</label>
              <input className="py-2 px-3 rounded-lg border-2 border-sky-300 mt-1 focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent" type="text" placeholder="hair color" value={hair_color} id="name" onChange={(e)=> setHairColor(e.target.value)} />
+             {errors.hair_color && <p className="text-red-500 text-xs">{errors.hair_color}</p>}
            </div>
            <div className="grid grid-cols-1">
              <label className="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">Tattoos</label>
              <input className="py-2 px-3 rounded-lg border-2 border-sky-300 mt-1 focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent" type="text" placeholder="tattos" value={tattoos} id="name" onChange={(e)=> setTattoos(e.target.value)} />
+             {errors.tattoos && <p className="text-red-500 text-xs">{errors.tattoos}</p>}
            </div>
            <div className="grid grid-cols-1">
              <label className="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">Scars</label>
              <input className="py-2 px-3 rounded-lg border-2 border-sky-300 mt-1 focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent" type="text" placeholder="scars" value={scars} id="name" onChange={(e)=> setScars(e.target.value)}/>
+             {errors.scars && <p className="text-red-500 text-xs">{errors.scars}</p>}
            </div>
            <div className="grid grid-cols-1">
              <label className="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">Contact information</label>
              <input className="py-2 px-3 rounded-lg border-2 border-sky-300 mt-1 focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent" type="text" placeholder="contact info" value={contact_information} id="name" onChange={(e)=> setContactInformation(e.target.value)}/>
+             {errors.contact_information && <p className="text-red-500 text-xs">{errors.contact_information}</p>}
            </div>
            <div className="grid grid-cols-1">
              <label className="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">Gang affiliations</label>
              <input className="py-2 px-3 rounded-lg border-2 border-sky-300 mt-1 focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent" type="text"  value={gang_affiliations} id="name" onChange={(e)=> setGangAffiliations(e.target.value)}/>
+             {errors.gang_affiliations && <p className="text-red-500 text-xs">{errors.gang_affiliations}</p>}
            </div>
          </div>
      
@@ -258,15 +401,18 @@ const ClerkEdit = () =>{
           <option>Female</option>
           
         </select>
+        {errors.gender && <p className="text-red-500 text-xs">{errors.gender}</p>}
          </div>
      
          <div className="grid grid-cols-1 mt-5 mx-7">
            <label className="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">Address</label>
            <input className="py-2 px-3 rounded-lg border-2 border-sky-300 mt-1 focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent" type="text" placeholder="Address" value={address} id="name" onChange={(e)=> setAddress(e.target.value)} />
+           {errors.address && <p className="text-red-500 text-xs">{errors.address}</p>}
          </div>
          <div className="grid grid-cols-1 mt-5 mx-7">
       <label className="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">identifying_features</label>
       <textarea  className="py-2 px-3 rounded-lg border-2 border-sky-300 mt-1 focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent" type="text" placeholder="identifying_features" rows="5" value={identifying_features} id="name" onChange={(e)=> setIdentifyingFeatures(e.target.value)} />
+      {errors.identifying_features && <p className="text-red-500 text-xs">{errors.identifying_features}</p>}
     </div>
      
     <div className="grid grid-cols-1 mt-5 mx-7">
@@ -278,6 +424,7 @@ const ClerkEdit = () =>{
                        <p className='lowercase text-sm text-gray-400 group-hover:text-sky-600 pt-1 tracking-wider'>Select a photo</p>
                      </div>
                    <input type="file" className="hidden" onChange={(e) => setPhoto(e.target.files[0])} />
+                   {errors.photo && <p className="text-red-500 text-xs">{errors.photo}</p>}
                  </label>
              </div>
          </div>
@@ -291,6 +438,7 @@ const ClerkEdit = () =>{
                        <p className='lowercase text-sm text-gray-400 group-hover:text-sky-600 pt-1 tracking-wider'>Select a document</p>
                      </div>
                    <input type="file" className="hidden" onChange={(e) => setDocument(e.target.files[0])} />
+                   {errors.document && <p className="text-red-500 text-xs">{errors.document}</p>}
                  </label>
              </div>
          </div>

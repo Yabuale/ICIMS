@@ -10,7 +10,7 @@ import SuccessModal from '../successModal';
 const EditAccount = () =>{
 const { accountID } = useParams();
 const navigate = useNavigate();
- const [errStatus, setErrStatus]=useState('500')
+ const [errStatus, setErrStatus]=useState('The server might be down, please try again later we will try to solve the problem as soon as possible')
  const[errMsg, setErrMsg]=useState({})
  const[succMsg,setSuccMsg]=useState("sdfsdfsdfsdfsdfsdfsdf")
 const[isLoading,setLoading]=useState(false)
@@ -20,6 +20,8 @@ const[isLoading,setLoading]=useState(false)
  const [id_no, setId_no]= useState('')
  const [phone_number, setPhone_number] = useState('')
  const [role,setRole] = useState('')
+
+ const[errors, setErrors]=useState({})
  const [showconfModal, showconformModal] = useState(false);
  const [showerrModal,showerrorModal] = useState(false)
  const [showsccModal, showsuccessModal] = useState(false)
@@ -125,7 +127,7 @@ const url = `http://127.0.0.1:8000/localadmin/accounts/${accountID}/`
     errorMessage.role = 'Please select a role.';
    }
   
-   setErrMsg(errorMessage);
+   setErrors(errorMessage);
    return isvalid; // Returns true if there are no errors
   };
  const handleOpenModal = () => {
@@ -171,19 +173,19 @@ return(
       <div className="grid grid-cols-1">
         <label className="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">First name</label>
         <input className="py-2 px-3 rounded-lg border-2 border-sky-300 mt-1 focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent" type="text" placeholder="name"  value={first_name} id="firstname" onChange={(e)=> setFirst_name(e.target.value)}/>
-        {errMsg.first_name && <p className="text-red-500 text-xs">{errMsg.first_name}</p>}
+        {errors.first_name && <p className="text-red-500 text-xs">{errors.first_name}</p>}
       </div>
       <div className="grid grid-cols-1">
         <label className="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">Last name</label>
         <input className="py-2 px-3 rounded-lg border-2 border-sky-300 mt-1 focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent" type="text" placeholder="last name"  value={last_name} id="lastname" onChange={(e)=> setLast_name(e.target.value)}/>
-        {errMsg.last_name && <p className="text-red-500 text-xs">{errMsg.last_name}</p>}
+        {errors.last_name && <p className="text-red-500 text-xs">{errors.last_name}</p>}
       </div>
     </div>
     <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 mt-5 mx-7">
       <div className="grid grid-cols-1">
         <label className="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">Phone number</label>
         <input className="py-2 px-3 rounded-lg border-2 border-sky-300 mt-1 focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent" type="text" placeholder="name"  value={phone_number} id="firstname" onChange={(e)=> setPhone_number(e.target.value)}/>
-        {errMsg.phone_number && <p className="text-red-500 text-xs">{errMsg.phone_number}</p>}
+        {errors.phone_number && <p className="text-red-500 text-xs">{errors.phone_number}</p>}
       </div>
       <div className="grid grid-cols-1">
       <label className="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">Role</label>
@@ -194,19 +196,19 @@ return(
       <option value="clerk">Clerk</option>
         
       </select>
-      {errMsg.role && <p className="text-red-500 text-xs">{errMsg.role}</p>}
+      {errors.role && <p className="text-red-500 text-xs">{errors.role}</p>}
     </div>
     </div>
     <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 mt-5 mx-7">
       <div className="grid grid-cols-1">
         <label className="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">email</label>
         <input className="py-2 px-3 rounded-lg border-2 border-sky-300 mt-1 focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent" type="email" placeholder="example@gmail.com" value={email} id="email" onChange={(e)=> setEmail(e.target.value)} />
-        {errMsg.email && <p className="text-red-500 text-xs">{errMsg.email}</p>}
+        {errors.email && <p className="text-red-500 text-xs">{errors.email}</p>}
       </div>
       <div className="grid grid-cols-1">
         <label className="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">Id No.</label>
         <input className="py-2 px-3 rounded-lg border-2 border-sky-300 mt-1 focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent" type="text" placeholder="Id_no" value={id_no} id="nationality" onChange={(e)=> setId_no(e.target.value)} />
-        {errMsg.id_no && <p className="text-red-500 text-xs">{errMsg.id_no}</p>}
+        {errors.id_no && <p className="text-red-500 text-xs">{errors.id_no}</p>}
       </div>
     </div>
 

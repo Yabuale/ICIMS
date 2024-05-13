@@ -107,9 +107,12 @@ def addAccount(request):
         password = passwordGenerator()
         user.set_password(password)
         #send password to users email
-        sendMail(password, user.first_name, user.email)
+        
         token = Token.objects.create(user=user) 
         user.save()
+        
+        print(user.email,password)
+        sendMail(password, user.first_name, user.email)
         return Response({"success":"You have sucessfully created local account"}, status=201 )
     else:
         return Response(serializer.errors, status=400)
