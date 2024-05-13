@@ -109,7 +109,7 @@ const validate = () => {
   }
 
   // Validate age
-  if (!age || isNaN(age) || age <= 18) {
+  if (!age || isNaN(age) || age <= 18 || age > 110) {
     isvalid=false;
     errorMessage.age = "Please provide a valid age";
   }
@@ -151,10 +151,10 @@ const validate = () => {
   }
 
   // Validate contact information
-  if (!contact_information.trim()) {
+  if (!contact_information || !/^\d{10}$/.test(contact_information)) {
     isvalid=false;
-    errorMessage.contact_information = "Contact information is required";
-  }
+    errorMessage.contact_information = 'Please enter your contact information.';
+   }
 
   // Validate description
   if (!description.trim()) {

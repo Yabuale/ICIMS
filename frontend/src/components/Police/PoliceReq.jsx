@@ -16,6 +16,8 @@ const PostWanted = () =>{
  const [lname, setLname] = useState('')
  const [idno, setIdno] = useState('')
  const [message, setMessage] = useState('')
+
+ const[errors, setErrors]=useState({})
  const [showconfModal, showconformModal] = useState(false);
  const [showerrModal,showerrorModal] = useState(false)
  const [showsccModal, showsuccessModal] = useState(false)
@@ -76,8 +78,58 @@ const url = 'http://127.0.0.1:8000/police/sendrequest'
     
   }
  } 
+ const validate = () => {
+  let isvalid=true;
+  let errorMessage = {};
+  
+  // Validate first name - minimum 2 characters and only letters
+  if (name.length < 2) {
+    isvalid=false;
+   errorMessage.name = 'name must be at least 3 characters long.';
+  } else if (!/^[A-Za-z\s]+$/.test(name)) {
+    isvalid=false;
+   errorMessage.name = 'name can only contain letters and spaces.';
+  }
+
+  if (fname.length < 3) {
+    isvalid=false;
+   errorMessage.fname = 'First name must be at least 3 characters long.';
+  } else if (!/^[A-Za-z]+$/.test(fname)) {
+    isvalid=false;
+   errorMessage.fname = 'First name can only contain letters.';
+  }
+  if (lname.length < 3) {
+    isvalid=false;
+   errorMessage.lname = 'Last name must be at least 3 characters long.';
+  } else if (!/^[A-Za-z]+$/.test(lname)) {
+    isvalid=false;
+   errorMessage.lname = 'Last name can only contain letters.';
+  }
+  if (!idno || !/^[a-zA-Z0-9]+$/.test(idno)) {
+    isvalid=false;
+    errorMessage.idno = 'Please enter your ID number.';
+   }
+   if (!photo) {
+    isvalid=false;
+    errorMessage.photo = 'Please enter photo.';
+   }
+   if (message.length < 10) {
+    isvalid=false;
+   errorMessage.message = 'name must be at least 10 characters long.';
+  } else if (!/^[A-Za-z\s]+$/.test(message)) {
+    isvalid=false;
+   errorMessage.message = 'message can only contain letters and numbers.';
+  }
+  
+   setErrors(errorMessage);
+   return isvalid; // Returns true if there are no errors
+  };
+  
  const handleOpenModal = () => {
-  showconformModal(true); // Open the modal on button click
+  if (validate()){
+    showconformModal(true);
+  }
+  
 };
 const navigate = useNavigate();
 return( 
@@ -118,22 +170,26 @@ return(
        <div class="grid grid-cols-1 mt-5 mx-7">
          <label class="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">Name</label>
          <input class="py-2 px-3 rounded-lg border-2 border-sky-300 mt-1 focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent" type="text" placeholder="name"  value={name} id="name" onChange={(e)=> setName(e.target.value)}/>
+         {errors.name && <p className="text-red-500 text-xs">{errors.name}</p>}
        </div>
    
        <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 mt-5 mx-7">
          <div class="grid grid-cols-1">
            <label class="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">Middle name</label>
            <input class="py-2 px-3 rounded-lg border-2 border-sky-300 mt-1 focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent" type="text" placeholder="middle name" value={fname} id="fname" onChange={(e)=> setFname(e.target.value)} />
+           {errors.fname && <p className="text-red-500 text-xs">{errors.fname}</p>}
          </div>
          <div class="grid grid-cols-1">
            <label class="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">Last Name</label>
            <input class="py-2 px-3 rounded-lg border-2 border-sky-300 mt-1 focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent" type="text" placeholder="Input 3" value={lname} id="message" onChange={(e)=> setLname(e.target.value)} />
+           {errors.lname && <p className="text-red-500 text-xs">{errors.lname}</p>}
          </div>
        </div>
    
        <div class="grid grid-cols-1 mt-5 mx-7">
          <label class="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">ID NUMBER</label>
          <input class="py-2 px-3 rounded-lg border-2 border-sky-300 mt-1 focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent" type="text" placeholder="Another Input" value={idno} id="message" onChange={(e)=> setIdno(e.target.value)}/>
+         {errors.idno && <p className="text-red-500 text-xs">{errors.idno}</p>}
        </div>
     <div class="grid grid-cols-1 mt-5 mx-7">
            <label class="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold mb-1">Photo</label>
@@ -143,13 +199,15 @@ return(
                        <svg class="w-10 h-10 text-sky-400 group-hover:text-sky-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
                        <p class='lowercase text-sm text-gray-400 group-hover:text-sky-600 pt-1 tracking-wider'>Select a photo</p>
                      </div>
-                   <input type="file" class="hidden" onChange={(e) => setPhoto(e.target.files[0])} />
+                   <input type="file" class="hidden" value={photo} onChange={(e) => setPhoto(e.target.files[0])} />
+                   {errors.photo && <p className="text-red-500 text-xs">{errors.photo}</p>}
                  </label>
              </div>
          </div>
          <div class="grid grid-cols-1 mt-5 mx-7">
          <label className="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">MESSAGE</label>
       <textarea  className="py-2 px-3 rounded-lg border-2 border-sky-300 mt-1 focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent" type="text" placeholder="message" rows="5" value={message} id="message" onChange={(e)=> setMessage(e.target.value)} />
+      {errors.message && <p className="text-red-500 text-xs">{errors.message}</p>}
        </div>
 
     <div className='flex items-center justify-center  md:gap-8 gap-4 pt-5 pb-5'>
