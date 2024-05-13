@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import ConfModal from '../conformModal';
 import ErrorModal from '../errorModal';
 import SuccessModal from '../successModal';
@@ -19,7 +19,32 @@ const PostWanted = () =>{
  const [showconfModal, showconformModal] = useState(false);
  const [showerrModal,showerrorModal] = useState(false)
  const [showsccModal, showsuccessModal] = useState(false)
+ const[token,setToken]=useState(null)
+ useEffect(() => {
+  
+  
+  
+      
+  const fetchLocalaccounts = async () => {
+    try {
+
+    const storedData = localStorage.getItem('user');
+    let user;
+    if (storedData) {
+      user= JSON.parse(storedData)
+     setToken(user.token)
+    
+  }
+    } catch (error) {
+     
+    }
+  };
+
+  fetchLocalaccounts();
+  
  
+}, []);
+
 const url = 'http://127.0.0.1:8000/police/sendrequest'
  const handleSubmit = async (e) =>{
   
@@ -29,7 +54,9 @@ const url = 'http://127.0.0.1:8000/police/sendrequest'
     
   const resp =await axios.post(url, {message:message,name:name,fname:fname,lname:lname,id_no:idno,photo:photo}, {
     headers: {
+         Authorization: `Token ${token}`,
         'Content-Type': 'multipart/form-data'
+
     }
 });
   if(resp.status === 200){

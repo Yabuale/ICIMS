@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import ConfModal from '../conformModal';
 import ErrorModal from '../errorModal';
 import SuccessModal from '../successModal';
@@ -30,14 +30,36 @@ const ClerkAdd = () =>{
   const [gang_affiliations, setGangAffiliations] = useState('none');
   const [case_history, setCaseHistory] = useState('fj');
   const [photo, setPhoto] = useState(null); // For file uploads, null initially
-  const [document, setDocument] = useState(null); 
+  const [document, setDocument] = useState(null);
+  const[created,setCreated]=useState()
 
 
 
   const [showconfModal, showconformModal] = useState(false);
   const [showerrModal,showerrorModal] = useState(false)
   const [showsccModal, showsuccessModal] = useState(false)
-
+  const[token,setToken]=useState()
+  useEffect(() => {
+    const fetchLocalaccounts = async () => {
+      try {
+      const storedData = localStorage.getItem('user');
+      let user;
+      if (storedData) {
+        user= JSON.parse(storedData)
+       setToken(user.token)
+       setCreated(user.user.id)
+      
+    }
+      } catch (error) {
+       
+      }
+    };
+  
+    fetchLocalaccounts();
+    
+   
+  }, []);
+  
   const url = 'http://127.0.0.1:8000/criminals/addcriminal'
  const handleSubmit = async (e) =>{
   
@@ -75,8 +97,10 @@ const ClerkAdd = () =>{
     gang_affiliations,
     case_history,
     photo,
-    document}, {
+    document,
+    created_by:created }, {
     headers: {
+      Authorization: 'Token '+token,
         'Content-Type': 'multipart/form-data'
     }
 });

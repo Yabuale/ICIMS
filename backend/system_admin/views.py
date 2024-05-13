@@ -8,19 +8,29 @@ from rest_framework.authtoken.models import Token # type: ignore
 from accounts.email import sendMail
 from accounts.email import passwordGenerator
 from django.shortcuts import get_object_or_404
+from rest_framework.decorators import authentication_classes,permission_classes
+from rest_framework.authentication import SessionAuthentication,TokenAuthentication
+from rest_framework.permissions import IsAuthenticated
 
+@authentication_classes([SessionAuthentication,TokenAuthentication])
+@permission_classes([IsAuthenticated])
 class branchView(APIView):
       def get(self, request):
         branch = Branch.objects.all()
         serializer = branchSerializer(branch, many=True)
         return Response(serializer.data)
 
+
 class branchNameView(APIView):
+
       def get(self, request):
         branch = Branch.objects.all()
         serializer = branchNameSerializer(branch, many=True)
         return Response(serializer.data)
 
+
+@authentication_classes([SessionAuthentication,TokenAuthentication])
+@permission_classes([IsAuthenticated])
 class branchDetail(APIView):
     def get(self,request,pk):
         branch =get_object_or_404(Branch, pk=pk)
@@ -75,6 +85,8 @@ class localAccountDetail(APIView):
 
 
 @api_view(['POST'])
+@authentication_classes([SessionAuthentication,TokenAuthentication])
+@permission_classes([IsAuthenticated])
 def addBranch(request):
     serializer = branchSerializer(data=request.data)
     if serializer.is_valid():
@@ -84,6 +96,8 @@ def addBranch(request):
         return Response(serializer.errors, status=400)
 
 @api_view(['POST'])
+@authentication_classes([SessionAuthentication,TokenAuthentication])
+@permission_classes([IsAuthenticated])
 def addAccount(request):
     serializer = accountSerializer(data=request.data)
     if serializer.is_valid():
@@ -94,7 +108,7 @@ def addAccount(request):
         user.set_password(password)
         #send password to users email
         sendMail(password, user.first_name, user.email)
-        token = Token.objects.create(user=user)
+        token = Token.objects.create(user=user) 
         user.save()
         return Response({"success":"You have sucessfully created local account"}, status=201 )
     else:

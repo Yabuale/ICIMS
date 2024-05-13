@@ -4,6 +4,7 @@ import ConfdelModal from "../confDel";
 import ErrorModal from "../errorModal";
 import SuccessModal from "../successModal";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const BranchList = () => {
     
@@ -16,16 +17,21 @@ const BranchList = () => {
     const [showdelModal, showdeleteModal] = useState(false);
     const [showerrModal,showerrorModal] = useState(false);
     const [showsccModal, showsuccessModal] = useState(false);
-
+    const [token,setToken]=useState(null)
+   const navigate= useNavigate()
     useEffect(() => {
+        const storedData = localStorage.getItem('user');
+        
         const fetchLocalaccounts = async () => {
           try {
-            const response = await axios.get(`http://127.0.0.1:8000/systemadmin/branchs/`);
+            
+            const response = await axios.get('http://127.0.0.1:8000/systemadmin/branchs/', {
+           
+      });
             if(response.status === 200){
             setLocalAccount(response.data)
             
             }
-           
           } catch (error) {
            
           }
