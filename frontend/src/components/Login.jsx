@@ -123,16 +123,16 @@ const Login=() =>{
     </div>
 
     <div className="flex items-center mt-6 -mx-2">
-        <button type="button" className="flex items-center justify-center w-full px-6 py-3 mx-2 text-sm font-medium text-white transition-colors duration-300 transform bg-cyan-800 rounded-lg hover:bg-cyan-900 focus:bg-blue-400 focus:outline-none">
+        <button type="button" className="flex items-center justify-center w-full px-6 py-3 mx-2 text-sm font-medium text-white transition-colors duration-300 transform bg-cyan-800 rounded-lg hover:bg-cyan-900 focus:bg-blue-400 focus:outline-none" onClick={() => {
+                navigate(-1);
+              }}>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
            <path fillRule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25Zm-4.28 9.22a.75.75 0 0 0 0 1.06l3 3a.75.75 0 1 0 1.06-1.06l-1.72-1.72h5.69a.75.75 0 0 0 0-1.5h-5.69l1.72-1.72a.75.75 0 0 0-1.06-1.06l-3 3Z" clipRule="evenodd" />
              </svg>
 
 
-            <button className="hidden mx-2 sm:inline" type="button"
-            onClick={() => {
-                navigate(-1);
-              }}>Go back</button>
+            <span className="hidden mx-2 sm:inline" type="button"
+            >Go back </span>
         </button>
 
         <a href="#" className="p-2 mx-2 text-sm font-medium text-gray-500 transition-colors duration-300 transform bg-gray-300 rounded-lg hover:bg-gray-200">
