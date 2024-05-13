@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useState ,useEffect} from 'react';
 import ConfModal from '../conformModal';
 import ErrorModal from '../errorModal';
 import SuccessModal from '../successModal';
@@ -24,8 +24,36 @@ const PostWanted = () =>{
  const [showconfModal, showconformModal] = useState(false);
  const [showerrModal,showerrorModal] = useState(false)
  const [showsccModal, showsuccessModal] = useState(false)
- 
+ const [created,setCreated]=useState(null)
+ useEffect(() => {
+  const fetchLocalaccounts = async () => {
+    try{
+      const storedData = localStorage.getItem('user');
+      let user, token;
+  
+      if (storedData) {
+        try {
+          user = JSON.parse(storedData);
+          token = user.token;
+          setCreated(user.user.id)
+         
+        } catch (error) {
+          console.error('Error parsing stored user data:', error);
+          // Handle potential fallback mechanism here (e.g., temporary token, redirect to login)
+        }
+      } else {
+        // Handle case where no token is found in local storage (e.g., redirect to login)
+        console.warn('No user data found in local storage.');
+      }
+    } catch (error) {
+     
+    }
+  };
 
+  fetchLocalaccounts();
+  
+ 
+}, []);
 
  
 
@@ -34,12 +62,11 @@ const url = 'http://127.0.0.1:8000/police/addwanted'
   
   e.preventDefault();
   setLoading(true)
-  
     const ages=parseInt(age);
     const rewards = parseInt(reward);
    try{
     
-  const resp =await axios.post(url, {name:name,alias:alias,description:description,photo:photo,age:ages,gender:gender,nationality:nationality,criminal_offenses:criminal_offenses,last_known_location:last_known_location,reward:rewards, contact_information:contact_information}, {
+  const resp =await axios.post(url, {name:name,alias:alias,description:description,photo:photo,age:ages,gender:gender,nationality:nationality,criminal_offenses:criminal_offenses,last_known_location:last_known_location,reward:rewards, contact_information:contact_information,posted_by:created}, {
     headers: {
         'Content-Type': 'multipart/form-data'
     }
@@ -70,10 +97,12 @@ const url = 'http://127.0.0.1:8000/police/addwanted'
 
 const validate = () => {
   let isvalid=true;
+  
   let errorMessage = {};
   // Validate name
   if (!name.trim()) {
     isvalid=false;
+    
     errorMessage.name = "Name is required";
   }
 
@@ -134,6 +163,7 @@ const validate = () => {
   // Validate photo
   if (!photo) {
     isvalid=false;
+    
     errorMessage.photo = "Photo is required";
   }
 

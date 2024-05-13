@@ -18,7 +18,7 @@ const[isLoading,setLoading]=useState(false)
  const [id_no, setId_no]= useState('')
  const [phone_number, setPhone_number] = useState('')
  const [role,setRole] = useState('')
- const [branch, setBranch] = useState('')
+ const [branch, setBranch] = useState(null)
  const is_active=true; 
  const username = email;
 
@@ -26,14 +26,43 @@ const[isLoading,setLoading]=useState(false)
  const [showerrModal,showerrorModal] = useState(false)
  const [showsccModal, showsuccessModal] = useState(false)
  
+ useEffect(() => {
+  const fetchLocalaccounts = async () => {
+    try{
+      const storedData = localStorage.getItem('user');
+      let user, token;
+  
+      if (storedData) {
+        try {
+          user = JSON.parse(storedData);
+          token = user.token;
+          setBranch(user.user.branch)
+          console.log(branch)
+        } catch (error) {
+          console.error('Error parsing stored user data:', error);
+          // Handle potential fallback mechanism here (e.g., temporary token, redirect to login)
+        }
+      } else {
+        // Handle case where no token is found in local storage (e.g., redirect to login)
+        console.warn('No user data found in local storage.');
+      }
+    } catch (error) {
+     
+    }
+  };
 
+  fetchLocalaccounts();
+  
+ 
+}, []);
  
 const url = 'http://127.0.0.1:8000/localadmin/accounts/add/'
  const handleSubmit = async (e) =>{
   setLoading(true)
   e.preventDefault();
+  if(branch){
    try{
-  const resp =await axios.post(url, {username:username,first_name:first_name,last_name:last_name,email:email,password:password,id_no:id_no,phone_number:phone_number,role:role,is_active:is_active});
+  const resp =await axios.post(url, {username:username,first_name:first_name,last_name:last_name,email:email,password:password,id_no:id_no,phone_number:phone_number,role:role,branch:branch,is_active:is_active});
   if(resp.status === 201 ){
     setSuccMsg(resp.data.success)
     setLoading(false)
@@ -50,6 +79,11 @@ const url = 'http://127.0.0.1:8000/localadmin/accounts/add/'
     setErrMsg("Bad request, recheck your inputs and try again");
      }
     
+  }}
+  else{
+    setLoading(false)
+    showconformModal(false)
+    showerrorModal(true)
   }
  } 
  const validate = () => {

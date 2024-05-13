@@ -52,7 +52,7 @@ class branchDetail(APIView):
       
 class localAccountView(APIView):
       def get(self, request):
-        accounts = CustomUser.objects.all()
+        accounts = CustomUser.objects.filter(role="local").order_by('-id') 
         serializer = accountSerializer(accounts, many=True)
         return Response(serializer.data)
 

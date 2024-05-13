@@ -39,6 +39,7 @@ import Resps from './components/Police/Resp';
 import DetailResp from './components/Police/detailResp';
 import BranchList from './components/Admin/branches';
 import EditBranch from './components/Admin/editbranch';
+import Changep from './pages/resetP';
 
 const router = createBrowserRouter([
   {
@@ -109,6 +110,9 @@ const router = createBrowserRouter([
       {
         path:"editbranch/:ID",
         element:<EditBranch/>
+      },{
+        path:"profile/",
+        element:<Changep/>
       }
       
     ],
@@ -152,6 +156,10 @@ const router = createBrowserRouter([
         path:"reqdetail/:Id",
         element:<Reqdetail/>
       }
+      ,{
+        path:"profile/",
+        element:<Changep/>
+      }
 
     ],
     
@@ -191,6 +199,9 @@ const router = createBrowserRouter([
       {
         path:"respdetail/:Id",
         element:<DetailResp/>
+      },{
+        path:"profile/",
+        element:<Changep/>
       }
 
     ],
@@ -216,6 +227,9 @@ const router = createBrowserRouter([
       {
         path:"edit/:accountID",
         element:<EditAccount/>
+      },{
+        path:"profile/",
+        element:<Changep/>
       }
       
 
