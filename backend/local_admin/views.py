@@ -10,15 +10,17 @@ from rest_framework.decorators import authentication_classes,permission_classes 
 from rest_framework.authentication import SessionAuthentication,TokenAuthentication # type: ignore
 from rest_framework.permissions import IsAuthenticated # type: ignore
 from django.shortcuts import get_object_or_404
+from django.db.models import Q
 
-      
-# @authentication_classes([SessionAuthentication,TokenAuthentication])
-# @permission_classes([IsAuthenticated])
-class AccountView(APIView):
-      def get(self, request):
-        accounts = CustomUser.objects.all()
-        serializer = accountSerializer(accounts, many=True)
-        return Response(serializer.data)
+@api_view(['GET'])     
+@authentication_classes([SessionAuthentication,TokenAuthentication])
+@permission_classes([IsAuthenticated])
+def AccountView( request):
+    accounts = CustomUser.objects.filter(
+    Q(branch=request.user.branch) & ~Q(role="local")
+     ).order_by('-id')
+    serializer = accountSerializer(accounts, many=True)
+    return Response(serializer.data)
       
 class AccountDetail(APIView):
     def get(self , request, pk):

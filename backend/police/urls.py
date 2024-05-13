@@ -3,7 +3,7 @@ from .views import WantedCriminalView,WantedDetail,Requests,Respview
 from . import views
 
 urlpatterns = [
-    path('wanted/', WantedCriminalView.as_view()),
+    path('wanted/', views.WantedCriminalView),
     path('wanteddetail/<int:pk>/', WantedDetail.as_view()),
     path('addwanted', views.addWanted),
     path('sendrequest',views.Requestss),

@@ -136,9 +136,9 @@ const PoliceSlideBar = () =>{
 
      </button>
 
-     <button className="mt-2 rounded-full bg-gray-100">
-       <img className="h-10 w-10 rounded-full" src="https://avatars.githubusercontent.com/u/101497477?s=400&u=1302843442c4be8ed24edf32dd3fea7cbb122091&v=4" alt="" />
-     </button>
+     <NavLink to={'profile/'} className="mt-2 rounded-full bg-gray-100">
+        <img className="h-10 w-10 rounded-full" src="/a.png" alt="" />
+      </NavLink>
    </div>
  </aside>
      

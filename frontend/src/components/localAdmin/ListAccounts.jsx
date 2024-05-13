@@ -16,11 +16,35 @@ const ListAccounts = () => {
     const [showdelModal, showdeleteModal] = useState(false);
     const [showerrModal,showerrorModal] = useState(false);
     const [showsccModal, showsuccessModal] = useState(false);
+    const [token,setToken]=useState()
 
     useEffect(() => {
         const fetchLocalaccounts = async () => {
+          
+
+         try{
+            const storedData = localStorage.getItem('user');
+            let user, token;
+        
+            if (storedData) {
+              try {
+                user = JSON.parse(storedData);
+                token = user.token;
+              } catch (error) {
+                console.error('Error parsing stored user data:', error);
+                // Handle potential fallback mechanism here (e.g., temporary token, redirect to login)
+              }
+            } else {
+              // Handle case where no token is found in local storage (e.g., redirect to login)
+              console.warn('No user data found in local storage.');
+            }
+            if(token){
           try {
-            const response = await axios.get(`http://127.0.0.1:8000/localadmin/accounts/`);
+            const response = await axios.get(`http://127.0.0.1:8000/localadmin/accounts/`, {
+                headers: {
+                  Authorization: `Token ${token}`
+                }
+              });
             if(response.status === 200){
             setLocalAccount(response.data)
             console.log(wantedCriminal[0])
@@ -31,9 +55,13 @@ const ListAccounts = () => {
           }
         };
     
-        fetchLocalaccounts();
-    
-       
+        
+    }
+      catch (error) {
+           
+     }
+    };
+     fetchLocalaccounts();
       }, []);
       const handledelete = async (e) => {
         e.preventDefault();

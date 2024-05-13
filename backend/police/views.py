@@ -20,11 +20,15 @@ from accounts.models import CustomUser
 
 
 
-class WantedCriminalView(APIView):
-      def get(self, request):
-        criminals = WantedCriminal.objects.all()
-        serializer = WantedSerializer(criminals, many=True)
-        return Response(serializer.data)
+@api_view(['GET'])
+@authentication_classes([SessionAuthentication,TokenAuthentication])
+@permission_classes([IsAuthenticated])  
+def WantedCriminalView( request):
+    criminals = WantedCriminal.objects.filter(
+    posted_by=request.user  # Filter by currently authenticated user
+    ).order_by('-id')
+    serializer = WantedSerializer(criminals, many=True)
+    return Response(serializer.data) 
 
 class WantedDetail(APIView):
     def get (self, request, pk):
