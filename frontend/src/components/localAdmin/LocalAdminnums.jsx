@@ -1,4 +1,61 @@
+import { useEffect,useState } from "react";
+import axios from "axios";
+
+
+
 const LocalAdminnums = () =>{
+    const[criminal,setCriminal]=useState('');
+	const[request,setRequest]=useState('');
+	const[responce,setResponce]=useState('');
+	const[token,setToken]=useState(null)
+   
+	useEffect(() => {
+	   const fetchLocalaccounts = async () => {
+		 
+   
+		try{
+		   const storedData = localStorage.getItem('user');
+		   let user, token;
+	   
+		   if (storedData) {
+			 try {
+			   user = JSON.parse(storedData);
+			   token = user.token;
+			 } catch (error) {
+			   console.error('Error parsing stored user data:', error);
+			   // Handle potential fallback mechanism here (e.g., temporary token, redirect to login)
+			 }
+		   } else {
+			 // Handle case where no token is found in local storage (e.g., redirect to login)
+			 console.warn('No user data found in local storage.');
+		   }
+		   if(token){
+		 try {
+		   const response = await axios.get(`http://127.0.0.1:8000/accounts/localnum/`, {
+			   headers: {
+				 Authorization: `Token ${token}`
+			   }
+			 });
+		   if(response.status === 200){
+		   setCriminal(response.data.criminals)
+		   setResponce(response.data.responces)
+		   setRequest(response.data.requests)
+		   }
+		  
+		 } catch (error) {
+		  
+		 }
+	   };
+   
+	   
+   }
+	 catch (error) {
+		  
+	}
+   };
+	fetchLocalaccounts();
+	 }, []);
+
     return(
     
  
@@ -25,7 +82,7 @@ const LocalAdminnums = () =>{
                          Local Accounts
                      </p>
                      <p class="text-lg font-semibold text-gray-700">
-                         19238
+                         {criminal}
                      </p>
                  </div>
              </div>
@@ -42,7 +99,7 @@ const LocalAdminnums = () =>{
                          Active Accounts
                      </p>
                      <p class="text-lg font-semibold text-gray-700">
-                         120
+                         {request}
                      </p>
                  </div>
              </div>
@@ -59,7 +116,7 @@ const LocalAdminnums = () =>{
                          Deactivated Accounts
                      </p>
                      <p class="text-lg font-semibold text-gray-700">
-                         6389
+                         {responce}
                      </p>
                  </div>
              </div>

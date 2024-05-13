@@ -6,6 +6,10 @@ from .serializers import accountSerializer
 from rest_framework.decorators import api_view
 from rest_framework.authtoken.models import Token
 from django.shortcuts import get_object_or_404
+from criminal.models import Criminal
+from criminal.models import Requests,Responces
+from wanted.models import WantedCriminal
+from accounts.models import CustomUser
 
 from rest_framework.decorators import authentication_classes,permission_classes
 from rest_framework.authentication import SessionAuthentication,TokenAuthentication
@@ -44,8 +48,43 @@ def reset_password(request):
 
 
 
+@api_view(['GET'])
+@authentication_classes([SessionAuthentication,TokenAuthentication])
+@permission_classes([IsAuthenticated]) 
+def clerkNum(request):
+    cr=Criminal.objects.count()
+    req_count = Requests.objects.filter(to_acc=request.user).count()
+    resp= Responces.objects.filter(from_acc=request.user).count()
+    return Response({"criminals":cr,"requests":req_count,"responces":resp})
 
 
+@api_view(['GET'])
+@authentication_classes([SessionAuthentication,TokenAuthentication])
+@permission_classes([IsAuthenticated]) 
+def policenum(request):
+    cr=WantedCriminal.objects.filter(posted_by=request.user).count()
+    req_count = Requests.objects.filter(from_acc=request.user).count()
+    resp= Responces.objects.filter(to_acc=request.user).count()
+    return Response({"criminals":cr,"requests":req_count,"responces":resp})  
+
+@api_view(['GET'])
+@authentication_classes([SessionAuthentication,TokenAuthentication])
+@permission_classes([IsAuthenticated]) 
+def adminnum(request):
+    cr=CustomUser.objects.count()
+    req_count = CustomUser.objects.filter(is_active=True).count()
+    resp= CustomUser.objects.filter(is_active=False).count()
+    return Response({"criminals":cr,"requests":req_count,"responces":resp})
+    
+
+@api_view(['GET'])
+@authentication_classes([SessionAuthentication,TokenAuthentication])
+@permission_classes([IsAuthenticated]) 
+def localnum(request):
+    cr=CustomUser.objects.filter(branch=request.user.branch).count()
+    req_count = CustomUser.objects.filter(branch=request.user.branch, is_active=True).count()
+    resp= CustomUser.objects.filter(branch=request.user.branch, is_active=False).count()
+    return Response({"criminals":cr,"requests":req_count,"responces":resp}) 
 
    
     

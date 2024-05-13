@@ -4,7 +4,7 @@ import ConfModal from '../conformModal';
 import ErrorModal from '../errorModal';
 import SuccessModal from '../successModal';
 
-
+import { useNavigate } from 'react-router-dom';
 
 const AddBranch = () =>{
  const [errStatus, setErrStatus]=useState('500')
@@ -23,6 +23,7 @@ const AddBranch = () =>{
  const [showerrModal,showerrorModal] = useState(false)
  const [showsccModal, showsuccessModal] = useState(false)
  const [token,setToken]= useState("")
+ const navigate=useNavigate()
 const url = 'http://127.0.0.1:8000/systemadmin/branch/add'
 useEffect(() => {
   
@@ -229,7 +230,9 @@ return(
     
 
     <div className='flex items-center justify-center  md:gap-8 gap-4 pt-5 pb-5'>
-      <button className='w-auto bg-gray-500 hover:bg-gray-700 rounded-lg shadow-xl font-medium text-white px-4 py-2'>Cancel</button>
+      <button className='w-auto bg-gray-500 hover:bg-gray-700 rounded-lg shadow-xl font-medium text-white px-4 py-2' type='button' onClick={() => {
+                navigate(-1);
+              }}>Cancel</button>
       <div>
       <button className='w-auto bg-sky-500 hover:bg-sky-700 rounded-lg shadow-xl font-medium text-white px-4 py-2' type='button' onClick={handleOpenModal}>Add</button>
       {showconfModal && <ConfModal showconfModal={showconfModal} isLoading={isLoading} message={'you are about to create a branch please conform by clicking post'} clickbutton={'Add'} onClose={() => showconformModal(false)} />}

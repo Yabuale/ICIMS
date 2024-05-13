@@ -29,8 +29,7 @@ class branchNameView(APIView):
         return Response(serializer.data)
 
 
-@authentication_classes([SessionAuthentication,TokenAuthentication])
-@permission_classes([IsAuthenticated])
+
 class branchDetail(APIView):
     def get(self,request,pk):
         branch =get_object_or_404(Branch, pk=pk)

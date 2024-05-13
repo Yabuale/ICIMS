@@ -26,11 +26,11 @@ def checkStat(request):
         print(ssn)
         a = get_object_or_404(Criminal,SSN=ssn)
         if a:
-            return Response({"status": "Success"})
+            return Response({"record": "TRUE"})
         else:
-            return Response({"status": "not"})
+            return Response({"record": "FALSE"})
     except Exception as e:
-        return Response({"status": "Error", "message": str(e)})
+        return Response({"record": "FALSE"})
     
 
     
