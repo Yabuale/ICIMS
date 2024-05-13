@@ -157,6 +157,18 @@ const ClerkEdit = () =>{
   let isvalid=true;
   let errorMessage = {};
   
+  if (!SSN) {
+    isvalid=false;
+    errorMessage.SSN = 'Please enter a SSN.';
+   }
+  // Validate first name - minimum 2 characters and only letters
+  else if (SSN.length < 3) {
+    isvalid=false;
+   errorMessage.SSN = 'SSN must be at least 3 characters long.';
+  } else if (!/^[A-Za-z0-9]+$/.test(SSN)) {
+    isvalid=false;
+   errorMessage.SSN = 'SSN can only contain letters.';
+  }
   if (!first_name) {
     isvalid=false;
     errorMessage.first_name = 'Please enter a first name.';
@@ -194,9 +206,21 @@ const ClerkEdit = () =>{
    errorMessage.last_name = 'Last name can only contain letters.';
   }
   if (!date_of_birth) {
-    isvalid=false;
-    errorMessage.date_of_birth = 'Please enter a branch.';//do date validation
-   }
+    isvalid = false;
+    errorMessage.date_of_birth = 'Please enter your date of birth.';
+  } else {
+    // Validate date format (optional)
+    // You can add a regular expression or a library here to check the format (e.g., MM/DD/YYYY)
+  
+    // Validate date is not in the future
+    const today = new Date();
+    const dob = new Date(date_of_birth);
+  
+    if (dob > today) {
+      isvalid = false;
+      errorMessage.date_of_birth = 'Please enter a valid date.';
+    }
+  }
 
    if (!nationality) {
     isvalid=false;
@@ -211,15 +235,23 @@ const ClerkEdit = () =>{
    errorMessage.nationality = 'nationality can only contain letters.';
   }
 
-  if (!height) {
+  if (!height ) {
     isvalid=false;
-    errorMessage.height = 'Please enter height.';  // do height validation
+    errorMessage.height = 'Please enter a valid height.';  // do height validation
    }
+  else if (height <= 0 || height > 300) {
+    isValid = false;
+    errorMessage.height = 'Please enter a valid height between 50 and 300.';
+  }
 
-   if (!weight) {
+  if (!weight ) {
     isvalid=false;
-    errorMessage.weight = 'Please enter weight.';  // do weight validation
+    errorMessage.weight = 'Please enter a valid weight.';  // do weught validation
    }
+   else if (weight <= 0 || weight > 300) {
+    isValid = false;
+    errorMessage.weight = 'Please enter a valid weight between 20 and 300.';
+  }
 
    if (!eye_color) {
     isvalid=false;

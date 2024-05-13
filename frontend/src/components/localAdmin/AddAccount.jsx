@@ -58,12 +58,12 @@ const url = 'http://127.0.0.1:8000/localadmin/accounts/add/'
   let errorMessage = {};
   
   // Validate first name - minimum 2 characters and only letters
-  if (first_name.length < 2) {
+  if (first_name.length < 3) {
     isvalid=false;
    errorMessage.first_name = 'First name must be at least 3 characters long.';
   } else if (!/^[A-Za-z]+$/.test(first_name)) {
     isvalid=false;
-   errorMessage = 'First name can only contain letters.';
+   errorMessage.first_name = 'First name can only contain letters.';
   }
   // Validate last name - minimum 3 characters and only letters
   if (last_name.length < 3) {
