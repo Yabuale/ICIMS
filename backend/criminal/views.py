@@ -8,15 +8,21 @@ from criminal.serializers import Requestserializer
 from criminal.serializers import Responceserializer
 from criminal.models import Requests
 from criminal.models import Responces
-
-
-class CriminalView(APIView):
-      def get(self, request):
-        criminals = Criminal.objects.all()
-        serializer = Criminalserializer(criminals, many=True)
-        return Response(serializer.data)
+from rest_framework.decorators import authentication_classes,permission_classes
+from rest_framework.authentication import SessionAuthentication,TokenAuthentication
+from rest_framework.permissions import IsAuthenticated
+@api_view(['GET'])
+@authentication_classes([SessionAuthentication,TokenAuthentication])
+@permission_classes([IsAuthenticated])
+def CriminalView(request):
+   
+    criminals = Criminal.objects.filter(created_by=request.user)
+    serializer = Criminalserializer(criminals, many=True)
+    return Response(serializer.data)
 
 @api_view(['POST'])
+@authentication_classes([SessionAuthentication,TokenAuthentication])
+@permission_classes([IsAuthenticated])
 def addCriminal(request):
     serializer = Criminalserializer(data=request.data)
     if serializer.is_valid():

@@ -25,7 +25,10 @@ const[isLoading,setLoading]=useState(false)
  const [showconfModal, showconformModal] = useState(false);
  const [showerrModal,showerrorModal] = useState(false)
  const [showsccModal, showsuccessModal] = useState(false)
+ const [token,setToken]=useState(null)
+
  useEffect (() => {
+  
   const fetchBranchNames = async () => {
     try {
       const response = await axios.get('http://127.0.0.1:8000/systemadmin/branch/names/');
@@ -42,6 +45,19 @@ const[isLoading,setLoading]=useState(false)
   };
 
   fetchBranchNames();
+  const fetchLocalaccounts =  () => {
+    
+    const storedData = localStorage.getItem('user');
+    let user;
+    if (storedData) {
+      user= JSON.parse(storedData)
+     setToken(user.token)
+    }
+ 
+  };
+
+  fetchLocalaccounts();
+
 }, []);
  
 const url = 'http://127.0.0.1:8000/systemadmin/accounts/add/'
@@ -49,7 +65,14 @@ const url = 'http://127.0.0.1:8000/systemadmin/accounts/add/'
   setLoading(true)
   e.preventDefault();
    try{
-  const resp =await axios.post(url, {username:username,first_name:first_name,last_name:last_name,email:email,password:password,id_no:id_no,phone_number:phone_number,role:role,branch:branch,is_active:is_active});
+  const resp =await axios.post(url, {username:username,first_name:first_name,last_name:last_name,email:email,password:password,id_no:id_no,phone_number:phone_number,role:role,branch:branch,is_active:is_active},
+    {
+      headers: {
+           Authorization: 'Token '+token,
+          'Content-Type': 'multipart/form-data'
+      }
+   }
+  );
   if(resp.status === 201){
     setSuccMsg(resp.data.success)
     setLoading(false)

@@ -30,7 +30,6 @@ class Criminal(models.Model):
     created_date = models.DateField(auto_now_add=True)
     created_by = models.ForeignKey(CustomUser, on_delete=models.SET_NULL, null=True)
     document = models.FileField(upload_to='criminal_documents/', blank=True ,null=True)
-
     def str(self):
         return f'{self.first_name} {self.last_name}'
 

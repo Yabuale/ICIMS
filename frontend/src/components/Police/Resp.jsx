@@ -9,21 +9,49 @@ import { NavLink } from "react-router-dom";
 const Resps = () =>{  
     const [req, setReq] = useState(null);
     const[id,setId]=useState('')
+    const[token,setToken]=useState()
    
     useEffect(() => {
+  
         const fetchWantedCriminal = async () => {
           try {
-            const response = await axios.get(`http://127.0.0.1:8000/police/responces/1/`);
-            if(response.status === 200){
-            setReq(response.data)
-            
+            // Attempt to retrieve token from local storage (with potential fallback)
+            const storedData = localStorage.getItem('user');
+            let user, token;
+        
+            if (storedData) {
+              try {
+                user = JSON.parse(storedData);
+                token = user.token;
+              } catch (error) {
+                console.error('Error parsing stored user data:', error);
+                // Handle potential fallback mechanism here (e.g., temporary token, redirect to login)
+              }
+            } else {
+              // Handle case where no token is found in local storage (e.g., redirect to login)
+              console.warn('No user data found in local storage.');
             }
-           
+        
+            // If a valid token is available, use it for authorization
+            if (token) {
+              setToken(token)
+              const response = await axios.get(`http://127.0.0.1:8000/police/responces/1/`, {
+                headers: {
+                  Authorization: `Token ${token}`
+                }
+              });
+        
+              if (response.status === 200) {
+                setReq(response.data);
+              } else {
+                console.error('API request failed:', response.statusText);
+              }
+            }
           } catch (error) {
-           
+            console.error('Error fetching wanted criminal data:', error);
           }
         };
-    
+        
         fetchWantedCriminal();
     
        
@@ -33,7 +61,7 @@ const Resps = () =>{
         
           
         try {
-            const response = await axios.delete(`http://127.0.0.1:8000/police/responces/${id}`);
+            const response = await axios.delete(`http://127.0.0.1:8000/police/dresponces/${id}`);
             if(response.status === 200){
             window.alert("deleted")
             }

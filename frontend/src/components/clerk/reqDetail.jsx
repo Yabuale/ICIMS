@@ -20,6 +20,7 @@ const Reqdetail = () => {
   const [showconfModal, showconformModal] = useState(false);
   const [showerrModal,showerrorModal] = useState(false)
   const [showsccModal, showsuccessModal] = useState(false)
+  const[token,setToken]=useState(null)
 
 
 
@@ -32,24 +33,49 @@ const Reqdetail = () => {
       });
       return;
     }
-    const fetchWantedCriminal = async () => {
-      try {
-        const response = await axios.get(`http://127.0.0.1:8000/clerk/reqdetail/${Id}/`);
-        if(response.status === 200){
-            setReq(response.data);
-        
-        }
-       
-      } catch (error) {
-        setReq(null)
-        throw new Response("", {
-          status: 404,
-          statusText: "Not Found",
-        });
-      }
-    };
 
-    fetchWantedCriminal();
+
+
+    const fetchWantedCriminal = async () => {
+  try {
+    // Attempt to retrieve token from local storage (with potential fallback)
+    const storedData = localStorage.getItem('user');
+    let user, token;
+
+    if (storedData) {
+      try {
+        user = JSON.parse(storedData);
+        token = user.token;
+      } catch (error) {
+        console.error('Error parsing stored user data:', error);
+        // Handle potential fallback mechanism here (e.g., temporary token, redirect to login)
+      }
+    } else {
+      // Handle case where no token is found in local storage (e.g., redirect to login)
+      console.warn('No user data found in local storage.');
+    }
+
+    // If a valid token is available, use it for authorization
+    if (token) {
+      setToken(token)
+      const response = await axios.get( `http://127.0.0.1:8000/clerk/reqdetail/${Id}/`, {
+        headers: {
+          Authorization: `Token ${token}`
+        }
+      });
+
+      if (response.status === 200) {
+        setReq(response.data);
+      } else {
+        console.error('API request failed:', response.statusText);
+      }
+    }
+  } catch (error) {
+    console.error('Error fetching wanted criminal data:', error);
+  }
+};
+
+fetchWantedCriminal();
 
     // Cleanup function
     return () => {
@@ -148,6 +174,7 @@ catch(error){
     id:Id,url:record.id
     }, {
     headers: {
+        Authorization: `Token ${token}`,
         'Content-Type': 'multipart/form-data'
     }
 });
@@ -172,6 +199,7 @@ catch(error){
     id:Id
     }, {
     headers: {
+       Authorization: `Token ${token}`,
         'Content-Type': 'multipart/form-data'
     }
 });
@@ -357,7 +385,7 @@ catch(error){
 
 &nbsp; Respond with not found  </button>
   </div>
-  {showconfModal && <ConfModal showconfModal={showconfModal} isLoading={isLoading} message={'you are about to add a criminal'} clickbutton={'search'} onClose={() => showconformModal(false)} />}
+  {showconfModal && <ConfModal showconfModal={showconfModal} isLoading={isLoading} message={'you are searching an image please wait this might take a while'} clickbutton={'search'} onClose={() => showconformModal(false)} />}
       {showerrModal && <ErrorModal showerrModal={showerrModal} errMsg={errMsg} errStatus={errStatus} onClose={() => showerrorModal(false)} />}
       {showsccModal && <SuccessModal showsccModal={showsccModal} succMsg={succMsg} onClose={() => showsuccessModal(false)} />}
 </article>

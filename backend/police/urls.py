@@ -6,6 +6,7 @@ urlpatterns = [
     path('wanted/', WantedCriminalView.as_view()),
     path('wanteddetail/<int:pk>/', WantedDetail.as_view()),
     path('addwanted', views.addWanted),
-    path('sendrequest',Requests.as_view()),
-    path('responces/<int:pk>/',Respview.as_view()),
+    path('sendrequest',views.Requestss),
+    path('responces/<int:pk>/',views.Respview),
+    path('dresponces/<int:pk>/',views.rsdelete),
 ]

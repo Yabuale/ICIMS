@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import ConfModal from '../conformModal';
 import ErrorModal from '../errorModal';
 import SuccessModal from '../successModal';
@@ -21,13 +21,42 @@ const AddBranch = () =>{
  const [showconfModal, showconformModal] = useState(false);
  const [showerrModal,showerrorModal] = useState(false)
  const [showsccModal, showsuccessModal] = useState(false)
- 
+ const [token,setToken]= useState("")
 const url = 'http://127.0.0.1:8000/systemadmin/branch/add'
+useEffect(() => {
+  
+  
+  const fetchLocalaccounts = async () => {
+    try {
+
+    const storedData = localStorage.getItem('user');
+    let user;
+    if (storedData) {
+      user= JSON.parse(storedData)
+     setToken(user.token)
+    
+  }
+    } catch (error) {
+     
+    }
+  };
+
+  fetchLocalaccounts();
+  
+ 
+}, []);
  const handleSubmit = async (e) =>{
+  
   setLoading(true)
   e.preventDefault();
    try{
-  const resp =await axios.post(url, {branch_name:branch_name,woreda:woreda,zone:zone,region:region,phone_no:phone_no,eamil_address:eamil_address});
+  const resp =await axios.post(url, {branch_name:branch_name,woreda:woreda,zone:zone,region:region,phone_no:phone_no,eamil_address:eamil_address},
+    {
+      headers: {
+           Authorization: 'Token '+token,
+          'Content-Type': 'multipart/form-data'
+      }
+   });
   if(resp.status === 201){
     setSuccMsg(resp.data.success)
     setLoading(false)

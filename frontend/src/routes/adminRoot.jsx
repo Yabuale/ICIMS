@@ -10,7 +10,7 @@ const AdminRoot = ()=>{
     const storedData = localStorage.getItem('user');
     let user;
     if (storedData) {
-      
+
       user= JSON.parse(storedData)
       if (user.user.role !== "admin" && user.user.is_active ){
         navigate("/login")

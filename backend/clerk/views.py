@@ -13,17 +13,30 @@ from .img import check_img
 import os
 import tempfile
 
-class Reqview(APIView):
-      def get(self, request):
-        req = Requests.objects.all()
-        serializer = Requestserializer(req, many=True)
-        return Response(serializer.data)
-      
-class ReqDetail(APIView):
-    def get (self, request, pk):
-        criminal = get_object_or_404(Requests, pk=pk)
-        serializer = Requestserializer(instance=criminal)
-        return Response(serializer.data)
+from rest_framework.decorators import authentication_classes,permission_classes
+from rest_framework.authentication import SessionAuthentication,TokenAuthentication
+from rest_framework.permissions import IsAuthenticated
+
+
+
+
+@api_view(['GET']) 
+@authentication_classes([SessionAuthentication,TokenAuthentication])
+@permission_classes([IsAuthenticated]) 
+def Reqview( request):
+    req = latest_requests = Requests.objects.filter(to_acc=request.user).order_by('-id')
+    serializer = Requestserializer(req, many=True)
+    return Response(serializer.data)
+
+
+@api_view(['GET']) 
+@authentication_classes([SessionAuthentication,TokenAuthentication])
+@permission_classes([IsAuthenticated])     
+def ReqDetail (request, pk):
+    print(request.user)
+    criminal = get_object_or_404(Requests, pk=pk)
+    serializer = Requestserializer(instance=criminal)
+    return Response(serializer.data)
 
 @api_view(['POST'])
 def searchimg(request):
@@ -121,12 +134,14 @@ def searchname(request):
     return Response(serializer.data, status=200)
 
 @api_view(['POST'])
+@authentication_classes([SessionAuthentication,TokenAuthentication])
+@permission_classes([IsAuthenticated]) 
 def notfoundresp(request):
     id = request.data['id']
     req = get_object_or_404(Requests, pk=id)
     resp = Responces(
-        from_acc = req.to_acc,
-        to_acc= None,
+        from_acc = request.user,
+        to_acc= req.from_acc,
         url="none",
         message="there was no record in the database to your rquest",
         match_found=False
@@ -138,13 +153,15 @@ def notfoundresp(request):
 
 
 @api_view(['POST'])
+@authentication_classes([SessionAuthentication,TokenAuthentication])
+@permission_classes([IsAuthenticated]) 
 def foundresp(request):
     id = request.data['id']
     url = request.data['url']
     req = get_object_or_404(Requests, pk=id)
     resp = Responces(
-        from_acc = req.to_acc,
-        to_acc= None,
+        from_acc = request.user,
+        to_acc= req.from_acc,
         message="there was a record in the database to your rquest",
         url=url,
         match_found=True
