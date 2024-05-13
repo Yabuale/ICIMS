@@ -17,7 +17,7 @@ const Changep = () =>{
  const [New , setNew]= useState('');
  const [conf, setConf]= useState('');
 
- 
+ const[errors, setErrors]=useState({})
  const [showconfModal, showconformModal] = useState(false);
  const [showerrModal,showerrorModal] = useState(false)
  const [showsccModal, showsuccessModal] = useState(false)
@@ -75,11 +75,47 @@ useEffect(() => {
     
   }
  }
- 
- const handleOpenModal = () => {
-  
-  showconformModal(true); // Open the modal on button click
+ const validate = () => {
+  let isValid = true;
+  let errorMessage = {};
+
+  if (!conf) {
+    isValid = false;
+    errorMessage.conf = 'Please enter confirmation password.';
+  }
+
+  if (!old) {
+    isValid = false;
+    errorMessage.old = 'Please enter a old password.';
+  } else if (old.length < 8) {
+    isValid = false;
+    errorMessage.old = 'Old password must be at least 8 characters long.';
+  }
+
+
+
+  if (!New) {
+    isValid = false;
+    errorMessage.New = 'Please enter a New password.';
+  } else if (New.length < 8) {
+    isValid = false;
+    errorMessage.New = 'New password must be at least 8 characters long.';
+  }
+
+  if (New !== conf) {
+    isValid = false;
+    errorMessage.conf = 'New password and confirmation password do not match.';
+  }
+
+  setErrors(errorMessage);
+
+  // Returns true if there are no errors
+  return isValid;
 };
+ const handleOpenModal = () => {
+  if (validate()){
+  showconformModal(true); // Open the modal on button click
+}};
 
 return( 
  <>
@@ -119,17 +155,18 @@ return(
     <div className="grid grid-cols-1 mt-5 mx-7">
       <label className="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">Old password</label>
       <input className="py-2 px-3 rounded-lg border-2 border-sky-300 mt-1 focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent" type="password" placeholder="enter your old password" value={old} id="branch_name" onChange={(e)=> setOld(e.target.value)} />
+      {errors.old && <p className="text-red-500 text-xs">{errors.old}</p>}
     </div>
     <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 mt-5 mx-7">
       <div className="grid grid-cols-1">
         <label className="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">New password</label>
         <input className="py-2 px-3 rounded-lg border-2 border-sky-300 mt-1 focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent" type="password" placeholder="new password" value={New} id="zone" onChange={(e)=> setNew(e.target.value)} />
-        
+        {errors.New && <p className="text-red-500 text-xs">{errors.New}</p>}
       </div>
       <div className="grid grid-cols-1">
         <label className="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">Conf password</label>
         <input className="py-2 px-3 rounded-lg border-2 border-sky-300 mt-1 focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent" type="password" placeholder="conform password" value={conf} id="phone_no" onChange={(e)=> setConf(e.target.value)} />
-    
+        {errors.conf && <p className="text-red-500 text-xs">{errors.conf}</p>}
       </div>
     </div>
    

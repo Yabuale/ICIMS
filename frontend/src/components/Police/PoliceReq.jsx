@@ -82,6 +82,7 @@ const url = 'http://127.0.0.1:8000/police/sendrequest'
   let isvalid=true;
   let errorMessage = {};
   
+  
   // Validate first name - minimum 2 characters and only letters
   if (name.length < 2) {
     isvalid=false;
