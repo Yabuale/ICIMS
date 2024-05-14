@@ -79,8 +79,8 @@ const BranchList = () => {
         <div className="w-full h-screen mt-20 rounded-2xl shadow-2xl flex flex-col lg:flex-row items-center justify-center space-y-16 lg:space-y-0 space-x-8 2xl:space-x-0 bg-sky-50">
         <div className="w-full lg:w-1/2 flex flex-col items-center justify-center lg:px-2 xl:px-0 text-center">
             
-            <p className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-wider text-gray-300 ">No Local admins</p>
-            <p className="text-lg md:text-xl lg:text-2xl text-gray-500 my-12">Seems like there is no local admin account in our database.</p>
+            <p className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-wider text-gray-300 ">No branches</p>
+            <p className="text-lg md:text-xl lg:text-2xl text-gray-500 my-12">Seems like there is no branch added in our database.</p>
             
         </div>
         <div className="w-1/2 lg:h-full flex lg:items-end justify-center p-4">
@@ -96,9 +96,9 @@ const BranchList = () => {
         <br/>
 <section className="container px-4  mx-24      shadow-2xl bg-sky-50 p-10 rounded-2xl ">
     <div className="flex items-center gap-x-3">
-        <h2 className="text-lg font-medium text-sky-950 ">Local Accounts</h2>
+        <h2 className="text-lg font-medium text-sky-950 ">Branches </h2>
 
-        <span className="px-3 py-1 text-xs text-sky-950 bg-sky-200 rounded-full  ">{localAccount.length} accounts</span>
+        <span className="px-3 py-1 text-xs text-sky-950 bg-sky-200 rounded-full  ">{localAccount.length} Branches</span>
     </div>
     <div className="flex flex-col mt-6  lg:pr-1 ">
         <div className=" w-full">

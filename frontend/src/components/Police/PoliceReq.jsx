@@ -11,10 +11,10 @@ const PostWanted = () =>{
  const [photo, setPhoto] = useState(null);
  const[succMsg,setSuccMsg]=useState("sdfsdfsdfsdfsdfsdfsdf")
  const[isLoading,setLoading]=useState(false)
- const [name, setName] = useState('')
- const [fname, setFname] = useState('')
- const [lname, setLname] = useState('')
- const [idno, setIdno] = useState('')
+ const [name, setName] = useState(null)
+ const [fname, setFname] = useState(null)
+ const [lname, setLname] = useState(null)
+ const [idno, setIdno] = useState(null)
  const [message, setMessage] = useState('')
 
  const[errors, setErrors]=useState({})
@@ -54,6 +54,12 @@ const url = 'http://127.0.0.1:8000/police/sendrequest'
   setLoading(true);
    try{
     
+
+    console.log(name)
+    console.log(fname)
+    console.log(lname)
+    console.log(idno)
+    console.log(message)
   const resp =await axios.post(url, {message:message,name:name,fname:fname,lname:lname,id_no:idno,photo:photo}, {
     headers: {
          Authorization: `Token ${token}`,
@@ -84,36 +90,37 @@ const url = 'http://127.0.0.1:8000/police/sendrequest'
   
   
   // Validate first name - minimum 2 characters and only letters
-  if (name.length < 2) {
+  if (name && name.length < 2) {
     isvalid=false;
    errorMessage.name = 'name must be at least 3 characters long.';
-  } else if (!/^[A-Za-z\s]+$/.test(name)) {
+  } else if (name && !/^[A-Za-z\s]+$/.test(name)) {
     isvalid=false;
    errorMessage.name = 'name can only contain letters and spaces.';
   }
 
-  if (fname.length < 3) {
+  if (name && fname.length < 3) {
     isvalid=false;
    errorMessage.fname = 'First name must be at least 3 characters long.';
-  } else if (!/^[A-Za-z]+$/.test(fname)) {
+  } else if (name && !/^[A-Za-z]+$/.test(fname)) {
     isvalid=false;
    errorMessage.fname = 'First name can only contain letters.';
   }
-  if (lname.length < 3) {
+  if (name && lname.length < 3) {
     isvalid=false;
    errorMessage.lname = 'Last name must be at least 3 characters long.';
-  } else if (!/^[A-Za-z]+$/.test(lname)) {
+  } else if (name && !/^[A-Za-z]+$/.test(lname)) {
     isvalid=false;
    errorMessage.lname = 'Last name can only contain letters.';
   }
-  if (!idno || !/^[a-zA-Z0-9]+$/.test(idno)) {
+
+  if ( idno && idno.length < 3) {
     isvalid=false;
-    errorMessage.idno = 'Please enter your ID number.';
-   }
-   if (!photo) {
+   errorMessage.idno = 'id  must be at least 3 characters long.';
+  } else if (idno &&  !/^[a-zA-Z0-9]+$/.test(idno)) {
     isvalid=false;
-    errorMessage.photo = 'Please enter photo.';
-   }
+   errorMessage.idno = 'Last name can only contain letters and number.';
+  }
+  
    if (message.length < 10) {
     isvalid=false;
    errorMessage.message = 'name must be at least 10 characters long.';
@@ -122,12 +129,27 @@ const url = 'http://127.0.0.1:8000/police/sendrequest'
    errorMessage.message = 'message can only contain letters and numbers.';
   }
   
+  if(!name && !photo && !idno){
+    isvalid = false
+    errorMessage.message = "enter name or id or photos or all"
+  }
    setErrors(errorMessage);
    return isvalid; // Returns true if there are no errors
   };
   
  const handleOpenModal = () => {
   if (validate()){
+    if(!name){
+      setName("unknown")
+      setFname("unknown")
+      setLname("unknown")
+    }
+    if(!idno){
+      setIdno("unknown")
+    }
+    if(!photo){
+      setPhoto("Fdsfdsffsd")
+    }
     showconformModal(true);
   }
   
@@ -182,25 +204,25 @@ return(
          </div>
          <div class="grid grid-cols-1">
            <label class="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">Last Name</label>
-           <input class="py-2 px-3 rounded-lg border-2 border-sky-300 mt-1 focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent" type="text" placeholder="Input 3" value={lname} id="message" onChange={(e)=> setLname(e.target.value)} />
+           <input class="py-2 px-3 rounded-lg border-2 border-sky-300 mt-1 focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent" type="text" placeholder="last name" value={lname} id="message" onChange={(e)=> setLname(e.target.value)} />
            {errors.lname && <p className="text-red-500 text-xs">{errors.lname}</p>}
          </div>
        </div>
    
        <div class="grid grid-cols-1 mt-5 mx-7">
          <label class="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">ID NUMBER</label>
-         <input class="py-2 px-3 rounded-lg border-2 border-sky-300 mt-1 focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent" type="text" placeholder="Another Input" value={idno} id="message" onChange={(e)=> setIdno(e.target.value)}/>
+         <input class="py-2 px-3 rounded-lg border-2 border-sky-300 mt-1 focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent" type="text" placeholder="enter id" value={idno} id="message" onChange={(e)=> setIdno(e.target.value)}/>
          {errors.idno && <p className="text-red-500 text-xs">{errors.idno}</p>}
        </div>
     <div class="grid grid-cols-1 mt-5 mx-7">
            <label class="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold mb-1">Photo</label>
-             <div class='flex items-center justify-center w-full'>
-                 <label class='flex flex-col border-4 border-dashed w-full h-32 hover:bg-gray-100 hover:border-sky-300 group'>
-                     <div class='flex flex-col items-center justify-center pt-7'>
-                       <svg class="w-10 h-10 text-sky-400 group-hover:text-sky-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-                       <p class='lowercase text-sm text-gray-400 group-hover:text-sky-600 pt-1 tracking-wider'>Select a photo</p>
+             <div className='flex items-center justify-center w-full'>
+                 <label className='flex flex-col border-4 border-dashed w-full h-32 hover:bg-gray-100 hover:border-sky-300 group'>
+                     <div className='flex flex-col items-center justify-center pt-7'>
+                       <svg className="w-10 h-10 text-sky-400 group-hover:text-sky-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                       <p className='lowercase text-sm text-gray-400 group-hover:text-sky-600 pt-1 tracking-wider'>Select a photo</p>
                      </div>
-                   <input type="file" class="hidden" value={photo} onChange={(e) => setPhoto(e.target.files[0])} />
+                   <input type="file" accept='image/*' className="hidden" onChange={(e) => setPhoto(e.target.files[0])} />
                    {errors.photo && <p className="text-red-500 text-xs">{errors.photo}</p>}
                  </label>
              </div>
@@ -217,8 +239,8 @@ return(
                 navigate(-1);
               }}>Cancel</button>
       <div>
-      <button className='w-auto bg-sky-500 hover:bg-sky-700 rounded-lg shadow-xl font-medium text-white px-4 py-2' type='button' onClick={handleOpenModal}>Post</button>
-      {showconfModal && <ConfModal showconfModal={showconfModal} isLoading={isLoading} message={'you are about to post a wanted criminal please conform by clicking post'} clickbutton={'post'} onClose={() => showconformModal(false)} />}
+      <button className='w-auto bg-sky-500 hover:bg-sky-700 rounded-lg shadow-xl font-medium text-white px-4 py-2' type='button' onClick={handleOpenModal}>send</button>
+      {showconfModal && <ConfModal showconfModal={showconfModal} isLoading={isLoading} message={'you are about to send a request please conform'} clickbutton={'send'} onClose={() => showconformModal(false)} />}
       {showerrModal && <ErrorModal showerrModal={showerrModal} errMsg={errMsg} errStatus={errStatus} onClose={() => showerrorModal(false)} />}
       {showsccModal && <SuccessModal showsccModal={showsccModal} succMsg={succMsg} onClose={() => showsuccessModal(false)} />}
       </div>
