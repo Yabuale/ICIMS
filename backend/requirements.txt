@@ -1,4 +1,5 @@
 absl-py==2.1.0
+APScheduler==3.10.4
 asgiref==3.7.2
 astunparse==1.6.3
 beautifulsoup4==4.12.3
@@ -9,7 +10,10 @@ click==8.1.7
 colorama==0.4.6
 deepface==0.0.89
 Django==5.0.2
+django-apscheduler==0.6.2
 django-cors-headers==4.3.1
+django-dbbackup==4.1.0
+django-rest-framework==0.1.0
 djangorestframework==3.14.0
 filelock==3.13.4
 fire==0.6.0
@@ -61,6 +65,7 @@ tf_keras==2.16.0
 tqdm==4.66.2
 typing_extensions==4.11.0
 tzdata==2023.4
+tzlocal==5.2
 urllib3==2.2.1
 Werkzeug==3.0.2
 wheel==0.43.0

@@ -37,11 +37,11 @@ class Requests(models.Model):
     from_acc = models.ForeignKey(CustomUser, on_delete=models.SET_NULL, null=True, related_name="sent_requests")  # Add related_name
     to_acc = models.ForeignKey(CustomUser, on_delete=models.SET_NULL, null=True, related_name="received_requests")  # Add related_name
     message = models.CharField(max_length=500)
-    name = models.CharField(max_length=200)
-    fname = models.CharField(max_length=200)
-    lname = models.CharField(max_length=200)
-    id_no = models.CharField(max_length=200)
-    photo = models.ImageField(upload_to='request_photos/', blank=True)
+    name = models.CharField(max_length=200,null=True)
+    fname = models.CharField(max_length=200,null=True)
+    lname = models.CharField(max_length=200,null=True)
+    id_no = models.CharField(max_length=200,null=True)
+    photo = models.ImageField(upload_to='request_photos/', blank=True,null=True)
 
 class Responces(models.Model):
     from_acc = models.ForeignKey(CustomUser, on_delete=models.SET_NULL, null=True, related_name="sent_responses")  # Add related_name
