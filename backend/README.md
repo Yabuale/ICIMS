@@ -34,5 +34,6 @@ This will start the server at http://localhost:8000/ and you can access the API 
 # Additional Scripts
 
 <code> python manage.py createsuperuser </code> Creates a superuser account for accessing the Django admin panel. <br>
+use this account and login after that you can create other users 
 <code> python manage.py collectstatic </code> Collects static files into a single directory for easy serving.
 Contributing
